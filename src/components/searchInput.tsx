@@ -73,7 +73,7 @@
 import * as React from 'react';
 import { Select } from 'antd';
 import jsonp from 'fetch-jsonp';
-// import querystring from 'querystring';
+import querystring from 'querystring';
 const Option = Select.Option;
 
 let timeout: any;
@@ -87,7 +87,10 @@ function fetch(value: any, callback: Function) {
     currentValue = value;
 
     function fake() {
-        const str = value;
+        const str: string = querystring.encode({
+            code: 'utf-8',
+            q: value,
+        });
         jsonp(`https://suggest.taobao.com/sug?${str}`)
             .then(response => response.json())
             .then((d) => {

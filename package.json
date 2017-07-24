@@ -14,6 +14,7 @@
     "antd": "^2.12.1",
     "fetch-jsonp": "^1.1.1",
     "npm-run-all": "^4.0.2",
+    "query-string": "^5.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-keeper": "^2.0.7",
