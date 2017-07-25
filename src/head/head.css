@@ -16739,7 +16739,7 @@ body {
   border: none;
   font-family: Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
-#header li {
+#header .header-menu li {
   height: 64px;
   line-height: 64px;
   background: #fafafa;
@@ -16747,4 +16747,11 @@ body {
 .head-login {
   margin-top: 14px;
   margin-left: 8px;
+}
+#search-box {
+  border-left: 1px solid #ebedee;
+  float: left;
+  line-height: 22px;
+  padding-left: 30px;
+  margin: 16px auto 0;
 }

@@ -23,7 +23,7 @@ class Head extends React.Component<any, any> {
                         </div>
 
                         <Button type="primary" size={'large'} className="right head-login">登陆</Button>
-                        <Menu mode="horizontal" className="right">
+                        <Menu mode="horizontal" className="right header-menu">
                             <Menu.Item key="1">博客</Menu.Item>
                             <Menu.Item key="2">工具</Menu.Item>
                             <Menu.Item key="3">问答</Menu.Item>
