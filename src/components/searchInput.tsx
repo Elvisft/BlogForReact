@@ -93,7 +93,15 @@ function fetch1(value: any, callback: Function) {
         // es6.polyfill();
 
 
-        fetch('http://localhost:7070/company/search/'+value )
+        fetch('http://localhost:7070/company/search/'+value ,
+            {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
             .then(response => response.json())
             .then((d) => {
                 if (currentValue === value) {
