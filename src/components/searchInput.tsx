@@ -72,14 +72,17 @@
 
 import * as React from 'react';
 import { Select } from 'antd';
-import jsonp from 'fetch-jsonp';
-import querystring from 'querystring';
+// import fetchJsonp from 'fetch-jsonp';
+// import Fetch from 'isomorphic-fetch';
+// import es6 from 'es6-promise';
+
+// import querystring from 'querystring';
 const Option = Select.Option;
 
 let timeout: any;
 let currentValue: any;
 
-function fetch(value: any, callback: Function) {
+function fetch1(value: any, callback: Function) {
     if (timeout) {
         clearTimeout(timeout);
         timeout = null;
@@ -87,20 +90,19 @@ function fetch(value: any, callback: Function) {
     currentValue = value;
 
     function fake() {
-        const str: string = querystring.encode({
-            code: 'utf-8',
-            q: value,
-        });
-        jsonp(`https://suggest.taobao.com/sug?${str}`)
+        // es6.polyfill();
+
+
+        fetch('http://localhost:7070/company/search/'+value )
             .then(response => response.json())
             .then((d) => {
                 if (currentValue === value) {
-                    const result = d.result;
+                    const result = d.list;
                     const data: any[] = [];
                     result.forEach((r: any) => {
                         data.push({
-                            value: r[0],
-                            text: r[0],
+                            value: r.companyNm,
+                            text: r.companyNm,
                         });
                     });
                     callback(data);
@@ -122,7 +124,7 @@ class SearchInput extends React.Component<SearchInputProps, any> {
     }
     handleChange = (value: any) => {
         this.setState({ value });
-        fetch(value, (data: any) => this.setState({ data }));
+        fetch1(value, (data: any) => this.setState({ data }));
     }
     render() {
         const options = this.state.data.map((d: any) => <Option key={d.value}>{d.text}</Option>);
