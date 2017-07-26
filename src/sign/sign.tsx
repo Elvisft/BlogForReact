@@ -1,38 +1,43 @@
 import * as React from 'react';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 
-// interface SignProps {
-//     visible: boolean;
-// }
-// interface SignState {
-//     visible: boolean;
-// }
+interface SignProps {
+    // visible: boolean;
+}
+interface SignState {
+    visible: boolean;
+}
 
-export class Sign extends React.Component<{}, {}> {
+export class Sign extends React.Component<SignProps, SignState> {
 
-    state: any = { visible: false }
-
+    state: any = { visible: true }
+    static setState1(state: any, str: any) {
+        this.setState({
+            state: str
+        });
+    }
     showModal = () => {
+        console.log(this);
         this.setState({
             visible: true,
         });
     }
     handleOk = (e: any) => {
         console.log(e);
+
         this.setState({
             visible: false,
         });
     }
     handleCancel = (e: any) => {
         console.log(e);
+
         this.setState({
             visible: false,
         });
     }
     render() {
         return (
-            <div>
-                <Button type="primary" size={'large'} className="right head-login" onClick={this.showModal } ghost>登陆</Button>
                 <Modal
                     title="Basic Modal"
                     visible={this.state.visible}
@@ -43,8 +48,6 @@ export class Sign extends React.Component<{}, {}> {
                     <p>Some contents...</p>
                     <p>Some contents...</p>
                 </Modal>
-            </div>
-
         );
     }
 }
