@@ -9,14 +9,11 @@ import './head.css';
 
 let logo = require('./../static/img/logo.png');
 
-const log1 = require('./../static/img/favicon.ico');
-const log2 = require('./../static/img/logo.png');
-
 class Head extends React.Component<any, any> {
     visible: boolean= false;
     state: any = { visible: false };
     showModal = () => {
-        this.state.visible ? logo = log1 : logo = log2;
+
         // console.log(new Sign());
         this.setState({
             visible: !this.state.visible,
@@ -35,7 +32,6 @@ class Head extends React.Component<any, any> {
                         <div id="search-box">
                             <SearchInput placeholder="搜索你感兴趣的内容..." className="scroll" style={{ width: 200 }} />
                         </div>
-
                         <Button type="primary" size={'large'} className="right head-login" onClick={this.showModal } ghost>登陆</Button>
                         <Sign/>
                         <Menu mode="horizontal" className="right header-menu">
