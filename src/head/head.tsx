@@ -19,7 +19,7 @@ class Head extends React.Component<any, any> {
                     </Col>
                     <Col xs={{span: 0}} sm={{span: 0}} md={{span: 19}} lg={{span: 20}} >
                         <div id="search-box">
-                            <SearchInput placeholder="input search text" style={{ width: 200 }} />
+                            <SearchInput placeholder="搜索你感兴趣的内容..." className="scroll" style={{ width: 200 }} />
                         </div>
 
                         <Button type="primary" size={'large'} className="right head-login">登陆</Button>

@@ -30,13 +30,13 @@ function fetch1(value: any, callback: Function) {
 interface SearchInputProps {
     placeholder: string;
     style: any;
-
+    className: string;
 }
 class SearchInput extends React.Component<SearchInputProps, any> {
     state = {
         data: [],
         value: '',
-    }
+    };
     handleChange = (value: any) => {
         this.setState({ value });
         fetch1(value, (data: any) => this.setState({ data }));
@@ -50,8 +50,8 @@ class SearchInput extends React.Component<SearchInputProps, any> {
                 placeholder={this.props.placeholder}
                 notFoundContent=""
                 style={this.props.style}
+                dropdownClassName={this.props.className || ''}
                 defaultActiveFirstOption={false}
-
                 onChange={this.handleChange}
             >
                 {options}
