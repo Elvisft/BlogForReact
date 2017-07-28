@@ -11,7 +11,7 @@ const isLogin: any = (state = {isLogin: false, data: {}}, action: any) => {
     }
 }
 //登录窗口
-export const signCtrl: any = (state = {isSign: false}, action: any) => {
+export const signCtrl: any = (state = {isSign: true}, action: any) => {
 
     switch (action.type) {
         case 'signShow':

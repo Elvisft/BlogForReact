@@ -1,58 +1,41 @@
-
-@spacing: 8px;
-@s_spacing: @spacing*1;
-@m_spacing:@spacing*2;
-@l_spacing:@spacing*3;
 body {
   margin: 0;
   padding: 0;
   font-size: 14px;
   font-family: "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 }
-//Mobile端
-@media only screen and (max-width: 992px) and (min-width: 0){
-
-}
-
-.right{
+.right {
   float: right;
 }
-
-//进度条
-.scroll ul{
+.scroll ul {
   overflow: auto;
 }
-
-.scroll ul{
+.scroll ul {
   scrollbar-base-color: transparent;
   scrollbar-3dlight-color: transparent;
   scrollbar-highlight-color: transparent;
   scrollbar-track-color: transparent;
 }
-
 .scroll ul::-webkit-scrollbar {
   width: 6px;
   height: 10px;
 }
-
 .scroll ul::-webkit-scrollbar-button {
   display: none;
 }
-
 .scroll ul::-webkit-scrollbar-track {
   /*background:#fff;*/
   display: none;
 }
-
 .scroll ul::-webkit-scrollbar-button {
   display: none;
 }
-
 .scroll ul::-webkit-scrollbar-track-piece {
   background: #ECEBEB;
 }
-
 .scroll ul::-webkit-scrollbar-thumb {
   background: #C6C5C5;
+}
+.sign_action {
+  width: 100%;
 }

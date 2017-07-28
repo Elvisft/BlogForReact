@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import './index.css';
+import './theme.css';
 import stores from './reducers';
 import Head from './head/head';
 import Home from './home/home';

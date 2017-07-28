@@ -2,12 +2,13 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
-import { Modal } from 'antd';
+import { Modal, AutoComplete, Input, Button } from 'antd';
 
+import './sign.css';
 class Sign extends React.Component<any, any> {
-    // state = {
-    //     visible: false
-    // }
+    state = {
+        dataSource: []
+    }
     constructor ( props: any ) {
         super(props);
         // this.setState({       visible: false });
@@ -21,19 +22,42 @@ class Sign extends React.Component<any, any> {
         console.log(e);
         this.props.actions('signHide');
     }
-
+    handleChange = (value: any) => {
+        this.setState({
+            dataSource: !value || value.indexOf('@') >= 0 ? [] : [
+                `${value}@gmail.com`,
+                `${value}@163.com`,
+                `${value}@qq.com`,
+            ],
+        });
+    }
     signIn = () => {
         return (
             <Modal
                 title="Sign"
+                width="188"
                 closable={false}
                 visible={this.props.sign.isSign}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
+                footer={null}
             >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <div>
+                    <AutoComplete
+                        dataSource={this.state.dataSource}
+
+                        style={{ width: 156 }}
+                        onChange={this.handleChange}
+                        placeholder="你的手机号/邮箱"
+                    />
+                </div>
+                <div>
+                    <Input type="password" placeholder="密码" style={{ width: 156 }} />
+                </div>
+
+                <div className="sign_action">
+                    <Button type="primary">Sign in</Button>
+
+                </div>
+
             </Modal>
         );
     }
