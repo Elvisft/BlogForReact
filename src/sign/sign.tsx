@@ -25,7 +25,8 @@ class Sign extends React.Component<any, any> {
     signIn = () => {
         return (
             <Modal
-                title="Basic Modal"
+                title="Sign"
+                closable={false}
                 visible={this.props.sign.isSign}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
