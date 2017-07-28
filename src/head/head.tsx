@@ -1,23 +1,26 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Menu, Button } from 'antd';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from './../actions';
 import SearchInput from './../components/searchInput';
 import Sign from './../sign/sign';
 import './head.css';
 
-
 let logo = require('./../static/img/logo.png');
 
 class Head extends React.Component<any, any> {
-    visible: boolean= false;
-    state: any = { visible: false };
+
+    constructor ( props: any ) {
+        super(props);
+    }
+
     showModal = () => {
+        this.props.actions('1', '123');
 
         // console.log(new Sign());
-        this.setState({
-            visible: !this.state.visible,
-        });
+
     }
     render() {
         return (
@@ -32,7 +35,7 @@ class Head extends React.Component<any, any> {
                         <div id="search-box">
                             <SearchInput placeholder="搜索你感兴趣的内容..." className="scroll" style={{ width: 200 }} />
                         </div>
-                        <Button type="primary" size={'large'} className="right head-login" onClick={this.showModal } ghost>登陆</Button>
+                        <Button type="primary" size={'large'} className="right head-login" onClick={ this.showModal  } ghost>登陆</Button>
                         <Sign/>
                         <Menu mode="horizontal" className="right header-menu">
                             <Menu.Item key="1">博客</Menu.Item>
@@ -46,4 +49,13 @@ class Head extends React.Component<any, any> {
         );
     }
 }
-export default Head;
+
+const mapDispatchToProps: any = (dispatch: any) => {
+    return {
+        actions: bindActionCreators(actions.SignA, dispatch),
+    };
+}
+export default connect(
+    undefined,
+    mapDispatchToProps
+)(Head);

@@ -33,6 +33,12 @@ interface SearchInputProps {
     className: string;
 }
 class SearchInput extends React.Component<SearchInputProps, any> {
+    props = {
+            placeholder: 'Search',
+            className: '',
+            style: {}
+
+    }
     state = {
         data: [],
         value: '',
