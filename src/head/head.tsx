@@ -17,7 +17,7 @@ class Head extends React.Component<any, any> {
     }
 
     showModal = () => {
-        this.props.actions('1', '123');
+        this.props.actions('signShow');
 
         // console.log(new Sign());
 
@@ -35,7 +35,7 @@ class Head extends React.Component<any, any> {
                         <div id="search-box">
                             <SearchInput placeholder="搜索你感兴趣的内容..." className="scroll" style={{ width: 200 }} />
                         </div>
-                        <Button type="primary" size={'large'} className="right head-login" onClick={ this.showModal  } ghost>登陆</Button>
+                        <Button type="primary" size={'large'} className="right head-login" onClick={this.showModal} ghost>登陆</Button>
                         <Sign/>
                         <Menu mode="horizontal" className="right header-menu">
                             <Menu.Item key="1">博客</Menu.Item>
@@ -52,7 +52,7 @@ class Head extends React.Component<any, any> {
 
 const mapDispatchToProps: any = (dispatch: any) => {
     return {
-        actions: bindActionCreators(actions.SignA, dispatch),
+        actions: bindActionCreators(actions.SignAction, dispatch),
     };
 }
 export default connect(

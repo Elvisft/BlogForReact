@@ -1,9 +1,7 @@
 
-export const SignA = (type: string, data: string) => {
+export const SignAction = (type: string) => {
 
     return {
-        type: 'Sign',
-        isSign: type,
-        data: data
+        type: type
     };
 };

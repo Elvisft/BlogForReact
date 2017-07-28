@@ -10,18 +10,22 @@ const isLogin: any = (state = {isLogin: false, data: {}}, action: any) => {
             return {};
     }
 }
-export const showSign: any = (state = {isSign: false}, action: any) => {
+//登录窗口
+export const signCtrl: any = (state = {isSign: false}, action: any) => {
 
     switch (action.type) {
-        case 'Sign':
+        case 'signShow':
             return Object.assign({}, state, {isSign: true});
+        case 'signHide':
+            return Object.assign({}, state, {isSign: false});
         default:
             return state;
     }
 }
 
 const stores = combineReducers({
-    userInfo: isLogin,
-    showSign: showSign
+    signCtrl: signCtrl,
+    userInfo: isLogin
+
 });
 export default stores;
