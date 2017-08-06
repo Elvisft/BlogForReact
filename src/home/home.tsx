@@ -1,6 +1,9 @@
 import * as React from 'react';
 import './home.css';
 import { DatePicker } from  'antd';
+import * as actions from './../actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 // import 'antd/dist/antd.css';
 // import { Link } from 'react-router-dom';
 const logo = require('./../logo.svg');
@@ -16,8 +19,11 @@ export class Home extends React.Component<{}, {}> {
     constructor (props: HomeProps) {
         super (props);
         this.state = {list : []};
+
     }
+
     render() {
+
         return (
             <div className="App">
                 <div className="App-header">
@@ -31,5 +37,13 @@ export class Home extends React.Component<{}, {}> {
         );
     }
 }
+const mapDispatchToProps: any = (dispatch: any) => {
 
-export default Home;
+    return {
+        actions: bindActionCreators(actions.SignAction, dispatch),
+    };
+}
+export default connect(
+    undefined,
+    mapDispatchToProps
+)(Home);

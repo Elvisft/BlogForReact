@@ -5,6 +5,7 @@ import * as actions from './../actions';
 import { Modal, AutoComplete, Input, Button } from 'antd';
 
 import './sign.css';
+// 登陆控制器
 class Sign extends React.Component<any, any> {
     state = {
         dataSource: []
@@ -54,7 +55,7 @@ class Sign extends React.Component<any, any> {
                 </div>
 
                 <div className="sign_action">
-                    <Button type="primary">Sign in</Button>
+                    <Button type="primary" onClick={this.handleOk}>Sign in</Button>
 
                 </div>
 

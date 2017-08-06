@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
 import SearchInput from './../components/searchInput';
-import Sign from './../sign/sign';
+
 import './head.css';
 
 let logo = require('./../static/img/logo.png');
@@ -16,13 +16,10 @@ class Head extends React.Component<any, any> {
         super(props);
     }
 
-    showModal = () => {
-        this.props.actions('signShow');
 
-        // console.log(new Sign());
 
-    }
     render() {
+        console.log(location)
         return (
             <header id="header">
                 <Row>
@@ -35,13 +32,14 @@ class Head extends React.Component<any, any> {
                         <div id="search-box">
                             <SearchInput placeholder="搜索你感兴趣的内容..." className="scroll" style={{ width: 200 }} />
                         </div>
-                        <Button type="primary" size={'large'} className="right head-login" onClick={this.showModal} ghost>登陆</Button>
-                        <Sign/>
-                        <Menu mode="horizontal" className="right header-menu">
-                            <Menu.Item key="1">博客</Menu.Item>
-                            <Menu.Item key="2">工具</Menu.Item>
-                            <Menu.Item key="3">问答</Menu.Item>
-                            <Menu.Item key="4">专栏</Menu.Item>
+                        <Button type="primary" size={'small'} className="right head-login" ghost={true}>EN</Button>
+                        <Menu mode="horizontal" className="right header-menu" selectedKeys={[this.props.selected.selected]}>
+                            <Menu.Item key="0"><Link to="/">杂项</Link></Menu.Item>
+                            <Menu.Item key="1"><Link to="/about">关于</Link></Menu.Item>
+                            <Menu.Item key="2">生涯</Menu.Item>
+                            <Menu.Item key="3">随笔</Menu.Item>
+                            <Menu.Item key="4">远行</Menu.Item>
+                            <Menu.Item key="5">锦集</Menu.Item>
                         </Menu>
                     </Col>
                 </Row>
@@ -49,13 +47,16 @@ class Head extends React.Component<any, any> {
         );
     }
 }
+const mapStateToProps = ( state: any) => {
 
+    return {selected: state.URLChange};
+}
 const mapDispatchToProps: any = (dispatch: any) => {
     return {
         actions: bindActionCreators(actions.SignAction, dispatch),
     };
 }
 export default connect(
-    undefined,
+    mapStateToProps,
     mapDispatchToProps
 )(Head);

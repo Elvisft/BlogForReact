@@ -1,16 +1,26 @@
 import { combineReducers } from 'redux';
 
 // const loginState: {} = {type: 'login', flag: false};
-const isLogin: any = (state = {isLogin: false, data: {}}, action: any) => {
+const URLChange: any = (state = {selected: '5'}, action: any) => {
 
     switch (action.type) {
-        case 1:
-            return Object.assign({}, state, {isLogin: true, info: action.data});
+        case 'head_0':
+            return Object.assign({}, state, {selected: '0'});
+        case 'head_1':
+            return Object.assign({}, state, {selected: '1'});
+        case 'head_2':
+            return Object.assign({}, state, {selected: '2'});
+        case 'head_3':
+            return Object.assign({}, state, {selected: '3'});
+        case 'head_4':
+            return Object.assign({}, state, {selected: '4'});
+        case 'head_5':
+            return Object.assign({}, state, {selected: '5'});
         default:
-            return {};
+            return state;
     }
 }
-//登录窗口
+// 登录窗口
 export const signCtrl: any = (state = {isSign: true}, action: any) => {
 
     switch (action.type) {
@@ -25,7 +35,7 @@ export const signCtrl: any = (state = {isSign: true}, action: any) => {
 
 const stores = combineReducers({
     signCtrl: signCtrl,
-    userInfo: isLogin
+    URLChange: URLChange
 
 });
 export default stores;
