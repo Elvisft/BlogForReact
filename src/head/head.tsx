@@ -1,17 +1,23 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Menu, Button } from 'antd';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from './../actions';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import * as actions from './../actions';
 import SearchInput from './../components/searchInput';
 
 import './head.css';
 
 let logo = require('./../static/img/logo.png');
 
-class Head extends React.Component<any, any> {
+interface HeadProps {
+    selected: string;
+}
 
+class Head extends React.Component<HeadProps, any> {
+    props = {
+        selected: '0'
+    }
     constructor ( props: any ) {
         super(props);
     }
@@ -19,7 +25,7 @@ class Head extends React.Component<any, any> {
 
 
     render() {
-        console.log(location)
+        console.log(this.props.selected)
         return (
             <header id="header">
                 <Row>
@@ -33,7 +39,7 @@ class Head extends React.Component<any, any> {
                             <SearchInput placeholder="搜索你感兴趣的内容..." className="scroll" style={{ width: 200 }} />
                         </div>
                         <Button type="primary" size={'small'} className="right head-login" ghost={true}>EN</Button>
-                        <Menu mode="horizontal" className="right header-menu" selectedKeys={[this.props.selected.selected]}>
+                        <Menu mode="horizontal" className="right header-menu" selectedKeys={[this.props.selected]}>
                             <Menu.Item key="0"><Link to="/">杂项</Link></Menu.Item>
                             <Menu.Item key="1"><Link to="/about">关于</Link></Menu.Item>
                             <Menu.Item key="2">生涯</Menu.Item>
@@ -47,16 +53,13 @@ class Head extends React.Component<any, any> {
         );
     }
 }
-const mapStateToProps = ( state: any) => {
-
-    return {selected: state.URLChange};
-}
-const mapDispatchToProps: any = (dispatch: any) => {
-    return {
-        actions: bindActionCreators(actions.SignAction, dispatch),
-    };
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Head);
+// const mapStateToProps = ( state: any) => {
+//
+//     return {selected1: state.URLChange};
+// }
+// const mapDispatchToProps: any = (dispatch: any) => {
+//     return {
+//         actions: bindActionCreators(actions.SignAction, dispatch),
+//     };
+// }
+export default Head;

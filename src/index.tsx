@@ -21,19 +21,42 @@ export const store = createStore(
     stores,
     applyMiddleware(middleware)
 )
-// const URLChange = (arr: any) => {
-//     console.log(store);
-// }
+
+const routes = [
+    {
+        path: '/',
+        exact: true,
+        navigation: () => <Head selected="0"/>,
+        main: () => <Home/>
+    },
+    {
+        path: '/about',
+        exact: true,
+        navigation: () => <Head selected= "1"/>,
+        main: () => <About/>
+    },
+];
+
+
 ReactDOM.render(
 
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <div>
-                <Head/>
+                {
+                    routes.map((route, index) => (
+                        <Route exact={route.exact} path={route.path} component={route.navigation} />
+                    ))
+                }
+
                 <Switch>
                     {/*render={() => {URLChange(0); return <Home/>; }}*/}
-                    <Route exact={true} path="/" component={Home} />
-                    <Route exact={true} path="/about" component={About} />
+                    {
+                        routes.map((route, index) => (
+                            <Route exact={route.exact} path={route.path} component={route.main} />
+                        ))
+                    }
+
                     <Route component={Error} />
                 </Switch>
             </div>
