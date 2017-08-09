@@ -34,7 +34,7 @@ export const signCtrl: any = (state = {isSign: true}, action: any) => {
 }
 
 const stores = combineReducers({
-    signCtrl: signCtrl,
+    signCtrl: signCtrl ,
     URLChange: URLChange
 
 });

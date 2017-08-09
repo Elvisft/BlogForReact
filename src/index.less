@@ -10,6 +10,17 @@ body {
   font-family: "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
+@colors:#fff #ccc #999 #333 #666 ;
+
+.loop(@colors, @i:1) when (@i <= length(@colors)) {
+  .color-@{i} {
+    color:extract(@colors, @i);
+  }
+  .loop(@colors, (@i + 1));
+}
+.loop(@colors);
+
+
 //Mobile端
 @media only screen and (max-width: 992px) and (min-width: 0){
 
@@ -55,4 +66,8 @@ body {
 
 .scroll ul::-webkit-scrollbar-thumb {
   background: #C6C5C5;
+}
+
+.text-center{
+  text-align: center;
 }

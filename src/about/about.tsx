@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
 
+import './about.css';
 // 关于
 class About extends React.Component<any, any> {
 
@@ -13,8 +14,12 @@ class About extends React.Component<any, any> {
 
     render() {
         return (
-            <div>
-                about
+            <div className="about">
+                <div className="about-page" >
+                    <div className="color-1 about-title text-center">GEEK EDGE</div>
+                </div>
+                <div className="about-page"></div>
+                <div className="about-page"></div>
             </div>
         );
     }
