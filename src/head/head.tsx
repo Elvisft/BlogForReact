@@ -12,15 +12,13 @@ import './head.css';
 let logo = require('./../static/img/logo.png');
 let MediaQuery = require('react-responsive');
 const menu = (
-    <Menu>
+    <Menu className="popover-menu">
         <Menu.Item key="0">
-            <a href="http://www.alipay.com/">1st menu item</a>
+            <Link to="/">杂项</Link>
         </Menu.Item>
         <Menu.Item key="1">
-            <a href="http://www.taobao.com/">2nd menu item</a>
+            <Link to="/about">关于</Link>
         </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="3">3d menu item</Menu.Item>
     </Menu>
 );
 
