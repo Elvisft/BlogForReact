@@ -1,3 +1,4 @@
+@charset "utf-8";
 html {
   font-size: 62.5%;
 }
@@ -52,6 +53,12 @@ body {
   .font-5 {
     font-size: 4rem;
   }
+  #header {
+    text-align: center;
+  }
+  .about-down {
+    display: none;
+  }
 }
 .left {
   float: left;
@@ -80,7 +87,7 @@ body {
   display: none;
 }
 ::-webkit-scrollbar-track {
-  /*background:#fff;*/
+  background: #fff;
   display: none;
 }
 ::-webkit-scrollbar-button {
@@ -90,7 +97,8 @@ body {
   background: #ECEBEB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C6C5C5;
+  background: rgba(115, 110, 254, 0.5) !important;
+  border-radius: 4px;
 }
 .text-center {
   text-align: center;
