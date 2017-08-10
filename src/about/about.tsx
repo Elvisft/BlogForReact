@@ -16,7 +16,10 @@ class About extends React.Component<any, any> {
         return (
             <div className="about">
                 <div className="about-page" >
-                    <div className="color-1 about-title text-center">GEEK EDGE</div>
+                    <div className="color-1 about-title text-left vertical">
+                        <div className="font-5">GEEK EDGE</div>
+                        <div className="font-2">极客的极限在哪里？边缘在哪里？无人知晓，我们必将永远追寻极限，到达那个边缘</div>
+                    </div>
                 </div>
                 <div className="about-page"></div>
                 <div className="about-page"></div>
