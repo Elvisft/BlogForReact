@@ -62,9 +62,6 @@ body {
   .head-menu {
     top: 1.56rem!important;
   }
-  .popover-menu {
-    width: 300px;
-  }
 }
 .left {
   float: left;
