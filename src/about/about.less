@@ -1,11 +1,12 @@
 @import "./../const.less";
+@temBgImg:"./../static/img/temp/tem-about.jpg";
 @bgImg:"http://api.i-meto.com/bing?new";
 .about-page{
   width: 100%;
   height: 100vh;
 }
 .about-page:nth-child(1){
-  background: data-uri(@bgImg);
+  background: data-uri(@temBgImg);
   display: table;
   background-size: 100vw 100vh;
   //filter: brightness(0.5);

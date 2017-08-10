@@ -4,7 +4,7 @@
   height: 100vh;
 }
 .about-page:nth-child(1) {
-  background: url("http://api.i-meto.com/bing?new");
+  background: url("../static/img/temp/tem-about.jpg");
   display: table;
   background-size: 100vw 100vh;
 }

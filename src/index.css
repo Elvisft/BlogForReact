@@ -59,6 +59,9 @@ body {
   .about-down {
     display: none;
   }
+  .head-menu {
+    top: 1.56rem!important;
+  }
 }
 .left {
   float: left;
@@ -108,4 +111,10 @@ body {
 }
 .text-left {
   text-align: left;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
 }

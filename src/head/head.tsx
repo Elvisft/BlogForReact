@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Menu, Button } from 'antd';
+import { Row, Col, Menu, Button, Dropdown, Icon } from 'antd';
+
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 // import * as actions from './../actions';
@@ -9,6 +10,19 @@ import SearchInput from './../components/searchInput';
 import './head.css';
 
 let logo = require('./../static/img/logo.png');
+let MediaQuery = require('react-responsive');
+const menu = (
+    <Menu>
+        <Menu.Item key="0">
+            <a href="http://www.alipay.com/">1st menu item</a>
+        </Menu.Item>
+        <Menu.Item key="1">
+            <a href="http://www.taobao.com/">2nd menu item</a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="3">3d menu item</Menu.Item>
+    </Menu>
+);
 
 interface HeadProps {
     selected: string;
@@ -49,6 +63,13 @@ class Head extends React.Component<HeadProps, any> {
                         </Menu>
                     </Col>
                 </Row>
+                <MediaQuery query="(max-width: 992px)">
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <a className="absolute head-menu font-2" href="#">
+                            <Icon type="menu-fold" />
+                        </a>
+                    </Dropdown>
+                </MediaQuery>
             </header>
         );
     }
