@@ -7,6 +7,7 @@ import * as actions from './../actions';
 import './about.css';
 
 let aboutbg = require('./../static/img/about_0.png');
+let aboutWake = require('./../static/img/about_wake.jpg');
 // 关于
 class About extends React.Component<any, any> {
 
@@ -33,9 +34,22 @@ class About extends React.Component<any, any> {
                     </a>
                 </div>
                 <div id="content" className="about-page">
-                    123
+                    刘军辉，九五后，河南人，web工程师，二零一六年开始职业生涯。
+                    一个从小不爱学习的不良青年，高中玩手机被老师没收N个手机，大学泡网吧期末挂N个学科
                 </div>
-                <div className="about-page"></div>
+                <div className="about-page content-wrapper">
+                    <div className="in-block text-wrapper font-2">
+                        <div className="font-5">觉醒</div>
+                        <div>毕业听人一席话</div>
+                        <div>奋身而入码农坑</div>
+                        <div>励志用代码来帮助他人</div>
+                    </div>
+                    <div className="about-wake right in-block">
+                        {/*<a href="https://www.pixiv.net/member.php?id=2787621" target="_bank">*/}
+                            <img src={aboutWake} alt="氷一"/>
+                        {/*</a>*/}
+                    </div>
+                </div>
             </div>
         );
     }

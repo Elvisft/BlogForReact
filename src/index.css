@@ -37,7 +37,7 @@ body {
 .font-5 {
   font-size: 5rem;
 }
-@media only screen and (max-width: 992px) and (min-width: 0) {
+@media only screen and (max-width: 992px) {
   .font-1 {
     font-size: 0.8rem;
   }
@@ -61,6 +61,22 @@ body {
   }
   .head-menu {
     top: 1.56rem!important;
+  }
+  .content-wrapper .text-wrapper {
+    top: 25%!important;
+  }
+  .about-wake img {
+    height: 105vh!important;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .about-wake img {
+    height: 75vh!important;
+  }
+}
+@media only screen and (max-width: 450px) and (min-width: 0) {
+  .about-wake img {
+    height: 48vh!important;
   }
 }
 .left {
@@ -117,4 +133,7 @@ body {
 }
 .relative {
   position: relative;
+}
+.in-block {
+  display: inline-block;
 }

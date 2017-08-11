@@ -34,7 +34,7 @@ body {
 .font-loop(@font-sizes);
 
 //Mobile端
-@media only screen and (max-width: 992px) and (min-width: 0){
+@media only screen and (max-width: 992px){
   @font-sizes: 0.8rem 1.6rem 2.4rem 3.2rem 4rem;
 
   .font-loop(@font-sizes, @i:1) when (@i <= length(@font-sizes)) {
@@ -57,6 +57,23 @@ body {
   //.popover-menu {
   //  width: 300px;
   //}
+  .content-wrapper .text-wrapper{
+    top: 25%!important;
+  }
+  .about-wake img{
+    height: 105vh!important;
+  }
+}
+@media only screen and (max-width: 620px){
+  .about-wake img{
+    height: 75vh!important;
+  }
+}
+@media only screen and (max-width: 450px) and (min-width: 0){
+  .about-wake img{
+    height: 48vh!important;
+    //width: 195px;
+  }
 }
 .left{
   float: left;
@@ -126,3 +143,7 @@ body {
 .relative{
   position: relative;
 }
+.in-block{
+display: inline-block;
+}
+

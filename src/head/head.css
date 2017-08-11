@@ -59,6 +59,9 @@ body {
   .about-down {
     display: none;
   }
+  .head-menu {
+    top: 1.56rem!important;
+  }
 }
 .left {
   float: left;

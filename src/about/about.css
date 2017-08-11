@@ -4,9 +4,8 @@
   height: 100vh;
 }
 .about-page:nth-child(1) {
-  background: url("../static/img/temp/tem-about.jpg");
+  background: url("http://api.i-meto.com/bing?new");
   display: table;
-  background-size: 100vw 100vh;
 }
 .about-page:nth-child(2) {
   background: #fff;
@@ -46,6 +45,21 @@
   font-size: 3rem;
   color: rgba(255, 255, 255, 0.5);
   animation: upDownMove 1.2s ease-in-out infinite alternate;
+}
+.content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+.content-wrapper .text-wrapper {
+  float: left;
+  position: relative;
+  top: 20%;
+  padding-left: 10%;
+  font-family: "Open Sans", sans-serif;
+}
+.about-wake img {
+  height: 110vh;
 }
 @keyframes fade-in-down {
   0% {
