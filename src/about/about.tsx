@@ -35,22 +35,23 @@ class About extends React.Component<any, any> {
                     </a>
                 </div>
                 <div className="about-page content-wrapper">
-                    <div className="in-block text-wrapper font-2">
+                    <div className="in-block text-wrapper font-2 right">
                         <div className="font-5">刘军辉</div>
                         <div>九五后，河南人</div>
-                        <div>web工程师，二零一六年开始职业生涯。</div>
+                        <div>web工程师</div>
+                        <div>二零一六年开始职业生涯</div>
                         <div> 一个从小不爱学习的不良青年</div>
                         <div>高中玩手机被老师没收N个手机</div>
                         <div>大学泡网吧期末挂N个学科</div>
                     </div>
-                    <div className="about-wake right in-block">
+                    <div className="about-my left in-block">
                         {/*<a href="https://www.pixiv.net/member.php?id=2787621" target="_bank">*/}
                         <img src={aboutMy} alt="氷一"/>
                         {/*</a>*/}
                     </div>
                 </div>
                 <div className="about-page content-wrapper">
-                    <div className="in-block text-wrapper font-2">
+                    <div className="in-block text-wrapper font-2 left">
                         <div className="font-5">觉醒</div>
                         <div>毕业听人一席话</div>
                         <div>奋身而入码农坑</div>

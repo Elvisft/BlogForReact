@@ -4,8 +4,9 @@
   height: 100vh;
 }
 .about-page:nth-child(1) {
-  background: url("http://api.i-meto.com/bing?new");
+  background: url("http://api.i-meto.com/bing?new") fixed top;
   display: table;
+  background-size: 100vw 100vh;
 }
 .about-page:nth-child(2) {
   background: #fff;
@@ -52,14 +53,26 @@
   margin: auto;
 }
 .content-wrapper .text-wrapper {
-  float: left;
   position: relative;
   top: 20%;
   padding-left: 10%;
   font-family: "Open Sans", sans-serif;
 }
+@media only screen and (min-height: 1085px) {
+  .about-my img {
+    margin-top: -20vh !important;
+  }
+}
+@media only screen and (max-height: 1084px) {
+  .about-my img {
+    margin-top: 0;
+  }
+}
 .about-wake img {
   height: 110vh;
+}
+.about-my img {
+  height: 88vh;
 }
 @keyframes fade-in-down {
   0% {
