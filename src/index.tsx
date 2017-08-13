@@ -11,6 +11,7 @@ import stores from './reducers';
 import Head from './head/head';
 import Home from './home/home';
 import About from './about/about';
+import Career from './career/career';
 import Error from './error/error';
 
 const history = createHistory()
@@ -35,6 +36,12 @@ const routes = [
         navigation: () => <Head selected= "1"/>,
         main: () => <About/>
     },
+    {
+        path: '/career',
+        exact: true,
+        navigation: () => <Head selected= "2"/>,
+        main: () => <Career/>
+    }
 ];
 
 

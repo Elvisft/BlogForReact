@@ -19,6 +19,9 @@ const menu = (
         <Menu.Item key="1">
             <Link to="/about">关于</Link>
         </Menu.Item>
+        <Menu.Item key="2">
+            <Link to="/career">生涯</Link>
+        </Menu.Item>
     </Menu>
 );
 
@@ -54,7 +57,7 @@ class Head extends React.Component<HeadProps, any> {
                         <Menu mode="horizontal" className="right header-menu" selectedKeys={[this.props.selected]}>
                             <Menu.Item key="0"><Link to="/">杂项</Link></Menu.Item>
                             <Menu.Item key="1"><Link to="/about">关于</Link></Menu.Item>
-                            <Menu.Item key="2">生涯</Menu.Item>
+                            <Menu.Item key="2"><Link to="/career">生涯</Link></Menu.Item>
                             <Menu.Item key="3">随笔</Menu.Item>
                             <Menu.Item key="4">远行</Menu.Item>
                             <Menu.Item key="5">锦集</Menu.Item>
