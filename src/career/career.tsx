@@ -6,7 +6,7 @@ import * as actions from './../actions';
 
 import './career.css';
 
-// 关于
+// 生涯
 class Career extends React.Component<any, any> {
 
     constructor ( props: any ) {
@@ -17,7 +17,12 @@ class Career extends React.Component<any, any> {
     render() {
         return (
             <div className="career">
+                <section className="top-post-wrap">
 
+                </section>
+                <section>
+
+                </section>
             </div>
         );
     }

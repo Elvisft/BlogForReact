@@ -16,6 +16,14 @@ class About extends React.Component<any, any> {
         super(props);
         // this.setState({       visible: false });
     }
+    scrollToAnchor = (anchorName: string) => {
+        if (anchorName) {
+            // 找到锚点
+            let anchorElement = document.getElementById(anchorName);
+            // 如果对应id的锚点存在，就跳转到锚点
+            if (anchorElement) { anchorElement.scrollIntoView(); }
+        }
+    }
 
     render() {
         return (
@@ -30,11 +38,11 @@ class About extends React.Component<any, any> {
                         <div className="font-2">到达那个边缘</div>
                         <div className="font-2">///</div>
                     </div>
-                    <a href="#content" className="about-down">
+                    <a onClick={() => this.scrollToAnchor('content')} className="about-down">
                         <Icon type="down" />
                     </a>
                 </div>
-                <div className="about-page content-wrapper">
+                <div id="content" className="about-page content-wrapper">
                     <div className="in-block text-wrapper font-2 right">
                         <div className="font-5">刘军辉</div>
                         <div>九五后，河南人</div>
