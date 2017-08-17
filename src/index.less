@@ -23,7 +23,7 @@ body {
 }
 .color-loop(@colors);
 
-  @font-sizes: 1rem 2rem 3rem 4rem 5rem;
+  @font-sizes: 1rem 2rem 3rem 4rem 5rem 1.2rem 1.4rem;
 
 .font-loop(@font-sizes, @i:1) when (@i <= length(@font-sizes)) {
   .font-@{i} {
@@ -40,7 +40,7 @@ body {
   }
 }
 @media only screen and (max-width: 992px){
-  @font-sizes: 0.8rem 1.6rem 2.4rem 3.2rem 4rem;
+  @font-sizes: 0.8rem 1.6rem 2.4rem 3.2rem 4rem 1rem 1.2rem;
 
   .font-loop(@font-sizes, @i:1) when (@i <= length(@font-sizes)) {
     .font-@{i} {
@@ -192,3 +192,16 @@ body {
 display: inline-block;
 }
 
+
+
+
+
+
+
+
+
+
+
+h1,h2,h3,h4,h5,h6{
+  line-height: 1;
+}

@@ -37,6 +37,12 @@ body {
 .font-5 {
   font-size: 5rem;
 }
+.font-6 {
+  font-size: 1.2rem;
+}
+.font-7 {
+  font-size: 1.4rem;
+}
 @media only screen and (max-width: 1200px) {
   .content-wrapper .text-wrapper {
     padding-right: 10%;
@@ -57,6 +63,12 @@ body {
   }
   .font-5 {
     font-size: 4rem;
+  }
+  .font-6 {
+    font-size: 1rem;
+  }
+  .font-7 {
+    font-size: 1.2rem;
   }
   #header {
     text-align: center;
@@ -174,4 +186,12 @@ body {
 }
 .in-block {
   display: inline-block;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
 }
