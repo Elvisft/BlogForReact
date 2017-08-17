@@ -105,7 +105,11 @@ class Career extends React.Component<any, any> {
                             </Col>
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
+                                <aside>
+                                    <ul>
 
+                                    </ul>
+                                </aside>
                             </Col>
                         </Row>
                     </div>
