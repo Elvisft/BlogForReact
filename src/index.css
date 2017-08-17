@@ -195,3 +195,7 @@ h5,
 h6 {
   line-height: 1;
 }
+ul,
+ol {
+  list-style: none;
+}

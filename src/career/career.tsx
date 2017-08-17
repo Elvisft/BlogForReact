@@ -105,9 +105,26 @@ class Career extends React.Component<any, any> {
                             </Col>
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
-                                <aside>
-                                    <ul>
+                                <aside className="aside font-2">
+                                    <ul className="sidebar-menu">
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">Java</a>
+                                            <div>
 
+                                            </div>
+                                        </li>
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">JavaScript</a>
+                                            <div></div>
+                                        </li>
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">SQL</a>
+                                            <div></div>
+                                        </li>
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">Linux</a>
+                                            <div></div>
+                                        </li>
                                     </ul>
                                 </aside>
                             </Col>
