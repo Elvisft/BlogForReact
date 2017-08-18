@@ -103,18 +103,10 @@ li {
   text-transform: uppercase;
   position: relative;
   text-decoration: none;
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 
-.sidebar-menu div{
-  height: 100px;
-  width: 100%;
-  background: #ff0;
-}
+
 .sidebar-menu .sidebar-menu__title-link:hover::before, .sidebar-menu .active.sidebar-menu__title-link::before, .sidebar-menu .active.sidebar-menu__title-link::after, .sidebar-menu .sidebar-menu__title-link:hover::after {
   visibility: visible;
 }
@@ -130,10 +122,7 @@ li {
   top: 0;
   width: 12px;
   visibility: hidden;
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
+
   transition: all 0.25s ease;
 }
 .sidebar-menu .sidebar-menu__title-link::after {
@@ -151,13 +140,27 @@ li {
   visibility: hidden;
   box-shadow: 0 0 0 rgba(204,169,44, 0.4);
   animation: pulse 1s infinite;
+  transition: all 0.25s ease;
+}
+
+li.menu-item-object-category ul.sidebar-submenu li a {
+  font: 14px/20px;
+  padding: 26px 35px;
+  letter-spacing: 1.4px;
+  background: #fff;
+  color: #66757f;
+  display: inline-block;
+  border-left: 5px solid #fff;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
-
+li.menu-item-object-category ul.sidebar-submenu li a:hover, li.menu-item-object-category ul.sidebar-submenu li a.current-menu-parent {
+  border-left: 5px solid #77bc1f;
+  color: #77bc1f;
+}
 @keyframes pulse {
   0% {
     -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.9);
