@@ -7,13 +7,26 @@ import './career.css';
 
 // 生涯
 class Career extends React.Component<any, any> {
-
+    state = {
+        sel: 'java',
+        type: []
+    };
     constructor ( props: any ) {
         super(props);
         // this.setState({       visible: false });
     }
 
+    types = [
+        'java', 'javascript', 'linux', 'sql'
+    ];
+
+    selType = (value: any) => {
+        console.log(this.props.params.id);
+        this.setState({ sel: value });
+    }
+
     render() {
+        const t = this.types.map((d: string) => <li ><a onClick={this.selType.bind(d, d)} className={this.state.sel === d ? 'active' : ''}>{d}</a></li>);
         return (
             <div className="career">
                 <section className="top-post-wrap">
@@ -110,10 +123,11 @@ class Career extends React.Component<any, any> {
                                         <li className="menu-item-object-category">
                                             <a className="sidebar-menu__title-link">分类</a>
                                             <ul className="sidebar-submenu">
-                                                <li><a>Java</a></li>
-                                                <li><a>JavaScript</a></li>
-                                                <li><a>SQL</a></li>
-                                                <li><a>Linux</a></li>
+                                                {/*<li><a>Java</a></li>*/}
+                                                {/*<li><a>JavaScript</a></li>*/}
+                                                {/*<li><a>SQL</a></li>*/}
+                                                {/*<li><a>Linux</a></li>*/}
+                                                {t}
                                             </ul>
                                         </li>
                                         <li className="menu-item-object-category">

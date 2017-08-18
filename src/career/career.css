@@ -144,7 +144,8 @@ li.menu-item-object-category ul.sidebar-submenu li a {
   transition: all 0.25s ease;
 }
 li.menu-item-object-category ul.sidebar-submenu li a:hover,
-li.menu-item-object-category ul.sidebar-submenu li a.current-menu-parent {
+li.menu-item-object-category ul.sidebar-submenu li a.current-menu-parent,
+li.menu-item-object-category ul.sidebar-submenu li a.active {
   border-left: 5px solid #3fbdc8;
   color: #3fbdc8;
 }
