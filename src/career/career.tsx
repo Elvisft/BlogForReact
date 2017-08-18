@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, Menu, Icon } from 'antd';
 import './career.css';
 
 // 生涯
@@ -21,12 +21,16 @@ class Career extends React.Component<any, any> {
     ];
 
     selType = (value: any) => {
-        console.log(this.props.params.id);
         this.setState({ sel: value });
     }
 
+    handleClick = (e: any) => {
+        console.log('click ', e);
+    }
+
     render() {
-        const t = this.types.map((d: string) => <li ><a onClick={this.selType.bind(d, d)} className={this.state.sel === d ? 'active' : ''}>{d}</a></li>);
+        const SubMenu = Menu.SubMenu;
+
         return (
             <div className="career">
                 <section className="top-post-wrap">
@@ -119,30 +123,42 @@ class Career extends React.Component<any, any> {
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
                                 <aside className="aside font-2">
-                                    <ul className="sidebar-menu">
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">分类</a>
-                                            <ul className="sidebar-submenu">
-                                                {/*<li><a>Java</a></li>*/}
-                                                {/*<li><a>JavaScript</a></li>*/}
-                                                {/*<li><a>SQL</a></li>*/}
-                                                {/*<li><a>Linux</a></li>*/}
-                                                {t}
-                                            </ul>
-                                        </li>
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">JavaScript</a>
-                                            <div></div>
-                                        </li>
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">SQL</a>
-                                            <div></div>
-                                        </li>
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">Linux</a>
-                                            <div></div>
-                                        </li>
-                                    </ul>
+                                    <Menu
+                                        onClick={this.handleClick}
+                                        className="sel-left"
+                                        defaultSelectedKeys={['java']}
+                                        defaultOpenKeys={['sub4']}
+                                        mode="inline"
+                                    >
+
+                                        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>
+                                            {this.types.map((d: string) => <Menu.Item key={d}>{d}</Menu.Item>)}
+                                            {/*<Menu.Item key="9">Option 9</Menu.Item>*/}
+                                            {/*<Menu.Item key="10">Option 10</Menu.Item>*/}
+                                            {/*<Menu.Item key="11">Option 11</Menu.Item>*/}
+                                            {/*<Menu.Item key="12">Option 12</Menu.Item>*/}
+                                        </SubMenu>
+                                    </Menu>
+                                    {/*<ul className="sidebar-menu">*/}
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">分类</a>*/}
+                                            {/*<ul className="sidebar-submenu">*/}
+                                                {/*{this.types.map((d: string) => <li ><a onClick={this.selType.bind(d, d)} className={this.state.sel === d ? 'active' : ''}>{d}</a></li>)}*/}
+                                            {/*</ul>*/}
+                                        {/*</li>*/}
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">JavaScript</a>*/}
+                                           {/**/}
+                                        {/*</li>*/}
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">SQL</a>*/}
+                                       {/**/}
+                                        {/*</li>*/}
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">Linux</a>*/}
+                                        {/**/}
+                                        {/*</li>*/}
+                                    {/*</ul>*/}
                                 </aside>
                             </Col>
                         </Row>

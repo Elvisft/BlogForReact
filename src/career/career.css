@@ -49,7 +49,7 @@
   transition: all 0.4s ease-in-out;
 }
 .main-post__title-wrap:hover {
-  border-left: 2px solid #3fbdc8;
+  border-left: 2px solid #736efe;
 }
 .main-post__cont,
 .detail-post__cont {
@@ -99,7 +99,7 @@ li {
   visibility: visible;
 }
 .sidebar-menu .sidebar-menu__title-link::before {
-  background-color: #3fbdc8;
+  background-color: #736efe;
   border-radius: 50%;
   bottom: 0;
   content: "";
@@ -114,7 +114,7 @@ li {
 }
 .sidebar-menu .sidebar-menu__title-link::after {
   opacity: 0.5;
-  background-color: #3fbdc8;
+  background-color: #736efe;
   border-radius: 50%;
   bottom: 0;
   content: "";
@@ -146,8 +146,8 @@ li.menu-item-object-category ul.sidebar-submenu li a {
 li.menu-item-object-category ul.sidebar-submenu li a:hover,
 li.menu-item-object-category ul.sidebar-submenu li a.current-menu-parent,
 li.menu-item-object-category ul.sidebar-submenu li a.active {
-  border-left: 5px solid #3fbdc8;
-  color: #3fbdc8;
+  border-left: 5px solid #736efe;
+  color: #736efe;
 }
 @keyframes pulse {
   0% {

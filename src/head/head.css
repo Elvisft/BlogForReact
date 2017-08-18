@@ -199,6 +199,13 @@ ul,
 ol {
   list-style: none;
 }
+.sel-left .ant-menu-inline .ant-menu-item:after,
+.sel-left .ant-menu-vertical .ant-menu-item:after {
+  right: auto;
+  left: 0;
+  border-left: 3px solid #736efe;
+  border-right: none;
+}
 #logo img {
   height: 64px;
   padding: 10px;
