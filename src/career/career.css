@@ -32,7 +32,7 @@
   overflow: hidden;
   background-color: #fff;
   margin-bottom: 80px;
-  box-shadow: 0 0 93.5px 16.5px rgba(115, 110, 254, 0.1);
+  box-shadow: 0 0 93.5px 16.5px rgba(0, 0, 0, 0.1);
 }
 .main-post__img {
   max-height: 250px;
@@ -63,7 +63,7 @@
 }
 .aside {
   background-color: #ffffff;
-  box-shadow: 0 0 46.8px 8.3px rgba(115, 110, 254, 0.1);
+  box-shadow: 0 0 93.5px 16.5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 li {

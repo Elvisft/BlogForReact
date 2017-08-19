@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
-import { Row, Col, Button, Menu, Icon } from 'antd';
+import { Row, Col, Button, Menu, Pagination, Icon } from 'antd';
 import './career.css';
 
 // 生涯
@@ -129,25 +129,31 @@ class Career extends React.Component<any, any> {
                     <div className="career-content">
                         <Row>
                             <Col xs={{span: 24}} sm={{span: 14}} md={{span: 16}}>
-                                <article className="main-post">
-                                    <div className="main-post__img">
-                                        <img src="https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg" alt=""/>
-                                    </div>
-                                    <div className="main-post__title-wrap">
-                                        <div>
-                                            <h2>IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?</h2>
-                                        </div>
-                                        <div>
-                                            <span>HAROLD REAVES   |  08.15.2017</span>
-                                        </div>
-                                    </div>
-                                    <div className="main-post__cont">
-                                        <p className="font-7">
-                                            Its back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...
-                                        </p>
-                                        <Button type="primary" size={'large'} ghost={true}>阅读全文</Button>
-                                    </div>
-                                </article>
+                                {
+                                    this.blogData.map(
+                                        (i: any) =>
+                                            <article className="main-post">
+                                                <div className="main-post__img">
+                                                    <img src={i.img} alt=""/>
+                                                </div>
+                                                <div className="main-post__title-wrap">
+                                                    <div>
+                                                        <h2><a href={'/career/details/' + i.id}>{i.title}</a></h2>
+                                                    </div>
+                                                    <div>
+                                                        <span>{i.author}   |  {i.date}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="main-post__cont">
+                                                    <p className="font-7">
+                                                        {i.briefing}
+                                                    </p>
+                                                    <Button type="primary" size={'large'} ghost={true}><a href={'/career/details/' + i.id}>阅读全文</a></Button>
+                                                </div>
+                                            </article>
+                                    )
+                                }
+                                <Pagination className="text-center" defaultCurrent={1} total={50} />
                             </Col>
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
