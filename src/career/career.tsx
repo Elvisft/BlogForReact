@@ -16,9 +16,66 @@ class Career extends React.Component<any, any> {
         // this.setState({       visible: false });
     }
 
-    types = [
+    types : string[] = [
         'java', 'javascript', 'linux', 'sql'
     ];
+
+    blogData = [
+        {
+            id: '12345',
+            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
+            author: 'HAROLD REAVES',
+            type: 'java',
+            date: ' 08.15.2017',
+            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
+            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
+        },
+        {
+            id: '12345',
+            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
+            author: 'HAROLD REAVES',
+            type: 'java',
+            date: ' 08.15.2017',
+            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
+            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
+        },
+        {
+            id: '12345',
+            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
+            author: 'HAROLD REAVES',
+            type: 'java',
+            date: ' 08.15.2017',
+            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
+            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
+        },
+        {
+            id: '12345',
+            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
+            author: 'HAROLD REAVES',
+            type: 'java',
+            date: ' 08.15.2017',
+            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
+            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
+        },
+        {
+            id: '12345',
+            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
+            author: 'HAROLD REAVES',
+            type: 'java',
+            date: ' 08.15.2017',
+            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
+            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
+        },
+        {
+            id: '12345',
+            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
+            author: 'HAROLD REAVES',
+            type: 'java',
+            date: ' 08.15.2017',
+            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
+            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
+        }
+    ]
 
     selType = (value: any) => {
         this.setState({ sel: value });
@@ -39,58 +96,30 @@ class Career extends React.Component<any, any> {
                             <Col xs={{span: 24}} sm={{span: 12}} md={{span: 12}} lg={{span: 12}} className="career-first">
                                 <article>
                                     <div>
-                                        <h1>IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?</h1>
+                                        <h1><a href={'/career/details/' + this.blogData[0].id}>{this.blogData[0].title}</a></h1>
                                     </div>
                                     <div className="font-6">
-                                        <span>HAROLD REAVES   |  08.15.2017</span>
+                                        <span>{this.blogData[0].author}   |  {this.blogData[0].date}</span>
                                     </div>
                                     <div className="font-7">
-                                        Its back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...
+                                        {this.blogData[0].briefing}
                                     </div>
-                                    <Button type="primary" size={'large'} className="left" ghost={true}>阅读全文</Button>
+                                    <Button type="primary" size={'large'} className="left" ghost={true}><a href={'/career/details/' + this.blogData[0].id}>阅读全文</a></Button>
                                 </article>
                             </Col>
                             <Col xs={{span: 24, offset: 0}} sm={{span: 10, offset: 2}} md={{span: 10, offset: 2}} lg={{span: 10, offset: 2}} className="career-top">
-                                <article>
-                                        <div>
-                                            <h1>NEW ABSOLUTE 7 PLATFORM EXTENDS ENDPOINT VISIBILITY AND CONTROL</h1>
-                                        </div>
-                                        <div className="font-6">
-                                            <span>WEB TEAM   |  08.09.2017</span>
-                                        </div>
-                                </article>
-                                <article>
-                                    <div>
-                                        <h1>THE HIGH COST OF DARK ENDPOINTS</h1>
-                                    </div>
-                                    <div>
-                                        <span>PAM O'NEAL   |  08.08.2017</span>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div>
-                                        <h1>BECAUSE DARK ENDPOINTS = SECURITY BLIND SPOTS</h1>
-                                    </div>
-                                    <div>
-                                        <span>WEB TEAM   |  08.09.2017</span>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div>
-                                        <h1>ANTHEM DATA BREACH IMPLICATIONS</h1>
-                                    </div>
-                                    <div>
-                                        <span>WEB TEAM   |  08.02.2017</span>
-                                    </div>
-                                </article>
-                                <article>
-                                    <div>
-                                        <h1>EU GDPR: THE WHY AND HOW FOR FINANCIAL SERVICES</h1>
-                                    </div>
-                                    <div>
-                                        <span>RICHARD HENDERSON   |  07.27.2017</span>
-                                    </div>
-                                </article>
+                                {
+                                    this.blogData.map(
+                                        (i: any) =>
+                                            <article>
+                                                <div>
+                                                    <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
+                                                </div>
+                                                <div className="font-6">
+                                                    <span>{i.author}   |  {i.date}</span>
+                                                </div>
+                                            </article>)
+                                }
                             </Col>
                         </Row>
                     </div>
@@ -133,10 +162,6 @@ class Career extends React.Component<any, any> {
 
                                         <SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>
                                             {this.types.map((d: string) => <Menu.Item key={d}>{d}</Menu.Item>)}
-                                            {/*<Menu.Item key="9">Option 9</Menu.Item>*/}
-                                            {/*<Menu.Item key="10">Option 10</Menu.Item>*/}
-                                            {/*<Menu.Item key="11">Option 11</Menu.Item>*/}
-                                            {/*<Menu.Item key="12">Option 12</Menu.Item>*/}
                                         </SubMenu>
                                     </Menu>
                                     {/*<ul className="sidebar-menu">*/}
