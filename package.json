@@ -31,7 +31,13 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scripts-ts": "2.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/enzyme": "^2.8.6",
+    "@types/jest": "^20.0.7",
+    "enzyme": "^2.9.1",
+    "react-addons-test-utils": "^15.6.0",
+    "ts-jest": "^20.0.10"
+  },
   "scripts": {
     "build-css": "autoless --no-watch src",
     "watch-css": "less-watch-compiler",

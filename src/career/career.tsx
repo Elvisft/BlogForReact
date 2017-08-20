@@ -5,6 +5,8 @@ import * as actions from './../actions';
 import { Row, Col, Button, Menu, Pagination, Icon } from 'antd';
 import './career.css';
 
+import get from './../components/ajax';
+
 // 生涯
 class Career extends React.Component<any, any> {
     state = {
@@ -17,7 +19,7 @@ class Career extends React.Component<any, any> {
     }
 
     types : string[] = [
-        'java', 'javascript', 'linux', 'sql'
+        'java', 'javascript', 'linux', 'sql', 'node'
     ];
 
     blogData = [
@@ -83,6 +85,9 @@ class Career extends React.Component<any, any> {
 
     handleClick = (e: any) => {
         console.log('click ', e);
+        const url: string = 'http://localhost:8080/';
+        const ajax = get(url + 'career/demo');
+        console.log(ajax);
     }
 
     render() {

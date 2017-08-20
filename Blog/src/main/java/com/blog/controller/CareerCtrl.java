@@ -7,6 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CareerCtrl {
 
     @RequestMapping(value = "/demo")
-    public String getDemo(){
+    public String getDemo(HttpServletRequest request, HttpServletResponse response){
+
         return "he";
     }
 
