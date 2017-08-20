@@ -13,7 +13,7 @@ const get = (url: string): any => {
 
         if ( req ) {
             req.open('GET', url, true);
-
+            req.responseType = 'json';
             req.onreadystatechange = function(){
                 if (req.readyState === 4) {
                     if (req.status === 200) {

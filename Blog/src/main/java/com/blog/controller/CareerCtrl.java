@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -19,9 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 public class CareerCtrl {
 
     @RequestMapping(value = "/demo")
-    public String getDemo(HttpServletRequest request, HttpServletResponse response){
-
-        return "he";
+    public Map<String, String> getDemo(HttpServletRequest request, HttpServletResponse response){
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("name","qwe");
+        return map;
     }
 
 }

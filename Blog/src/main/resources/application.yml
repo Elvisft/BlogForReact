@@ -12,3 +12,28 @@ server:
     remoteIpHeader: x-forwarded-for
     basedir:
     backgroundProcessorDelay: 30 # secs
+
+druid:
+    url: jdbc:mysql://106.14.150.87:3306/blog
+    username: root
+    password: ger.170728##
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    test-on-borrow: true
+
+mybatis:
+    type-aliases-package: com.blog.entity
+    mapper-locations: classpath:mapper/*.xml
+
+mapper:
+    mappers:
+        - tk.mybatis.springboot.util.MyMapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
