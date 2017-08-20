@@ -5,6 +5,7 @@ package com.blog.util;
  */
 
 import com.github.pagehelper.PageHelper;
+
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -51,7 +52,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         pageHelper.setProperties(properties);
 
         //添加插件
-        bean.setPlugins(new Interceptor[]{ pageHelper });
+        bean.setPlugins(new Interceptor[]{(Interceptor) pageHelper});
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
