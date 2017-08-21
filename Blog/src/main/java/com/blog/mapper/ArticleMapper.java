@@ -1,6 +1,6 @@
 package com.blog.mapper;
 
-import com.blog.entity.Article;
+import com.blog.model.Article;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

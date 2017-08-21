@@ -1,4 +1,4 @@
-package com.blog.entity;
+package com.blog.model;
 
 public class Classes {
   private Long id;
@@ -36,5 +36,10 @@ public class Classes {
 
   public void setParent_id(Long parent_id) {
     this.parent_id = parent_id;
+  }
+
+  @Override
+  public String toString(){
+    return "id"+this.getId()+"***"+"name"+this.getName()+"***"+"type"+this.getType();
   }
 }
