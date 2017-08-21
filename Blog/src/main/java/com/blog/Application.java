@@ -1,5 +1,6 @@
 package com.blog;
 
+import com.blog.mapper.ClassesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,14 +15,22 @@ import com.blog.util.CrossInterceptor;
 @SpringBootApplication
 @ServletComponentScan
 public class Application {
+
+
+    private ClassesMapper classesMapper;
+    public Application(ClassesMapper classesMapper) {
+        this.classesMapper = classesMapper;
+    }
+
     public static void main(String[] args){
         SpringApplication.run(Application.class, args);
     }
+
+
     @Configuration
     static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         @Autowired
         private CrossInterceptor crossInterceptor;
-
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(crossInterceptor).addPathPatterns("/**");

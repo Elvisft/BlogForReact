@@ -22,9 +22,6 @@ druid:
     max-active: 20
     test-on-borrow: true
 
-mybatis:
-    type-aliases-package: com.blog.entity
-    mapper-locations: classpath:mapper/*.xml
 
 mapper:
     mappers:
@@ -37,3 +34,11 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+mybatis:
+    type-aliases-package: com.example.domain.model
+    type-handlers-package: com.example.typehandler
+    configuration:
+        map-underscore-to-camel-case: true
+        default-fetch-size: 100
+        default-statement-timeout: 30
