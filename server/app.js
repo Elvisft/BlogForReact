@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var dbConfig = require('./util/mysqlConfig');//数据库配置
 var app = express();
 
 // view engine setup
@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(dbConfig);//使用数据库
 app.use('/', index);
 app.use('/users', users);
 

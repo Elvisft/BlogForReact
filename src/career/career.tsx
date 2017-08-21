@@ -85,15 +85,19 @@ class Career extends React.Component<any, any> {
 
     handleClick = (e: any) => {
         // console.log('click ', e);
-        const url: string = 'http://localhost:8080/';
-        fetch(url + 'career/demo').then(response => response.json())
-            .then(data => console.log(data))
-            .catch(e => console.log('Oops, error', e));
+        // const url: string = 'http://localhost:8080/';
+        // fetch(url + 'career/demo').then(response => response.json())
+        //     .then(data => console.log(data))
+        //     .catch(e => console.log('Oops, error', e));
         // const ajax = get(url + 'career/demo');
         // ajax.then((data: any) => {
         //     console.log(data.response);
         // });
         // console.log(ajax);
+        const url: string = 'http://localhost:3001/';
+        fetch(url + '').then(response => response.json())
+            .then(data => console.log(data))
+            .catch(e => console.log('Oops, error', e));
     }
 
     render() {
