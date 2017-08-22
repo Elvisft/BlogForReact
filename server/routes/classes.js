@@ -11,8 +11,6 @@ router.get('/', function(req, res, next) {
           if(err){
               return next(err);
           }else{
-              res.append('Access-Control-Allow-Origin','*');
-              // res.render('index', result );
             res.json(result);
           }
       });

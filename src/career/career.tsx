@@ -95,7 +95,7 @@ class Career extends React.Component<any, any> {
         // });
         // console.log(ajax);
         const url: string = 'http://localhost:3001/';
-        fetch(url + '').then(response => response.json())
+        fetch(url + 'classes').then(response => response.json())
             .then(data => console.log(data))
             .catch(e => console.log('Oops, error', e));
     }

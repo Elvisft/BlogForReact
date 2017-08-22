@@ -43,8 +43,9 @@
   "scripts": {
     "build-css": "autoless --no-watch src",
     "watch-css": "less-watch-compiler",
-    "start-js": "react-scripts-ts start",
-    "start": "npm-run-all -p watch-css start-js",
+    "client-js": "react-scripts-ts start",
+    "server-start": "supervisor ./server/bin/www",
+    "start": "npm-run-all -p watch-css client-js",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"

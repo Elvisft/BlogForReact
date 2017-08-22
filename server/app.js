@@ -5,9 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+
 var dbConfig = require('./util/mysqlConfig');//数据库配置
+var routes = require('./util/routeConfig');
+
 var app = express();
 
 // view engine setup
@@ -21,9 +22,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.use(dbConfig);//使用数据库
-app.use('/', index);
-app.use('/users', users);
+app.use(( req, res, next )=>{    //请求头配置
+    res.set({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json;charset=UTF-8'
+    });
+    next();
+});
+
+for(let i in routes){
+    app.use(i, routes[i]);
+}
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
