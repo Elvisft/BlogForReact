@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 
 var dbConfig = require('./util/mysqlConfig');//数据库配置
-// var routes = require('./util/routeConfig');
+var route = require('./util/routeUtil');//引用路由
 
 var app = express();
 
@@ -32,7 +32,7 @@ app.use(( req, res, next )=>{    //请求头配置
     });
     next();
 });
-
+app.use(route);
 //路由自动配置
 // for(let i in routes){
 //     app.use(i, routes[i]);
