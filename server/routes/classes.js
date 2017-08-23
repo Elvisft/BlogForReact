@@ -1,8 +1,8 @@
 
 exports.autowired = {
     'get' : {
-        '/' : (req, res, next)=>{
-            res.send('respond with a resource');
+        '/asd' : (req, res, next)=>{
+            res.send('1231');
         }
     },
     'post' : {
