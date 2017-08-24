@@ -1,8 +1,19 @@
-
+let classesService = require('./../service/classesService');
 exports.autowired = {
     'get' : {
-        '/asd' : (req, res, next)=>{
-            res.send('1231');
+        '/getClasses/:id' : (req, res, next)=>{
+
+            req.getConnection((err,conn)=>{
+                conn.query('SELECT id,name FROM classes WHERE parent_id= ?',[ req.params.id ], (err, result) => {
+                    if(err){
+                        res.json(err);
+                    }else{
+                        console.log(result)
+                        res.json(result);
+                    }
+                });
+            });
+
         }
     },
     'post' : {

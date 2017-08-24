@@ -1,9 +1,18 @@
-var getAll= (conn) => {
-    conn.query('select * from classes',[], (err, result) => {
-        if(err){
-            return err;
-        }else{
-            return result;
-        }
-    });
+var getList= (typeId) => {
+
+    return (err,conn)=>{
+        conn.query('SELECT * FROM classes WHERE parent_id= ?',[ typeId ], (err, result) => {
+
+            if(err){
+                return err;
+            }else{
+
+                return result;
+            }
+        });
+    }
 }
+
+module.exports={
+    getList:getList
+};

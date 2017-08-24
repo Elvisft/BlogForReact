@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from './../actions';
 import { Row, Col, Button, Menu, Pagination, Icon } from 'antd';
 import './career.css';
+import { URL } from './../components/config';
 
 // import get from './../components/ajax';
 
@@ -18,9 +19,12 @@ class Career extends React.Component<any, any> {
         // this.setState({       visible: false });
     }
 
-    types : string[] = [
-        'java', 'javascript', 'linux', 'sql', 'node'
-    ];
+    getClasses = (classes: number): any => {
+        const url: string = URL + 'classes/getClasses/' + classes;
+        return fetch( url ).then(response => response.json())
+            .then(data => {return data; })
+            .catch(e => console.log('Oops, error', e));
+    }
 
     blogData = [
         {
@@ -84,20 +88,8 @@ class Career extends React.Component<any, any> {
     }
 
     handleClick = (e: any) => {
-        // console.log('click ', e);
-        // const url: string = 'http://localhost:8080/';
-        // fetch(url + 'career/demo').then(response => response.json())
-        //     .then(data => console.log(data))
-        //     .catch(e => console.log('Oops, error', e));
-        // const ajax = get(url + 'career/demo');
-        // ajax.then((data: any) => {
-        //     console.log(data.response);
-        // });
-        // console.log(ajax);
-        const url: string = 'http://localhost:3001/';
-        fetch(url + 'classes').then(response => response.json())
-            .then(data => console.log(data))
-            .catch(e => console.log('Oops, error', e));
+        console.log(this.getClasses(2));
+
     }
 
     render() {
@@ -182,7 +174,7 @@ class Career extends React.Component<any, any> {
                                     >
 
                                         <SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>
-                                            {this.types.map((d: string) => <Menu.Item key={d}>{d}</Menu.Item>)}
+                                            {['java', 'sql'].map((d: any) => <Menu.Item key={d}>{d}</Menu.Item>)}
                                         </SubMenu>
                                     </Menu>
                                     {/*<ul className="sidebar-menu">*/}
