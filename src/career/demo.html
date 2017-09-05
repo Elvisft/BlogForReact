@@ -1,9 +1,10 @@
-<html>
+<html style="background: #000;">
 <head>
-	
+	<meta charset="utf-8">
 </head>
 <body>
-	<canvas id="canvas" width="10000" height="8000"></canvas>
+
+	<canvas id="canvas" width="1000" height="800"></canvas>
 	<script>
 	window.requestAnimFrame = (function(){
 		return  window.requestAnimationFrame       ||
@@ -17,146 +18,68 @@
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
 	function Point(){
-		this.Xspeed = 1;
-		this.Yspeed = 1;
-		this.radius = 1;
+	    this.random = Math.random()*10;
+		this.dt=0;
+		this.t = this.random*200-1;
+		this.Xspeed = this.random/10;
+		this.Yspeed = this.random/10;
+		this.radius = 2;
 		this.x = 800;
 		this.y = 1000;
-		this.bezier=[new Point2D(20, 0), new Point2D(100, 200), new Point2D(300, -200), new Point2D(400, 0)];
-		this.color = 'rgba(255,0,0,1)';
+		this.bezier=[new Point2D(0, 800), new Point2D(this.random*200, this.random*300), new Point2D(1400, -10)];
+		this.color = 'rgba(255,0,0,'+Math.random()+')';
 		this.draw = function() {
 			ctx.beginPath();
-			ctx.fillStyle.color = this.color;
+			ctx.fillStyle = this.color;
 			ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
 			ctx.fill();
 			return this;
 		}
 		this.move = function(){
-			// this.x += this.Xspeed;
-			// this.y += this.Yspeed;   
+			var t = this.dt*(1/this.t);
+            var   ax, bx, cx;
+            var   ay, by, cy;
+            var   tSquared, tCubed;
 
-			
-		    var   ax, bx, cx;  
-		    var   ay, by, cy;  
-		    var   tSquared, tCubed;  
-		    var   cp = this.bezier,t = 1.0 / ( this.Xspeed - 1 ) ;
-		  	
-		    /*計算多項式係數*/  
-		  
-		    cx = 3.0 * (cp[1].x - cp[0].x);  
-		    bx = 3.0 * (cp[2].x - cp[1].x) - cx;  
-		    ax = cp[3].x - cp[0].x - cx - bx;  
-		  
-		    cy = 3.0 * (cp[1].y - cp[0].y);  
-		    by = 3.0 * (cp[2].y - cp[1].y) - cy;  
-		    ay = cp[3].y - cp[0].y - cy - by;  
-		  
-		    /*計算位於參數值t的曲線點*/  
-		  
-		    tSquared = t * t;  
-		    tCubed = tSquared * t;  
-		  
-		    this.x = (ax * tCubed) + (bx * tSquared) + (cx * t) + cp[0].x;  
-		    this.y = (ay * tCubed) + (by * tSquared) + (cy * t) + cp[0].y;  
-			if(this.x>=width||this.x<=0){
-				this.x=300;
+            cx = 3.0 * (this.bezier[1].x - this.bezier[0].x);
+            bx = 3.0 * (this.bezier[2].x - this.bezier[1].x) - cx;
 
+            cy = 3.0 * (this.bezier[1].y - this.bezier[0].y);
+            by = 3.0 * (this.bezier[2].y - this.bezier[1].y) - cy;
+
+            tSquared = t * t;
+
+            this.x =((bx * tSquared) + (cx * t) + this.bezier[0].x)+this.Xspeed;
+            this.y =(by * tSquared) + (cy * t) + this.bezier[0].y+this.Yspeed;
+			if(this.x>=width){
+                this.dt=0;
+			}else{
+                this.dt++;
 			}
-			if(this.y>=height||this.y<=0){
-				this.y = 300;
-			}
-			console.log(this.x);
 			return this;
 		}
 	}
-	function Point2D(x,y){  
-    	this.x=x||0.0;  
-    	this.y=y||0.0;  
+	function Point2D(x,y){
+    	this.x=x||0.0;
+    	this.y=y||0.0;
 	}
-	var arr = [], sum = 1;
+	var arr = [], sum = 200;
 	for(var i = 0; i<sum; i++){
 		arr.push(new Point());
 	}
-	var cp=[  
-    new Point2D(200, 0), new Point2D(100, 200), new Point2D(300, -200), new Point2D(400, 0)  
-	];  
-	var numberOfPoints=10000;  
-	var curve=[];  
-	ComputeBezier( cp, numberOfPoints, curve );  
-	var i=0;
-	function render(){
-		// ctx.clearRect(0, 0, width, height);
 
-		var point = arr[0];
-		var dt = 1.0 / ( 100 - 1 );  
-  
-        var x = PointOnCubicBezier( cp, i*dt );  
-        i++;
-		point.x = x.x;
-		point.y = x.y;
-		point.draw();
-		// console.log(x);
+	function render(){
+		 ctx.clearRect(0, 0, width, height);
+		for(var j=0; j<sum;j++){
+            var point = arr[j];
+            var dt = 1.0 / ( point.random*100 - 1 );
+
+			point.move().draw();
+        }
 		requestAnimFrame(render);
 	}
 	render();
 
-
-	function Point2D(x,y){  
-    this.x=x||0.0;  
-    this.y=y||0.0;  
-	}  
-/*  
- cp在此是四個元素的陣列:  
- cp[0]為起始點，或上圖中的P0  
- cp[1]為第一個控制點，或上圖中的P1  
- cp[2]為第二個控制點，或上圖中的P2  
- cp[3]為結束點，或上圖中的P3  
- t為參數值，0 <= t <= 1  
-*/  
-function PointOnCubicBezier( cp, t )  
-{  
-    var   ax, bx, cx;  
-    var   ay, by, cy;  
-    var   tSquared, tCubed;  
-    var   result = new Point2D ;  
-  
-    /*計算多項式係數*/  
-  
-    cx = 3.0 * (cp[1].x - cp[0].x);  
-    bx = 3.0 * (cp[2].x - cp[1].x) - cx;  
-    ax = cp[3].x - cp[0].x - cx - bx;  
-  
-    cy = 3.0 * (cp[1].y - cp[0].y);  
-    by = 3.0 * (cp[2].y - cp[1].y) - cy;  
-    ay = cp[3].y - cp[0].y - cy - by;  
-  
-    /*計算位於參數值t的曲線點*/  
-  
-    tSquared = t * t;  
-    tCubed = tSquared * t;  
-  
-    result.x = (ax * tCubed) + (bx * tSquared) + (cx * t) + cp[0].x;  
-    result.y = (ay * tCubed) + (by * tSquared) + (cy * t) + cp[0].y;  
-
-    return result;  
-}  
-  
-/*  
- ComputeBezier以控制點cp所產生的曲線點，填入Point2D結構的陣列。  
- 呼叫者必須分配足夠的記憶體以供輸出結果，其為<sizeof(Point2D) numberOfPoints>  
-*/  
-  
-function ComputeBezier( cp, numberOfPoints, curve )  
-{  
-    var   dt;  
-    var   i;  
-  
-    dt = 1.0 / ( numberOfPoints - 1 );  
-  
-    for( i = 0; i < numberOfPoints; i++)  
-        curve[i] = PointOnCubicBezier( cp, i*dt );  
-}  
-  
 
 	</script>
 </body>
