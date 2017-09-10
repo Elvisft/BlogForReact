@@ -4,7 +4,7 @@ exports.autowired = {
         '/getClasses/:id' : (req, res, next)=>{
 
             req.getConnection((err,conn)=>{
-                conn.query('SELECT id,name FROM classes WHERE parent_id= ?',[ req.params.id ], (err, result) => {
+                conn.query('SELECT id,name,has_child FROM classes WHERE parent_id= ?',[ req.params.id ], (err, result) => {
                     if(err){
                         res.json(err);
                     }else{
@@ -13,7 +13,6 @@ exports.autowired = {
                     }
                 });
             });
-
         }
     },
     'post' : {

@@ -12,17 +12,22 @@ import { URL } from './../components/config';
 class Career extends React.Component<any, any> {
     state = {
         sel: 'java',
-        type: []
+        type: [],
+        classes: {}
     };
     constructor ( props: any ) {
         super(props);
-        // this.setState({       visible: false });
+
+        this.getClasses(2, (data: any) => {
+            let classes = {2: data};
+            this.setState({classes: classes});
+        });
     }
 
-    getClasses = (classes: number): any => {
+    getClasses = (classes: any, callback: Function): any => {
         const url: string = URL + 'classes/getClasses/' + classes;
         return fetch( url ).then(response => response.json())
-            .then(data => {return data; })
+            .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
     }
 
@@ -87,14 +92,35 @@ class Career extends React.Component<any, any> {
         this.setState({ sel: value });
     }
 
-    handleClick = (e: any) => {
-        console.log(this.getClasses(2));
+    openClass = (e: any) => {
+        let type = e.key;
+        if (this.state.classes[type]) return;
+        this.getClasses(type, (data: any) => {
+            this.state.classes[type] = data;
+            this.setState({classes: this.state.classes});
+        });
+    }
+
+    getBlog = (e: any) => {
 
     }
 
     render() {
         const SubMenu = Menu.SubMenu;
-
+        const classes = (type: any): any => {
+            if (this.state.classes[type] === undefined) return [];
+            var tem = [];
+            for (let d of this.state.classes[type]) {
+                    if (d.has_child === 0) {
+                        tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
+                    }else {
+                        tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.openClass}>
+                                {classes(d.id)}
+                            </SubMenu>);
+                    }
+            }
+            return tem;
+        }
         return (
             <div className="career">
                 <section className="top-post-wrap">
@@ -166,7 +192,7 @@ class Career extends React.Component<any, any> {
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
                                 <aside className="aside font-2">
                                     <Menu
-                                        onClick={this.handleClick}
+                                        onClick={this.getBlog}
                                         className="sel-left"
                                         defaultSelectedKeys={['java']}
                                         defaultOpenKeys={['sub4']}
@@ -174,9 +200,10 @@ class Career extends React.Component<any, any> {
                                     >
 
                                         <SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>
-                                            {['java', 'sql'].map((d: any) => <Menu.Item key={d}>{d}</Menu.Item>)}
+                                            {classes(2)}
                                         </SubMenu>
                                     </Menu>
+
                                     {/*<ul className="sidebar-menu">*/}
                                         {/*<li className="menu-item-object-category">*/}
                                             {/*<a className="sidebar-menu__title-link">分类</a>*/}
