@@ -16,4 +16,4 @@ const protConfig= {
     port: 3306,
     database: 'blog'
 };
-module.exports= myConnection(mysql, devConfig, 'single');
+module.exports= myConnection(mysql, devConfig, 'pool');
