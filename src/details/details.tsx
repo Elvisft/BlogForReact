@@ -11,7 +11,7 @@ class Details extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <section>
+                <section className="main-post-wrap">
                     <div className="career-content">
                         <Row>
                             <Col xs={{span: 24}} sm={{span: 14}} md={{span: 16}}>
