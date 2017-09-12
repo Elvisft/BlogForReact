@@ -108,7 +108,7 @@ class Career extends React.Component<any, any> {
                                             if (index == 0) {
                                                 return <article>
                                                     <div>
-                                                        <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
+                                                        <h1><a href={`/career/details/${i.id}`}>{i.title}</a></h1>
                                                     </div>
                                                     <div className="font-6">
                                                         <span>MR-Liu   |  {i.date}</span>
@@ -116,7 +116,7 @@ class Career extends React.Component<any, any> {
                                                     <div className="font-7">
                                                         {i.briefing}
                                                     </div>
-                                                    <Button type="primary" size={'large'} className="left" ghost={true}><a href={'/career/details/' + i.id}>阅读全文</a></Button>
+                                                    <Button type="primary" size={'large'} className="left" ghost={true}><a href={`/career/details/${i.id}`}>阅读全文</a></Button>
                                                 </article>;
                                             }
                                             return;
@@ -131,7 +131,7 @@ class Career extends React.Component<any, any> {
                                             if (index != 0) {
                                                 return <article>
                                                     <div>
-                                                        <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
+                                                        <h1><a href={`/career/details/${i.id}`}>{i.title}</a></h1>
                                                     </div>
                                                     <div className="font-6">
                                                         <span>MR-Liu   |  {i.date}</span>
@@ -171,7 +171,7 @@ class Career extends React.Component<any, any> {
                                                     <p className="font-7">
                                                         {i.briefing}
                                                     </p>
-                                                    <Button type="primary" size={'large'} ghost={true}><a href={'/career/details/' + i.id}>阅读全文</a></Button>
+                                                    <Button type="primary" size={'large'} ghost={true}><a href={`/career/details/${i.id}`}>阅读全文</a></Button>
                                                 </div>
                                             </article>
                                     )

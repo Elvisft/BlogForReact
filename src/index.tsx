@@ -13,6 +13,7 @@ import Home from './home/home';
 import About from './about/about';
 import Career from './career/career';
 import Error from './error/error';
+import Details from './details/details';
 
 
 const history = createHistory()
@@ -42,6 +43,12 @@ const routes = [
         exact: true,
         navigation: () => <Head selected= "2"/>,
         main: () => <Career/>
+    },
+    {
+        path: '/career/details/:id',
+        exact: true,
+        navigation: () => <Head selected= "2"/>,
+        main: () => <Details/>
     }
 ];
 
