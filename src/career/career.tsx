@@ -11,9 +11,11 @@ import { URL } from './../components/config';
 // 生涯
 class Career extends React.Component<any, any> {
     state = {
-        sel: 'java',
+        sel: 0,
         type: [],
-        classes: {}
+        classes: {},
+        topArticles: [],
+        articles: []
     };
     constructor ( props: any ) {
         super(props);
@@ -22,13 +24,35 @@ class Career extends React.Component<any, any> {
             let classes = {2: data};
             this.setState({classes: classes});
         });
-    }
 
-    getClasses = (classes: any, callback: Function): any => {
-        const url: string = URL + 'classes/getClasses/' + classes;
-        return fetch( url ).then(response => response.json())
+        this.getArticle(2, 0, 6, (data: any) => {
+            this.setState({topArticles: data});
+        });
+
+        this.getArticle(2, 0, 5, (data: any) => {
+            this.setState({articles: data});
+        });
+
+    }
+    static defaultProps = {
+        getArticleURL : 'article/getArticle/',
+        getClassesURL : 'classes/getClasses/'
+    }
+    getArticle = (type: any, page: any, size: any, callback: Function) => {
+        return fetch( URL + this.props.getArticleURL + `${type}/${page}/${size}` ).then(response => response.json())
             .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
+    }
+    getClasses = (classes: any, callback: Function): any => {
+        return fetch( URL + this.props.getClassesURL + classes ).then(response => response.json())
+            .then(data => callback(data))
+            .catch(e => console.log('Oops, error', e));
+    }
+
+    pagination = (current: number, size: number) => {
+        this.getArticle(this.state.sel, current, size, (data: any) => {
+            this.setState({articles: data});
+        });
     }
 
     blogData = [
@@ -92,8 +116,19 @@ class Career extends React.Component<any, any> {
         this.setState({ sel: value });
     }
 
+    menuAction = (type: number) => {
+        if (this.state.sel == type) {
+            return;
+        }
+        this.setState({sel: type});
+        this.getArticle(type, 0, 5, (data: any) => {
+            this.setState({articles: data});
+        });
+    }
+
     openClass = (e: any) => {
         let type = e.key;
+        this.menuAction(type);
         if (this.state.classes[type]) return;
         this.getClasses(type, (data: any) => {
             this.state.classes[type] = data;
@@ -101,8 +136,9 @@ class Career extends React.Component<any, any> {
         });
     }
 
-    getBlog = (e: any) => {
-
+    menuClick = (e: any) => {
+        let type = e.key;
+        this.menuAction(type);
     }
 
     render() {
@@ -127,31 +163,47 @@ class Career extends React.Component<any, any> {
                     <div className="career-content">
                         <Row>
                             <Col xs={{span: 24}} sm={{span: 12}} md={{span: 12}} lg={{span: 12}} className="career-first">
-                                <article>
-                                    <div>
-                                        <h1><a href={'/career/details/' + this.blogData[0].id}>{this.blogData[0].title}</a></h1>
-                                    </div>
-                                    <div className="font-6">
-                                        <span>{this.blogData[0].author}   |  {this.blogData[0].date}</span>
-                                    </div>
-                                    <div className="font-7">
-                                        {this.blogData[0].briefing}
-                                    </div>
-                                    <Button type="primary" size={'large'} className="left" ghost={true}><a href={'/career/details/' + this.blogData[0].id}>阅读全文</a></Button>
-                                </article>
+                                {
+                                    this.state.topArticles.map(
+                                        (i: any, index: number) => {
+                                            if (index == 0) {
+                                                return <article>
+                                                    <div>
+                                                        <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
+                                                    </div>
+                                                    <div className="font-6">
+                                                        <span>{i.author}   |  {i.date}</span>
+                                                    </div>
+                                                    <div className="font-7">
+                                                        {i.briefing}
+                                                    </div>
+                                                    <Button type="primary" size={'large'} className="left" ghost={true}><a href={'/career/details/' + i.id}>阅读全文</a></Button>
+                                                </article>;
+                                            }
+                                            return;
+                                        }
+                                    )
+                                }
+
                             </Col>
                             <Col xs={{span: 24, offset: 0}} sm={{span: 10, offset: 2}} md={{span: 10, offset: 2}} lg={{span: 10, offset: 2}} className="career-top">
                                 {
-                                    this.blogData.map(
-                                        (i: any) =>
-                                            <article>
-                                                <div>
-                                                    <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
-                                                </div>
-                                                <div className="font-6">
-                                                    <span>{i.author}   |  {i.date}</span>
-                                                </div>
-                                            </article>)
+                                    this.state.topArticles.map(
+                                        (i: any , index: number) => {
+                                            if (index != 0) {
+                                                return <article>
+                                                    <div>
+                                                        <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
+                                                    </div>
+                                                    <div className="font-6">
+                                                        <span>MR-Liu   |  {i.date}</span>
+                                                    </div>
+                                                </article>;
+                                            }
+
+                                            return;
+                                        }
+                                    )
                                 }
                             </Col>
                         </Row>
@@ -163,18 +215,18 @@ class Career extends React.Component<any, any> {
                         <Row>
                             <Col xs={{span: 24}} sm={{span: 14}} md={{span: 16}}>
                                 {
-                                    this.blogData.map(
+                                    this.state.articles.map(
                                         (i: any) =>
                                             <article className="main-post">
                                                 <div className="main-post__img">
-                                                    <img src={i.img} alt=""/>
+                                                    <img src={`http://106.14.150.87/static/image/${i.id}.jpg`} alt=""/>
                                                 </div>
                                                 <div className="main-post__title-wrap">
                                                     <div>
                                                         <h2><a href={'/career/details/' + i.id}>{i.title}</a></h2>
                                                     </div>
                                                     <div>
-                                                        <span>{i.author}   |  {i.date}</span>
+                                                        <span>MR-Liu   |  {i.date}</span>
                                                     </div>
                                                 </div>
                                                 <div className="main-post__cont">
@@ -186,13 +238,13 @@ class Career extends React.Component<any, any> {
                                             </article>
                                     )
                                 }
-                                <Pagination className="text-center" defaultCurrent={1} total={50} />
+                                <Pagination className="text-center" defaultCurrent={1} total={50} pageSize={5} onChange={this.pagination}/>
                             </Col>
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
                                 <aside className="aside font-2">
                                     <Menu
-                                        onClick={this.getBlog}
+                                        onClick={this.menuClick}
                                         className="sel-left"
                                         defaultSelectedKeys={['java']}
                                         defaultOpenKeys={['sub4']}

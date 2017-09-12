@@ -4,7 +4,7 @@ exports.autowired = {
             let type = parseInt(req.params.type),page = parseInt(req.params.page), size = parseInt(req.params.size);
             console.log([typeof req.params.type, typeof req.params.page, typeof req.params.size])
             req.getConnection((err, conn) => {
-                conn.query('SELECT * FROM article WHERE type IN ( '+
+                conn.query('SELECT id,title,type,briefing,date_format(date,"%c.%d.%Y") as date FROM article WHERE type IN ( '+
                 'select id '+
                 'from( '+
                     'select a1.id,a1.name, '+
@@ -20,7 +20,7 @@ exports.autowired = {
                 'on(a4.parent_id=a5.id) '+
                 ') al '+
                 'where (parent_id=? or p2id=? or p3id=? or p4id=? or p5id=?) '+
-                ') ORDER BY date DESC LIMIT 0,5',
+                ') ORDER BY date DESC LIMIT ?,?',
                     [type, type, type, type, type, page, size], (err, result) => {
                         if(err){
                             res.json(err);
