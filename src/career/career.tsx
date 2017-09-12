@@ -55,67 +55,6 @@ class Career extends React.Component<any, any> {
         });
     }
 
-    blogData = [
-        {
-            id: '12345',
-            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
-            author: 'HAROLD REAVES',
-            type: 'java',
-            date: ' 08.15.2017',
-            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
-            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
-        },
-        {
-            id: '12345',
-            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
-            author: 'HAROLD REAVES',
-            type: 'java',
-            date: ' 08.15.2017',
-            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
-            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
-        },
-        {
-            id: '12345',
-            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
-            author: 'HAROLD REAVES',
-            type: 'java',
-            date: ' 08.15.2017',
-            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
-            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
-        },
-        {
-            id: '12345',
-            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
-            author: 'HAROLD REAVES',
-            type: 'java',
-            date: ' 08.15.2017',
-            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
-            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
-        },
-        {
-            id: '12345',
-            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
-            author: 'HAROLD REAVES',
-            type: 'java',
-            date: ' 08.15.2017',
-            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
-            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
-        },
-        {
-            id: '12345',
-            title: 'IT’S BACK-TO-SCHOOL: HOW SAFE ARE YOUR ENDPOINTS?',
-            author: 'HAROLD REAVES',
-            type: 'java',
-            date: ' 08.15.2017',
-            img: 'https://blogs.absolute.com/wp-content/uploads/2016/09/shutterstock_147086546.jpg',
-            briefing: 'It’s back-to-school season which means plenty of preparation is underway – by families and schools. While students scramble to fill backpacks, get haircuts and buy new shoes, schools are also in a last minute push to ready their classrooms and the learning tools they rely on. An increasingly common...'
-        }
-    ]
-
-    selType = (value: any) => {
-        this.setState({ sel: value });
-    }
-
     menuAction = (type: number) => {
         if (this.state.sel == type) {
             return;
@@ -172,7 +111,7 @@ class Career extends React.Component<any, any> {
                                                         <h1><a href={'/career/details/' + i.id}>{i.title}</a></h1>
                                                     </div>
                                                     <div className="font-6">
-                                                        <span>{i.author}   |  {i.date}</span>
+                                                        <span>MR-Liu   |  {i.date}</span>
                                                     </div>
                                                     <div className="font-7">
                                                         {i.briefing}
@@ -184,7 +123,6 @@ class Career extends React.Component<any, any> {
                                         }
                                     )
                                 }
-
                             </Col>
                             <Col xs={{span: 24, offset: 0}} sm={{span: 10, offset: 2}} md={{span: 10, offset: 2}} lg={{span: 10, offset: 2}} className="career-top">
                                 {
