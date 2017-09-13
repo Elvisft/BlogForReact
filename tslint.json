@@ -55,7 +55,7 @@
         "no-unused-expression": true,
         "no-use-before-declare": true,
         "one-line": [
-            true,
+            false,
             "check-catch",
             "check-else",
             "check-open-brace",

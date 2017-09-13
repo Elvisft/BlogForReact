@@ -14,16 +14,16 @@ import About from './about/about';
 import Career from './career/career';
 import Error from './error/error';
 import Details from './details/details';
-import Editor from './test/editor';
 
-const history = createHistory()
+
+const history = createHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
+const middleware = routerMiddleware(history);
 export const store = createStore(
     stores,
     applyMiddleware(middleware)
-)
+);
 
 const routes = [
     {
@@ -49,15 +49,8 @@ const routes = [
         exact: true,
         navigation: () => <Head selected= "2"/>,
         main: () => <Details/>
-    },
-    {
-        path: '/test',
-        exact: true,
-        navigation: () => <Head selected= "2"/>,
-        main: () => <Editor/>
     }
 ];
-
 
 ReactDOM.render(
 
@@ -85,3 +78,4 @@ ReactDOM.render(
     </Provider>
     , document.getElementById('root')
 );
+console.log(12);

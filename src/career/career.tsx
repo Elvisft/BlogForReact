@@ -83,7 +83,9 @@ class Career extends React.Component<any, any> {
     render() {
         const SubMenu = Menu.SubMenu;
         const classes = (type: any): any => {
-            if (this.state.classes[type] === undefined) return [];
+            if (this.state.classes[type] === undefined) {
+                return [];
+            }
             var tem = [];
             for (let d of this.state.classes[type]) {
                     if (d.has_child === 0) {
@@ -95,7 +97,7 @@ class Career extends React.Component<any, any> {
                     }
             }
             return tem;
-        }
+        };
         return (
             <div className="career">
                 <section className="top-post-wrap">
@@ -105,7 +107,7 @@ class Career extends React.Component<any, any> {
                                 {
                                     this.state.topArticles.map(
                                         (i: any, index: number) => {
-                                            if (index == 0) {
+                                            if (index === 0) {
                                                 return <article>
                                                     <div>
                                                         <h1><a href={`/career/details/${i.id}`}>{i.title}</a></h1>
@@ -128,7 +130,7 @@ class Career extends React.Component<any, any> {
                                 {
                                     this.state.topArticles.map(
                                         (i: any , index: number) => {
-                                            if (index != 0) {
+                                            if (index !== 0) {
                                                 return <article>
                                                     <div>
                                                         <h1><a href={`/career/details/${i.id}`}>{i.title}</a></h1>
@@ -229,7 +231,7 @@ const mapDispatchToProps: any = (dispatch: any) => {
     return {
         actions: bindActionCreators(actions.SignAction, dispatch),
     };
-}
+};
 export default connect(
     undefined,
     mapDispatchToProps
