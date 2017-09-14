@@ -14,7 +14,7 @@ import About from './about/about.jsx';
 import Career from './career/career.jsx';
 import Error from './error/error.jsx';
 import Details from './details/details.jsx';
-
+import Editor from './components/editor.jsx';
 
 const history = createHistory();
 
@@ -49,6 +49,12 @@ const routes = [
         exact: true,
         navigation: () => <Head selected= "2"/>,
         main: () => <Details/>
+    },
+    {
+        path: '/Editor',
+        exact: true,
+        navigation: () => <Head selected= "2"/>,
+        main: () => <Editor/>
     }
 ];
 class App extends React.Component {

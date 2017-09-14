@@ -30,9 +30,13 @@ exports.autowired = {
                         }
                     });
             })
-        }
+        },
+
     },
     'post' : {
-
+        '/test': (req, res, next) => {
+            console.log(123);
+            console.log(req);
+        }
     }
 };
