@@ -1,7 +1,12 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
-    entry:  __dirname + "/client/main.js",
+    entry: [
+        'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
+        'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+        './client/main.js' // Your appʼs entry point
+    ],
     output: {
         path: __dirname + "/build",
         filename: "bundle.js"
@@ -15,11 +20,11 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015','react','stage-0']
                 }
             }, {
-                test: /\.less$/,
-                loader: 'style-loader!css-loader!less-loader',
+                test: /\.css$/,
+                loader: 'style-loader!css-loader',
             }, {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loader: 'file-loader'
@@ -41,6 +46,7 @@ module.exports = {
                 removeComments:true,
                 collapseWhitespace:true
             }
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 }

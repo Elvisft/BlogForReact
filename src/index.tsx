@@ -78,4 +78,3 @@ ReactDOM.render(
     </Provider>
     , document.getElementById('root')
 );
-console.log(12);
