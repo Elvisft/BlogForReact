@@ -3,11 +3,21 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
 import { Anchor, Row, Col } from 'antd';
+import PropTypes from 'prop-types';
 const { Link } = Anchor;
 
 // import { URL } from './../components/config';
 
 class Details extends React.Component {
+    constructor ( props ) {
+        super(props);
+        this.getArticle();
+        // const match = matchPath(location.pathname, { path, exact })
+    }
+    getArticle = () => {
+        console.log(123);
+        console.log(this.props.path);
+    }
     render() {
         return (
             <div>
