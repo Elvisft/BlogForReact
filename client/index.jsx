@@ -65,7 +65,7 @@ class App extends React.Component {
                     <div>
                         {
                             routes.map((route, index) => (
-                                <Route exact={route.exact} path={route.path} component={route.navigation} />
+                                <Route exact={route.exact} path={route.path} component={route.navigation} key={index}/>
                             ))
                         }
 
@@ -73,7 +73,7 @@ class App extends React.Component {
                             {/*render={() => {URLChange(0); return <Home/>; }}*/}
                             {
                                 routes.map((route, index) => (
-                                    <Route exact={route.exact} path={route.path} component={route.main} />
+                                    <Route exact={route.exact} path={route.path} component={route.main} key={index} />
                                 ))
                             }
 

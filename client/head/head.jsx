@@ -27,9 +27,7 @@ const menu = (
 
 
 class Head extends React.Component {
-    props = {
-        selected: '0'
-    }
+
     constructor ( props ) {
         super(props);
     }

@@ -29,11 +29,9 @@ function fetch1(value, callback) {
 }
 
 class SearchInput extends React.Component {
-    props = {
-            placeholder: 'Search',
-            className: '',
-            style: {}
 
+    constructor(props){
+        super(props);
     }
     state = {
         data: [],

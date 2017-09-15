@@ -108,7 +108,7 @@ class Career extends React.Component {
                                     this.state.topArticles.map(
                                         (i, index) => {
                                             if (index === 0) {
-                                                return <article>
+                                                return <article key={index}>
                                                     <div>
                                                         <h1><a href={`/career/details/${i.id}`}>{i.title}</a></h1>
                                                     </div>
@@ -131,7 +131,7 @@ class Career extends React.Component {
                                     this.state.topArticles.map(
                                         (i , index) => {
                                             if (index !== 0) {
-                                                return <article>
+                                                return <article  key={index}>
                                                     <div>
                                                         <h1><a href={`/career/details/${i.id}`}>{i.title}</a></h1>
                                                     </div>
@@ -156,8 +156,8 @@ class Career extends React.Component {
                             <Col xs={{span: 24}} sm={{span: 14}} md={{span: 16}}>
                                 {
                                     this.state.articles.map(
-                                        (i) =>
-                                            <article className="main-post">
+                                        (i, index) =>
+                                            <article className="main-post" key={index}>
                                                 <div className="main-post__img">
                                                     <img src={`http://106.14.150.87/static/image/${i.id}.jpg`} alt=""/>
                                                 </div>
