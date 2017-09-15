@@ -8,8 +8,9 @@ module.exports = {
         './client/main.js' // Your appʼs entry point
     ],
     output: {
-        path: __dirname + "/build",
-        filename: "bundle.js"
+        path: path.resolve(__dirname, 'build'),
+        // publicPath: path.resolve(__dirname, '/build/'),
+        filename: 'bundle.js'
     },
     devtool: 'eval-source-map',
 
@@ -42,6 +43,7 @@ module.exports = {
         new htmlWebpackPlugin({
             template: './client/public/index.html',
             title:'123',
+            inject:false,
             minify:{
                 removeComments:true,
                 collapseWhitespace:true

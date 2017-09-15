@@ -1,6 +1,9 @@
+const multiparty = require('multiparty');
+const util = require('util');
+const fs = require('fs');
 exports.autowired = {
     'get' : {
-        '/getArticle/:type/:page/:size' : (req, res, next)=>{
+        '/getArticles/:type/:page/:size' : (req, res, next)=>{
             let type = parseInt(req.params.type),page = parseInt(req.params.page), size = parseInt(req.params.size);
             console.log([typeof req.params.type, typeof req.params.page, typeof req.params.size])
             req.getConnection((err, conn) => {
@@ -31,12 +34,36 @@ exports.autowired = {
                     });
             })
         },
+        '/getArticles/id' : (req, res, next) => {
 
+        }
     },
     'post' : {
         '/test': (req, res, next) => {
-            console.log(123);
-            console.log(req);
+            //生成multiparty对象，并配置上传目标路径
+            let form = new multiparty.Form({uploadDir: './server/static/image'});
+            //上传完成后处理
+             form.parse(req, function(err, fields, files) {
+                 let filesTmp = JSON.stringify(files,null,2);
+                 if(err){
+                     console.log('parse error: ' + err);
+                 } else {
+                     console.log('parse files: ' + filesTmp);
+                     let inputFile = files.image[0];
+                     let uploadedPath = inputFile.path;
+                     let dstPath = './server/static/image/' + inputFile.originalFilename;
+                     //重命名为真实文件名
+                     fs.rename(uploadedPath, dstPath, function(err) {
+                         if(err){
+                             console.log('rename error: ' + err);
+                         } else {
+                             console.log('rename ok');
+                         }
+                     });
+                 }
+
+                 res.json({ data: { link: 'http://106.14.150.87/static/image/1.jpg'}});
+             });
         }
     }
 };

@@ -51,7 +51,7 @@ const routes = [
         main: () => <Details/>
     },
     {
-        path: '/Editor',
+        path: '/editor',
         exact: true,
         navigation: () => <Head selected= "2"/>,
         main: () => <Editor/>

@@ -35,7 +35,7 @@ class Career extends React.Component {
 
     }
     static defaultProps = {
-        getArticleURL : 'article/getArticle/',
+        getArticleURL : 'article/getArticles/',
         getClassesURL : 'classes/getClasses/'
     }
     getArticle = (type, page, size, callback) => {
