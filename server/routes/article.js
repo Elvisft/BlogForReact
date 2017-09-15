@@ -5,7 +5,7 @@ exports.autowired = {
     'get' : {
         '/getArticles/:type/:page/:size' : (req, res, next)=>{
             let type = parseInt(req.params.type),page = parseInt(req.params.page), size = parseInt(req.params.size);
-            console.log([typeof req.params.type, typeof req.params.page, typeof req.params.size])
+
             req.getConnection((err, conn) => {
                 conn.query('SELECT id,title,type,briefing,date_format(date,"%c.%d.%Y") as date FROM article WHERE type IN ( '+
                 'select id '+
@@ -35,7 +35,17 @@ exports.autowired = {
             })
         },
         '/getArticles/id' : (req, res, next) => {
-
+            let id = req.params.id;
+            req.getConnection((err, conn) => {
+                conn.query('SELECT * FROM article WHERE id=?',[id], (err, result) => {
+                    if(err){
+                        res.json(err);
+                    }else{
+                        console.log(result)
+                        res.json(result);
+                    }
+                });
+            });
         }
     },
     'post' : {
