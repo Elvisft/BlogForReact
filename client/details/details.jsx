@@ -48,7 +48,7 @@ class Details extends React.Component {
                                     <span>MR-Liu   |  {n.date}</span>
                                 </div>
                             </div>
-                            <div className="main-post__cont" dangerouslySetInnerHTML={{__html: n.content}}/>
+                            <div className="main-post__cont" dangerouslySetInnerHTML={{__html: n.content.replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')}}/>
                         </article>
                     </Col>
                     <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
