@@ -34,10 +34,10 @@ exports.autowired = {
                     });
             })
         },
-        '/getArticles/id' : (req, res, next) => {
+        '/getArticle/:id' : (req, res, next) => {
             let id = req.params.id;
             req.getConnection((err, conn) => {
-                conn.query('SELECT * FROM article WHERE id=?',[id], (err, result) => {
+                conn.query('SELECT id,title,type,date_format(date,"%c.%d.%Y") as date,content FROM article WHERE id=?',[id], (err, result) => {
                     if(err){
                         res.json(err);
                     }else{
