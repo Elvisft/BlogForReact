@@ -21,7 +21,6 @@ class Details extends React.Component {
         let id = matchPath(location.pathname,'/career/details/:id',true).params.id;
 
         this.getArticle(id, (data) => {
-            console.log(data);
             this.setState({article: data});
         });
 
@@ -33,6 +32,19 @@ class Details extends React.Component {
     }
     render() {
         const details = this.state.article.map((n, i) => {
+            let list = n.content.match(/<h[1-6]{1}\sid=[^>]*>/ig);
+            let arr = new Map();
+            for(let x=0;x<list.length;x++){
+                let str =list[x].match(/([^\s=]+)=(.*?)(?=id|>)/)[2];
+                if(list[x].indexOf('h1')!=-1){
+
+                    arr.set(str, new Map());
+                }
+
+                arr[arr.length-1].push(str.substring(1,str.length-2));
+            }
+            console.log(arr);
+
             return (
                 <Row key={i}>
                     <Col xs={{span: 24}} sm={{span: 14}} md={{span: 16}}>
@@ -53,10 +65,15 @@ class Details extends React.Component {
                     </Col>
                     <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
                         <aside>
-                            <Anchor className="aside font-2">
+                            <Anchor offsetTop={80} className="aside font-2">
                                 <Link href="#test1" title="test1" />
                                 <Link href="#test2" title="test2" />
-                                <Link href="#test3" title="test3">
+                                <Link>
+                                    <Link>
+                                        <Link>
+                                            <Link href="#test4" title="test7" />
+                                        </Link>
+                                    </Link>
                                     <Link href="#test4" title="test4" />
                                     <Link href="#test5" title="test5" />
                                 </Link>
@@ -70,42 +87,7 @@ class Details extends React.Component {
             <div>
                 <section className="main-post-wrap">
                     <div className="career-content">
-                        {
-                            details
-                        }
-                        {/*<Row>*/}
-                            {/*<Col xs={{span: 24}} sm={{span: 14}} md={{span: 16}}>*/}
-                                {/*<article className="main-post">*/}
-                                    {/*<div className="main-post__img">*/}
-                                        {/*<img src={`http://106.14.150.87/static/image/1.jpg`} alt=""/>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="main-post__title-wrap">*/}
-                                        {/*<div>*/}
-                                            {/*<h2><a href={'/career/details/'}>A HARD LESSON IN VULNERABILITY MANAGEMENT FOR EQUIFAX</a></h2>*/}
-                                        {/*</div>*/}
-                                        {/*<div>*/}
-                                            {/*<span>MR-Liu   |  09.11.2017</span>*/}
-                                        {/*</div>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="main-post__cont">*/}
-
-
-                                    {/*</div>*/}
-                                {/*</article>*/}
-                            {/*</Col>*/}
-                            {/*<Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>*/}
-                                {/*<aside>*/}
-                                    {/*<Anchor className="aside font-2">*/}
-                                        {/*<Link href="#test1" title="test1" />*/}
-                                        {/*<Link href="#test2" title="test2" />*/}
-                                        {/*<Link href="#test3" title="test3">*/}
-                                            {/*<Link href="#test4" title="test4" />*/}
-                                            {/*<Link href="#test5" title="test5" />*/}
-                                        {/*</Link>*/}
-                                    {/*</Anchor>*/}
-                                {/*</aside>*/}
-                            {/*</Col>*/}
-                        {/*</Row>*/}
+                        {details}
                     </div>
                 </section>
 

@@ -64,12 +64,26 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     onEditorStateChange = (editorState) => {
-        console.log(convertToRaw(editorState.getCurrentContent()));
+
         this.setState({
             editorState:editorState,
-            text:draftToHtml(convertToRaw(editorState.getCurrentContent()))
+            text:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
         });
+
     };
+
+    htmlFormat = ( text) => {
+        for(let i=1;i<7;i++){
+            let tex = text.split(new RegExp(`<h${i}`,'ig'));
+            text=tex[0];
+            for(let j=1;j<tex.length;j++){
+                text += `<h${i} id="h${i}-${j}" ${tex[j]}`;
+
+            }
+        }
+        return text;
+    }
+
     onChange = (e)=>{
         console.log(e);
         }
