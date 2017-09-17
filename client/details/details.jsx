@@ -28,21 +28,78 @@ class Details extends React.Component {
     getArticle = (id, callback) => {
         return fetch(  `${URL}${this.props.getArticleURL}${id}` ).then(response => response.json())
             .then(data => callback(data))
-            .catch(e => console.log('Oops, error', e));
+            // .catch(e => console.log('Oops, error', e));
     }
     render() {
         const details = this.state.article.map((n, i) => {
-            let list = n.content.match(/<h[1-6]{1}\sid=[^>]*>/ig);
-            let arr = new Map();
-            for(let x=0;x<list.length;x++){
-                let str =list[x].match(/([^\s=]+)=(.*?)(?=id|>)/)[2];
-                if(list[x].indexOf('h1')!=-1){
 
-                    arr.set(str, new Map());
+            function getPath(map, id, path){
+                let arr=[];
+                if(!path) path=[];
+                if(!id) return map;
+                let keys = [...map.keys()];
+
+                for(let i of keys){
+
+                    if(i===id) {
+                        path.push(i);
+                        arr=[map,path];
+
+                    }
+                    else{
+                        path.push(i);
+                        arr=getPath(map.get(i),id, path);
+                    }
                 }
 
-                arr[arr.length-1].push(str.substring(1,str.length-2));
+                return arr;
             }
+            function formatId(str) {
+                return str.substring(1,str.length-2)
+            }
+
+            let list = n.content.match(/<h[1-6]{1}\sid=[^>]*>/ig);
+            let [arr, next] = [new Map(), new Map()];
+            arr.set(formatId(list[0].match(/([^\s=]+)=(.*?)(?=id|>)/)[2]),next);
+            console.log(list)
+            for(let i=1;i<list.length;i++){
+                let [str,str1] =[formatId(list[i].match(/([^\s=]+)=(.*?)(?=id|>)/)[2]), formatId(list[i-1].match(/([^\s=]+)=(.*?)(?=id|>)/)[2])];
+                let q= getPath(arr, str1)
+                let path=q[0];
+                if(str.substring(0,2)<str1.substring(0,2)){
+                    console.log(path)
+                    console.log(q[1]+'******'+str)
+                    path=getPath(arr, q[1][q[1].length-1])[0];
+
+                    path.set(str, new Map());
+                }else if(str.substring(0,2)===str1.substring(0,2)){
+
+                    path.set(str, new Map());
+                }else if(str.substring(0,2)>str1.substring(0,2)){
+
+                    path.get(str1).set(str, new Map());
+
+
+                }
+                console.log(arr)
+            }
+
+            // for(let x=1;x<list.length;x++){
+            //     let [str,str1] =[list[x].match(/([^\s=]+)=(.*?)(?=id|>)/)[2], list[x-1].match(/([^\s=]+)=(.*?)(?=id|>)/)[2]];
+            //     if(str>str1){
+            //
+            //     }else if(str===str1){
+            //
+            //     }else{
+            //
+            //     }
+            //
+            //
+            //
+            //         arr.set(str, new Map());
+            //
+            //     arr[arr.length-1].push(str.substring(1,str.length-2));
+            // }
             console.log(arr);
 
             return (
