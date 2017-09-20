@@ -92,10 +92,7 @@ class Details extends React.Component {
                             <Anchor offsetTop={80} className="aside font-2">
                                 {
                                     arr.map((n, i) =>
-                                    <div style={{paddingLeft : (n[0][1]-1)*18+'px'}} key={n[0]}>
-                                        <Link href={`#${n[0]}`} title={n[1]} />
-                                    </div>
-
+                                        <Link key={n[0]} href={`#${n[0]}`} title={n[1]} />
                                     )
                                 }
                             </Anchor>
