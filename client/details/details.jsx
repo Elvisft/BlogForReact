@@ -58,48 +58,15 @@ class Details extends React.Component {
                 return str.substring(1,str.length-2)
             }
 
-            let list = n.content.match(/<h[1-6]{1}\sid=[^>]*>/ig);
-            let [arr, next] = [new Map(), new Map()];
-            arr.set(formatId(list[0].match(/([^\s=]+)=(.*?)(?=id|>)/)[2]),next);
-            console.log(list)
-            for(let i=1;i<list.length;i++){
-                let [str,str1] =[formatId(list[i].match(/([^\s=]+)=(.*?)(?=id|>)/)[2]), formatId(list[i-1].match(/([^\s=]+)=(.*?)(?=id|>)/)[2])];
-                let q= getPath(arr, str1)
-                let path=q[0];
-                if(str.substring(0,2)<str1.substring(0,2)){
-                    console.log(path)
-                    console.log(q[1]+'******'+str)
-                    path=getPath(arr, q[1][q[1].length-1])[0];
+            let list = n.content.match(/<h[1-6]{1}\sid=[^>]*>([^<]*)/ig);
+            let arr= [];
+            for(let i =0;i<list.length;i++){
 
-                    path.set(str, new Map());
-                }else if(str.substring(0,2)===str1.substring(0,2)){
+                let indentation = list[i].slice(list[i].indexOf('id="')+4,list[i].indexOf('" '));
+                let title = list[i].split(/\sid=[^>]*>/ig)[1];
 
-                    path.set(str, new Map());
-                }else if(str.substring(0,2)>str1.substring(0,2)){
-
-                    path.get(str1).set(str, new Map());
-
-
-                }
-                console.log(arr)
+                arr.push([indentation, title]);
             }
-
-            // for(let x=1;x<list.length;x++){
-            //     let [str,str1] =[list[x].match(/([^\s=]+)=(.*?)(?=id|>)/)[2], list[x-1].match(/([^\s=]+)=(.*?)(?=id|>)/)[2]];
-            //     if(str>str1){
-            //
-            //     }else if(str===str1){
-            //
-            //     }else{
-            //
-            //     }
-            //
-            //
-            //
-            //         arr.set(str, new Map());
-            //
-            //     arr[arr.length-1].push(str.substring(1,str.length-2));
-            // }
             console.log(arr);
 
             return (
@@ -123,17 +90,14 @@ class Details extends React.Component {
                     <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
                         <aside>
                             <Anchor offsetTop={80} className="aside font-2">
-                                <Link href="#test1" title="test1" />
-                                <Link href="#test2" title="test2" />
-                                <Link>
-                                    <Link>
-                                        <Link>
-                                            <Link href="#test4" title="test7" />
-                                        </Link>
-                                    </Link>
-                                    <Link href="#test4" title="test4" />
-                                    <Link href="#test5" title="test5" />
-                                </Link>
+                                {
+                                    arr.map((n, i) =>
+                                    <div style={{paddingLeft : (n[0][1]-1)*18+'px'}} key={n[0]}>
+                                        <Link href={`#${n[0]}`} title={n[1]} />
+                                    </div>
+
+                                    )
+                                }
                             </Anchor>
                         </aside>
                     </Col>
