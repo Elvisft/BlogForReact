@@ -8,9 +8,11 @@ module.exports = {
         './client/main.js' // Your appʼs entry point
     ],
     output: {
+
         path: path.resolve(__dirname, 'build'),
-        // publicPath: path.resolve(__dirname, '/build/'),
-        filename: 'bundle.js'
+        chunkFilename: '[name].[chunkhash:8].chunk.js',
+// publicPath: path.resolve(__dirname, '/build/'),
+        // filename: 'bundle.js'
     },
     devtool: 'eval-source-map',
 
@@ -21,7 +23,13 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
-                    presets: ['es2015','react','stage-0']
+                    presets: ['es2015','react','stage-0'],
+                    plugins: [
+                        'syntax-dynamic-import',
+                        'transform-async-to-generator',
+                        'transform-regenerator',
+                        'transform-runtime'
+                    ]
                 }
             }, {
                 test: /\.css$/,
@@ -43,7 +51,7 @@ module.exports = {
         new htmlWebpackPlugin({
             template: './client/public/index.html',
             title:'123',
-            inject:false,
+            inject:true,
             minify:{
                 removeComments:true,
                 collapseWhitespace:true
