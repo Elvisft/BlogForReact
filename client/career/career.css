@@ -184,22 +184,21 @@ li.menu-item-object-category ul.sidebar-submenu li a.active {
     width: 1140px;
   }
 }
-
-.aside a.ant-anchor-link-title[href^="#h1"]{
-  padding-left: 0;
+.aside a.ant-anchor-link-title[href^="#h1"] {
+  padding-left: 0px;
 }
-.aside a.ant-anchor-link-title[href^="#h2"]{
+.aside a.ant-anchor-link-title[href^="#h2"] {
   padding-left: 18px;
 }
-.aside a.ant-anchor-link-title[href^="#h3"]{
+.aside a.ant-anchor-link-title[href^="#h3"] {
   padding-left: 36px;
 }
-.aside a.ant-anchor-link-title[href^="#h4"]{
+.aside a.ant-anchor-link-title[href^="#h4"] {
   padding-left: 54px;
 }
-.aside a.ant-anchor-link-title[href^="#h5"]{
+.aside a.ant-anchor-link-title[href^="#h5"] {
   padding-left: 72px;
 }
-.aside a.ant-anchor-link-title[href^="#h6"]{
+.aside a.ant-anchor-link-title[href^="#h6"] {
   padding-left: 90px;
 }

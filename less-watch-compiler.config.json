@@ -3,6 +3,6 @@
   "minified": false,
   "sourceMap": false,
 
-  "watchFolder": "src/",
-  "outputFolder": "src/"
+  "watchFolder": "client/",
+  "outputFolder": "client/"
 }

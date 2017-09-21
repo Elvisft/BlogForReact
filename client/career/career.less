@@ -201,3 +201,12 @@ li.menu-item-object-category ul.sidebar-submenu li a.active
   }
 }
 
+
+.anchor-loop (@n, @i:1) when (@i =< @n){
+  .aside a.ant-anchor-link-title[href^="#h@{i}"]{
+    padding-left: ((@i - 1)*18px);
+  }
+  .anchor-loop(@n, (@i + 1));
+}
+
+.anchor-loop(6);
