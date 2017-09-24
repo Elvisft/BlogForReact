@@ -40,7 +40,8 @@ module.exports = {
                 }
             }, {
                 test: /\.less|css$/,
-                loader: 'style-loader!css-loader!less-loader',
+                loader: ExtractTextPlugin.extract("less-loader")
+                    // 'style-loader!css-loader!less-loader',
             }, {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loader: 'file-loader'
@@ -68,7 +69,7 @@ module.exports = {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-
+        new ExtractTextPlugin('build/[name].min.css'),
         new htmlWebpackPlugin({
             template: './client/public/index.html',
             title:'123',
