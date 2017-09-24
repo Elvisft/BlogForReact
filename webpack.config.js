@@ -2,20 +2,26 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
-    entry: [
-        'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
-        'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-        './client/main.js' // Your appʼs entry point
-    ],
-    output: {
+    entry: {
+    app: './client/main.js',
+    vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux']
+    // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
+    // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
 
-        path: path.resolve(__dirname, 'build'),
-        // chunkFilename: '[name].[chunkhash:8].chunk.js',
-// publicPath: path.resolve(__dirname, '/build/'),
-        filename: 'bundle.js'
+    },
+    output: {
+        publicPath: '/build/',
+        path: path.resolve(__dirname, './build'),
+        filename: '[name].js',
+        chunkFilename: '[id].js',
+        pathinfo: false
     },
     // devtool: 'eval-source-map',
-
+    devtool:  'source-map',
+    bail: true,
+    performance: {
+        hints: false
+    },
     module: {
         rules: [
             {
@@ -48,6 +54,19 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'manifest'],
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress:{
+                warnings: true
+            }
+        }),
+        new webpack.DefinePlugin({
+            'process.env':{
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
         new htmlWebpackPlugin({
             template: './client/public/index.html',
             title:'123',
@@ -56,7 +75,6 @@ module.exports = {
                 removeComments:true,
                 collapseWhitespace:true
             }
-        }),
-        new webpack.HotModuleReplacementPlugin()
+        })
     ]
 }

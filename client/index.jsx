@@ -54,19 +54,20 @@ const routes = [
         path: '/editor',
         exact: true,
         navigation: () => <Head selected= "2"/>,
-        main: (nextState,callback)=>{
-            require.ensure([],(require)=>{
-                callback(null,require("./components/editor.jsx").default)
-            },"editor")
-        }
+        main: <Editor/>
+        //     (nextState,callback)=>{
+        //     require.ensure([],(require)=>{
+        //         callback(null,require("./components/editor.jsx").default)
+        //     },"editor")
+        // }
     }
 ];
-async function main() {
-    // 解构赋值用法示例
-    const { default: Component } = await import('./components/editor.jsx');
-    // 行内用法示例
-    // render((await import('./components/editor.jsx')).default);
-}
+// async function main() {
+//     // 解构赋值用法示例
+//     const { default: Component } = await import('./components/editor.jsx');
+//     // 行内用法示例
+//     // render((await import('./components/editor.jsx')).default);
+// }
 class App extends React.Component {
     render() {
         return (
