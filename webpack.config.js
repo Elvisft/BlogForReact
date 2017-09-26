@@ -2,6 +2,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
     entry: {
     app: './client/main.js',
@@ -69,7 +70,13 @@ module.exports = {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new ExtractTextPlugin('build/[name].min.css'),
+        new ExtractTextPlugin('[name].min.css'),
+        new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.optimize\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: { discardComments: {removeAll: true } },
+            canPrint: true
+        }),
         new htmlWebpackPlugin({
             template: './client/public/index.html',
             title:'123',
