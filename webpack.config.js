@@ -72,7 +72,7 @@ module.exports = {
         }),
         new ExtractTextPlugin('[name].min.css'),
         new OptimizeCssAssetsPlugin({
-            assetNameRegExp: /\.optimize\.css$/g,
+            assetNameRegExp: /\.css$/g,
             cssProcessor: require('cssnano'),
             cssProcessorOptions: { discardComments: {removeAll: true } },
             canPrint: true
