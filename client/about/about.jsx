@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import * as actions from './../actions';
 
-import './about.less';
+import './about.css';
 
 let aboutbg = require('./../static/img/about_0.png');
 let aboutWake = require('./../static/img/about_wake.jpg');

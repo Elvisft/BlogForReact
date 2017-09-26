@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from './../actions';
 import { Modal, AutoComplete, Input, Button } from 'antd';
 
-import './sign.less';
+import './sign.css';
 // 登陆控制器
 class Sign extends React.Component {
     state = {

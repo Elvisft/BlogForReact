@@ -7,7 +7,7 @@ import { Row, Col, Menu, Button, Dropdown, Icon } from 'antd';
 // import * as actions from './../actions';
 import SearchInput from './../components/searchInput.jsx';
 
-import './head.less';
+import './head.css';
 import logo from './../static/img/logo.png';
 
 let MediaQuery = require('react-responsive');

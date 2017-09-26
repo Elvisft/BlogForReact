@@ -40,7 +40,7 @@ module.exports = {
                 }
             }, {
                 test: /\.less|css$/,
-                loader: ExtractTextPlugin.extract("less-loader")
+                loader: ExtractTextPlugin.extract("css-loader")
                     // 'style-loader!css-loader!less-loader',
             }, {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
