@@ -6,17 +6,16 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
     entry: {
     app: './client/main.js',
-    vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux']
-    // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
-    // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-
+    base: ['react', 'react-dom', 'react-router', 'redux', 'react-redux','antd'],
+    // about: './client/about/about.jsx'
     },
     output: {
-        publicPath: '/build/',
+        publicPath: '/build',
         path: path.resolve(__dirname, './build'),
         filename: '[name].js',
-        chunkFilename: '[id].js',
-        pathinfo: false
+        // chunkFilename: '[id].js',
+        chunkFilename: '[name].[chunkhash:8].chunk.js',
+// pathinfo: false
     },
     // devtool: 'eval-source-map',
     devtool:  'source-map',
@@ -58,7 +57,7 @@ module.exports = {
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest'],
+            names: ['base']
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress:{
