@@ -15,7 +15,7 @@ import Career from './career/career.jsx';
 import Error from './error/error.jsx';
 import Details from './details/details.jsx';
 import Editor from './components/editor.jsx';
-
+import Manager from './manager/manager.jsx';
 const history = createHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
@@ -30,36 +30,38 @@ const routes = [
         path: '/',
         exact: true,
         navigation: () => <Head selected="0"/>,
-        main: () => <Home/>
+        component: () => <Home/>
     },
     {
         path: '/about',
         exact: true,
         navigation: () => <Head selected= "1"/>,
-        main: () => <About/>
+        component: () => <About/>
+    },
+    {
+        path: '/manager',
+        exact: true,
+        navigation: () => <div/>,
+        component: () => <Manager/>
     },
     {
         path: '/career',
         exact: true,
         navigation: () => <Head selected= "2"/>,
-        main: () => <Career/>
+        component: () => <Career/>
     },
     {
         path: '/career/details/:id',
         exact: true,
         navigation: () => <Head selected= "2"/>,
-        main: () => <Details/>
+        component: () => <Details/>
     },
     {
         path: '/editor',
         exact: true,
         navigation: () => <Head selected= "2"/>,
-        main: <Editor/>
-        //     (nextState,callback)=>{
-        //     require.ensure([],(require)=>{
-        //         callback(null,require("./components/editor.jsx").default)
-        //     },"editor")
-        // }
+        component: <Editor/>
+
     }
 ];
 // async function main() {
@@ -67,6 +69,17 @@ const routes = [
 //     const { default: Component } = await import('./components/editor.jsx');
 //     // 行内用法示例
 //     // render((await import('./components/editor.jsx')).default);
+// }
+// {
+//     path: '/editor',
+//         exact: true,
+//     navigation: () => <Head selected= "2"/>,
+//     main: <Editor/>
+//     //     (nextState,callback)=>{
+//     //     require.ensure([],(require)=>{
+//     //         callback(null,require("./components/editor.jsx").default)
+//     //     },"editor")
+//     // }
 // }
 class App extends React.Component {
     render() {
@@ -84,7 +97,7 @@ class App extends React.Component {
                             {/*render={() => {URLChange(0); return <Home/>; }}*/}
                             {
                                 routes.map((route, index) => (
-                                    <Route exact={route.exact} path={route.path} component={route.main} key={index} />
+                                    <Route exact={route.exact} path={route.path} component={route.component} key={index} />
                                 ))
                             }
 
