@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './home.css';
+import './home.less';
 import { DatePicker } from  'antd';
 import * as actions from './../actions.js';
 import { bindActionCreators } from 'redux';
