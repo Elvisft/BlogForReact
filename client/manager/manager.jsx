@@ -1,56 +1,38 @@
 import * as React from 'react';
-import { Menu, Icon, Button } from 'antd';
+import { Menu, Icon, Button,Row,Col  } from 'antd';
+import { Link, Route, Router,matchPath } from 'react-router-dom';
+import Editor from './editor.jsx';
+
+import logo from './../static/img/logo.png';
 const SubMenu = Menu.SubMenu;
 
 class Manager extends React.Component{
-    state = {
-        collapsed: false,
-    }
-    toggleCollapsed = () => {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    }
+
     render() {
         return (
-            <div style={{ width: 240 }}>
-                <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-                    <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-                </Button>
-                <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    mode="inline"
-                    theme="dark"
-                    inlineCollapsed={this.state.collapsed}
-                >
-                    <Menu.Item key="1">
-                        <Icon type="pie-chart" />
-                        <span>Option 1</span>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <Icon type="desktop" />
-                        <span>Option 2</span>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        <Icon type="inbox" />
-                        <span>Option 3</span>
-                    </Menu.Item>
-                    <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-                        <Menu.Item key="5">Option 5</Menu.Item>
-                        <Menu.Item key="6">Option 6</Menu.Item>
-                        <Menu.Item key="7">Option 7</Menu.Item>
-                        <Menu.Item key="8">Option 8</Menu.Item>
-                    </SubMenu>
-                    <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-                        <Menu.Item key="9">Option 9</Menu.Item>
-                        <Menu.Item key="10">Option 10</Menu.Item>
-                        <SubMenu key="sub3" title="Submenu">
-                            <Menu.Item key="11">Option 11</Menu.Item>
-                            <Menu.Item key="12">Option 12</Menu.Item>
-                        </SubMenu>
-                    </SubMenu>
-                </Menu>
+            <div>
+                <header id="header">
+                    <Row>
+                        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 5}} lg={{span: 4}} >
+                            <Link to="/" id="logo">
+                                <img src={logo} alt="logo"/>
+                            </Link>
+                        </Col>
+                        <Col xs={{span: 0}} sm={{span: 0}} md={{span: 19}} lg={{span: 20}} >
+
+                            <Menu mode="horizontal" className="right header-menu">
+                                <Menu.Item key="0"><Link to="/" target={'_blank'}>主站</Link></Menu.Item>
+                                <Menu.Item key="1"><Link to="/manager/editor">类别&文章</Link></Menu.Item>
+                                <Menu.Item key="2"><Link to="/manager/message">留言</Link></Menu.Item>
+                                <Menu.Item key="3"><Link to="/manager/monitor">监控</Link></Menu.Item>
+                            </Menu>
+                        </Col>
+                    </Row>
+
+                </header>
+
+                <Route path='/manager/editor'  component={Editor} />
+
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
@@ -14,7 +14,7 @@ import About from './about/about.jsx';
 import Career from './career/career.jsx';
 import Error from './error/error.jsx';
 import Details from './details/details.jsx';
-import Editor from './components/editor.jsx';
+import Editor from './manager/editor.jsx';
 import Manager from './manager/manager.jsx';
 const history = createHistory();
 
@@ -40,7 +40,7 @@ const routes = [
     },
     {
         path: '/manager',
-        exact: true,
+        exact: false,
         navigation: () => <div/>,
         component: () => <Manager/>
     },
@@ -55,13 +55,6 @@ const routes = [
         exact: true,
         navigation: () => <Head selected= "2"/>,
         component: () => <Details/>
-    },
-    {
-        path: '/editor',
-        exact: true,
-        navigation: () => <Head selected= "2"/>,
-        component: <Editor/>
-
     }
 ];
 // async function main() {
