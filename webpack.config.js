@@ -102,7 +102,8 @@ module.exports = {
     // devtool: 'eval-source-map',
 
     devServer: {
-        inline: true,
+        inline: true,//inline模式
+        historyApiFallback: true, //不跳转
         port: 3000
     },
     module: {
@@ -140,7 +141,7 @@ module.exports = {
         new htmlWebpackPlugin({
             template: './client/public/index.html',
             title:'123',
-            // inject:true,
+            inject:true,
             minify:{
                 removeComments:false,
                 collapseWhitespace:false
