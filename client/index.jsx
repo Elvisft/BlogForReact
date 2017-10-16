@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Route, Switch, Router } from 'react-router-dom';
+
+import { Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
@@ -10,18 +10,28 @@ import './theme.less';
 import stores from './reducers.js';
 import Head from './head/head.jsx';
 import Home from './home/home.jsx';
-// import About from './about/about.jsx';
-import Career from './career/career.jsx';
+
 import Error from './error/error.jsx';
-import Details from './details/details.jsx';
-import Editor from './manager/editor.jsx';
-// import Manager from './manager/manager.jsx';
+
 // bundle模型用来异步加载组件
 import Bundle from './bundle.js';
 
 // 异步引入
 import ManagerContainer from 'bundle-loader?lazy&name=app-[name]!./manager/manager.jsx';
 import AboutContainer from 'bundle-loader?lazy&name=app-[name]!./about/about.jsx';
+import CareerContainer from 'bundle-loader?lazy&name=app-[name]!./career/career.jsx';
+import DetailsContainer from 'bundle-loader?lazy&name=app-[name]!./details/details.jsx';
+
+const Career = () => (
+    <Bundle load={CareerContainer}>
+        {(Career) => <Career />}
+    </Bundle>
+);
+const Details = () => (
+    <Bundle load={DetailsContainer}>
+        {(Details) => <Details />}
+    </Bundle>
+);
 const Manager = () => (
     <Bundle load={ManagerContainer}>
         {(Manager) => <Manager />}
@@ -34,7 +44,7 @@ const About = () => (
 );
 const history = createHistory();
 
-// Build the middleware for intercepting and dispatching navigation actions
+
 const middleware = routerMiddleware(history);
 export const store = createStore(
     stores,
@@ -110,9 +120,9 @@ class App extends React.Component {
                             }
 
                             <Route component={Error} />
-                        </Switch>
-                    </div>
-                </ConnectedRouter>
+            </Switch>
+            </div>
+            </ConnectedRouter>
             </Provider>
         )
     }
