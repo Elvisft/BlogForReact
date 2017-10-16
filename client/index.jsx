@@ -10,12 +10,28 @@ import './theme.less';
 import stores from './reducers.js';
 import Head from './head/head.jsx';
 import Home from './home/home.jsx';
-import About from './about/about.jsx';
+// import About from './about/about.jsx';
 import Career from './career/career.jsx';
 import Error from './error/error.jsx';
 import Details from './details/details.jsx';
 import Editor from './manager/editor.jsx';
-import Manager from './manager/manager.jsx';
+// import Manager from './manager/manager.jsx';
+// bundle模型用来异步加载组件
+import Bundle from './bundle.js';
+
+// 异步引入
+import ManagerContainer from 'bundle-loader?lazy&name=app-[name]!./manager/manager.jsx';
+import AboutContainer from 'bundle-loader?lazy&name=app-[name]!./about/about.jsx';
+const Manager = () => (
+    <Bundle load={ManagerContainer}>
+        {(Manager) => <Manager />}
+    </Bundle>
+);
+const About = () => (
+    <Bundle load={AboutContainer}>
+        {(About) => <About />}
+    </Bundle>
+);
 const history = createHistory();
 
 // Build the middleware for intercepting and dispatching navigation actions
@@ -42,7 +58,7 @@ const routes = [
         path: '/manager',
         exact: false,
         navigation: () => <div/>,
-        component: () => <Manager/>
+        component: () => <Manager />
     },
     {
         path: '/career',
@@ -87,7 +103,6 @@ class App extends React.Component {
                         }
 
                         <Switch>
-                            {/*render={() => {URLChange(0); return <Home/>; }}*/}
                             {
                                 routes.map((route, index) => (
                                     <Route exact={route.exact} path={route.path} component={route.component} key={index} />

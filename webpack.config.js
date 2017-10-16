@@ -10,12 +10,10 @@
 //     // about: './client/about/about.jsx'
 //     },
 //     output: {
-//         publicPath: '/build',
 //         path: path.resolve(__dirname, './build'),
-//         filename: '[name].js',
-//         // chunkFilename: '[id].js',
-//         chunkFilename: '[name].[chunkhash:8].chunk.js',
-// // pathinfo: false
+//         filename: '[name].[chunkhash:8].bundle.js', // 推荐使用 ，但是--hot会报错，
+//         // filename: '[name].[hash:8].bundle.js',       // --hot时使用，不推荐
+//         chunkFilename: '[name]-[id].[chunkhash:8].bundle.js', // 代码分割
 //     },
 //     // devtool: 'eval-source-map',
 //     devtool:  'source-map',
@@ -40,7 +38,7 @@
 //                 }
 //             }, {
 //                 test: /\.less|css$/,
-//                 loader: ExtractTextPlugin.extract("css-loader")
+//                 loader: ExtractTextPlugin.extract("css-loader!less-loader")
 //                     // 'style-loader!css-loader!less-loader',
 //             }, {
 //                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
@@ -93,17 +91,13 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
     entry: [
-        // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
-        // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-        // './client/main.js' // Your appʼs entry point
         'webpack/hot/dev-server', path.resolve(__dirname, './client/main.js')
     ],
     output: {
-
-        path: path.resolve(__dirname, './__build__'),
-        // chunkFilename: '[name].[chunkhash:8].chunk.js',
-// publicPath: path.resolve(__dirname, '/build/'),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, './output'),
+        // filename: '[name].[chunkhash:8].bundle.js', // 推荐使用 ，但是--hot会报错，
+        filename: '[name].[hash:8].bundle.js',       // --hot时使用，不推荐
+        chunkFilename: '[name]-[id].[chunkhash:8].bundle.js', // 代码分割
     },
     // devtool: 'eval-source-map',
 
