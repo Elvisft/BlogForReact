@@ -3,19 +3,24 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
-        'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-        './client/main.js' // Your appʼs entry point
+        // 'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
+        // 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+        // './client/main.js' // Your appʼs entry point
+        'webpack/hot/dev-server', path.resolve(__dirname, './main.js')
     ],
     output: {
 
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, './__build__'),
         // chunkFilename: '[name].[chunkhash:8].chunk.js',
 // publicPath: path.resolve(__dirname, '/build/'),
         filename: 'bundle.js'
     },
     // devtool: 'eval-source-map',
 
+    devServer: {
+        inline: true,
+        port: 3000
+    },
     module: {
         rules: [
             {
@@ -49,12 +54,12 @@ module.exports = {
 
     plugins: [
         new htmlWebpackPlugin({
-            template: './client/public/index.html',
+            template: './public/index.html',
             title:'123',
-            inject:true,
+            // inject:true,
             minify:{
-                removeComments:true,
-                collapseWhitespace:true
+                removeComments:false,
+                collapseWhitespace:false
             }
         }),
         new webpack.HotModuleReplacementPlugin()
