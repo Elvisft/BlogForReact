@@ -1,9 +1,18 @@
 import * as React from 'react';
 import { Menu, Icon, Button,Row,Col  } from 'antd';
 import { Link, Route, Router,matchPath } from 'react-router-dom';
-import Editor from './editor.jsx';
+import Bundle from './../bundle.js';
+
 
 import logo from './../static/img/logo.png';
+
+// import Editor from './editor.jsx';
+import EditorContainer from 'bundle-loader?lazy&name=app-[name]!./editor.jsx';
+const Editor = () => (
+    <Bundle load={EditorContainer}>
+        {(Editor) => <Editor />}
+    </Bundle>
+);
 const SubMenu = Menu.SubMenu;
 
 class Manager extends React.Component{
@@ -31,7 +40,7 @@ class Manager extends React.Component{
 
                 </header>
 
-                <Route path='/manager/editor'  component={Editor} />
+                <Route exact={true} path='/manager/editor'  component={<Editor/>} key={'1123'} />
 
             </div>
         );
