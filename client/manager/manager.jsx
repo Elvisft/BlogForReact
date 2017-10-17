@@ -40,7 +40,7 @@ class Manager extends React.Component{
 
                 </header>
 
-                <Route exact={true} path='/manager/editor'  component={<Editor/>} key={'1123'} />
+                <Route exact={true} path='/manager/editor'  component={Editor} key={'1123'} />
 
             </div>
         );
