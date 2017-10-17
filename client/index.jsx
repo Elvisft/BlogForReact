@@ -5,13 +5,16 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
-import './index.less';
-import './theme.less';
+
 import stores from './reducers.js';
 import Head from './head/head.jsx';
 import Home from './home/home.jsx';
 
 import Error from './error/error.jsx';
+
+import './index.less';
+import './theme.less';
+import './career/career.less';
 
 // bundle模型用来异步加载组件
 import Bundle from './bundle.js';
