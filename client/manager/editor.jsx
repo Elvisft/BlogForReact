@@ -89,6 +89,10 @@ class EditorCustomizedToolbarOption extends React.Component {
         console.log(e);
     }
 
+    uploadArticle = () => {
+        console.log(this.state);
+    }
+
     uploadImageCallBack = (file) => {
         console.log(file)
         return new Promise(
@@ -116,10 +120,13 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         return (<Row className="editor">
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">左侧栏</Col>
-            <Col xs={{span: 5}} sm={{span: 5}} md={{span: 5}} lg={{span: 5}} className="editor-middle">
+            <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
             </Col>
-            <Col xs={{span: 16}} sm={{span: 16}} md={{span: 16}} lg={{span: 16}} className="editor-viewport">
+            <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
+                <div className="editor-title">
+                    <h2 className="in-block">标题</h2> <Button className="right" onClick={this.uploadArticle()}>保存</Button>
+                </div>
                 <Editor
                     onEditorStateChange={this.onEditorStateChange}
                     editorState={this.state.editorState}
@@ -130,8 +137,9 @@ class EditorCustomizedToolbarOption extends React.Component {
                     localization={{
                         locale: 'zh',
                     }}
+                    editorClassName="editor-editor"
                 />
-                <TextArea rows={4} value={this.state.text} />
+
             </Col>
 
         </Row>)

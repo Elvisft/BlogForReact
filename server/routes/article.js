@@ -74,6 +74,9 @@ exports.autowired = {
 
                  res.json({ data: { link: 'http://106.14.150.87/static/image/1.jpg'}});
              });
+        },
+        '/insert': (req, res, next) =>{
+
         }
     }
 };
