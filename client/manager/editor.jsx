@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BlockPicker } from 'react-color';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { Input } from 'antd';
+import './editor.less';
+import { Row, Col, Button, Menu, Pagination, Icon, Input } from 'antd';
 import { URL } from './../components/config';
 class ColorPic extends Component {
     static propTypes = {
@@ -113,22 +114,27 @@ class EditorCustomizedToolbarOption extends React.Component {
     render(){
         const { TextArea } = Input;
 
-        return (<div>
-            <Editor
+        return (<Row className="editor">
+            <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">左侧栏</Col>
+            <Col xs={{span: 5}} sm={{span: 5}} md={{span: 5}} lg={{span: 5}} className="editor-middle">
 
+            </Col>
+            <Col xs={{span: 16}} sm={{span: 16}} md={{span: 16}} lg={{span: 16}} className="editor-viewport">
+                <Editor
+                    onEditorStateChange={this.onEditorStateChange}
+                    editorState={this.state.editorState}
+                    toolbar={{
+                        colorPicker: { component: ColorPic },
+                        image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
+                    }}
+                    localization={{
+                        locale: 'zh',
+                    }}
+                />
+                <TextArea rows={4} value={this.state.text} />
+            </Col>
 
-                onEditorStateChange={this.onEditorStateChange}
-                editorState={this.state.editorState}
-                toolbar={{
-                    colorPicker: { component: ColorPic },
-                    image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
-                }}
-                localization={{
-                    locale: 'zh',
-                }}
-            />
-            <TextArea rows={4} value={this.state.text} />
-        </div>)
+        </Row>)
 
     }
 }

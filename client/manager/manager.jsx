@@ -6,7 +6,6 @@ import Bundle from './../bundle.js';
 
 import logo from './../static/img/logo.png';
 
-// import Editor from './editor.jsx';
 import EditorContainer from 'bundle-loader?lazy&name=app-[name]!./editor.jsx';
 const Editor = () => (
     <Bundle load={EditorContainer}>
