@@ -79,27 +79,33 @@ exports.autowired = {
 
             req.on("data",(chunk)=>{
                 let article = JSON.parse(chunk+"");
-                if(article.id){
-
-                }else{
-                    let briefing = article.content.replace(/<(?:.|\s)*?>/g,'');
-                    console.log(briefing);
-                    // req.getConnection((err, conn) => {
-                    //     conn.query('INSERT INTO article (title,type,date,briefing,content) VALUES (?,?,?,?,?)',[id], (err, result) => {
-                    //         if(err){
-                    //             res.json(err);
-                    //         }else{
-                    //             console.log(result)
-                    //             res.json(result);
-                    //         }
-                    //     });
-                    // });
+                let briefing = article.content.replace(/<(?:.|\s)*?>/g,'');
+                if(briefing.length>100){
+                    briefing = briefing.substring(0,100);
                 }
-                console.log(article)
+                let sql,params;
+                if(article.id){
+                    sql = 'UPDATE article SET title=?,type=?,date=?,briefing=?,content=? WHERE id=?';
+                    params = [article.title, article.type, new Date(article.date), briefing, article.content, article.id];
+                }else{
+                    sql = 'INSERT INTO article (title,type,date,briefing,content) VALUES (?,?,?,?,?)';
+                    params = [article.title, article.type, new Date(article.date), briefing, article.content];
+                }
+                req.getConnection((err, conn) => {
+                    conn.query(sql, params, (err, result) => {
+                        if(err){
+                            console.log(err)
+                            res.json(err);
+                        }else{
+                            console.log(result)
+                            res.json(result);
+                        }
+                    });
+                });
 
             });
 
-            res.json(req.body);
+
 
         }
     }

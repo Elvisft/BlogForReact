@@ -57,14 +57,25 @@ import  { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
         editorState: EditorState.createEmpty(),
-        text:'213',
+        text:'<p>12<strong>3fs</strong>df12<em>31</em>23</p>',
         title:'标题',
         date:new Date(),
         type:2
+    }
+
+    constructor(props){
+        super(props);
+        const contentBlock = htmlToDraft(this.state.text);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            const editorState = EditorState.createWithContent(contentState);
+            this.state.editorState = editorState;
+        }
     }
 
     onEditorStateChange = (editorState) => {
@@ -73,7 +84,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             editorState:editorState,
             text:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
         });
-
+        console.log(this.state.text);
     };
 
     htmlFormat = ( text) => {
@@ -95,7 +106,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     uploadArticle = () => {
         let article = {
-            id:undefined,
+            id:10,
             title:'标题',
             type:2,
             date:new Date(),
