@@ -61,7 +61,10 @@ import draftToHtml from 'draftjs-to-html';
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
         editorState: EditorState.createEmpty(),
-        text:''
+        text:'213',
+        title:'标题',
+        date:new Date(),
+        type:2
     }
 
     onEditorStateChange = (editorState) => {
@@ -85,20 +88,33 @@ class EditorCustomizedToolbarOption extends React.Component {
         return text;
     }
 
-    onChange = (e)=>{
-        console.log(e);
+    changeTitle = (e)=>{
+        this.setState({title:e.target.firstChild.innerHTML});
+        console.log(this.state.title)
     }
 
     uploadArticle = () => {
-        console.log(this.state);
+        let article = {
+            id:undefined,
+            title:'标题',
+            type:2,
+            date:new Date(),
+            content:'<h1 id="h1-1" >qwe</h1>在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，<h4 id="h4-1" >qwe</h4> <h2 id="h2-1" >qwe</h2> <h1 id="h1-2" >qwe</h1> <h2 id="h2-2" >123</h2> <h5 id="h5-1" >qwe</h5> '
+        };
+        fetch(`${URL}article/update`, {
+            method: "POST",
+            body: JSON.stringify(article)
+        }).then(function(response) {
+            // do sth
+        });
     }
 
     uploadImageCallBack = (file) => {
-        console.log(file)
+
         return new Promise(
             (resolve, reject) => {
 
-                const xhr = new XMLHttpRequest();
+                let xhr = new XMLHttpRequest();
                 xhr.open('POST', `${URL}article/test`);
                 // xhr.setRequestHeader('Authorization', 'Client-ID XXXXX');
                 const data = new FormData();
@@ -124,8 +140,8 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
-                <div className="editor-title">
-                    <h2 className="in-block">标题</h2> <Button className="right" onClick={this.uploadArticle()}>保存</Button>
+                <div className="editor-title"  contentEditable={true} onInput={this.changeTitle} suppressContentEditableWarning = {true}>
+                    <h2 className="in-block">{this.state.title}</h2> <Button className="right" onClick={this.uploadArticle}>保存</Button>
                 </div>
                 <Editor
                     onEditorStateChange={this.onEditorStateChange}

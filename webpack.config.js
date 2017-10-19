@@ -1,8 +1,9 @@
-// const path = require('path');
-// const htmlWebpackPlugin = require('html-webpack-plugin');
-// const webpack = require('webpack');
+const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 // module.exports = {
 //     entry: {
 //     app: './client/main.js',
@@ -16,8 +17,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //         // filename: '[name].[hash:8].bundle.js',       // --hot时使用，不推荐
 //         chunkFilename: '[name]-[id].[chunkhash:8].bundle.js', // 代码分割
 //     },
-//     // devtool: 'eval-source-map',
-//     devtool:  'source-map',
+//
 //     bail: true,
 //     performance: {
 //         hints: false
@@ -38,9 +38,11 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //                     ]
 //                 }
 //             }, {
-//                 test: /\.less|css$/,
-//                 loader: ExtractTextPlugin.extract("css-loader!less-loader")
-//                     // 'style-loader!css-loader!less-loader',
+//                 test : /\.(less|css)$/,
+//                 loader: ExtractTextPlugin.extract({
+//                     fallback: "style-loader",
+//                     use: ['css-loader', 'less-loader']
+//                 })
 //             }, {
 //                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
 //                 loader: 'file-loader'
@@ -68,7 +70,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //                 'NODE_ENV': JSON.stringify('production')
 //             }
 //         }),
-//         new ExtractTextPlugin('[name].min.css'),
+//         new ExtractTextPlugin("styles.css"),
 //         new OptimizeCssAssetsPlugin({
 //             assetNameRegExp: /\.css$/g,
 //             cssProcessor: require('cssnano'),
@@ -87,12 +89,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //     ]
 // }
 
-const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 
-const extractCSS = new ExtractTextPlugin('[name]-one.css');
-const extractLESS = new ExtractTextPlugin('[name]-two.css');
+
+
 module.exports = {
     entry: [
         'webpack/hot/dev-server', path.resolve(__dirname, './client/main.js')

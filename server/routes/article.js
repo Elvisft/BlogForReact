@@ -75,7 +75,31 @@ exports.autowired = {
                  res.json({ data: { link: 'http://106.14.150.87/static/image/1.jpg'}});
              });
         },
-        '/insert': (req, res, next) =>{
+        '/update': (req, res, next) =>{
+
+            req.on("data",(chunk)=>{
+                let article = JSON.parse(chunk+"");
+                if(article.id){
+
+                }else{
+                    let briefing = article.content.replace(/<(?:.|\s)*?>/g,'');
+                    console.log(briefing);
+                    // req.getConnection((err, conn) => {
+                    //     conn.query('INSERT INTO article (title,type,date,briefing,content) VALUES (?,?,?,?,?)',[id], (err, result) => {
+                    //         if(err){
+                    //             res.json(err);
+                    //         }else{
+                    //             console.log(result)
+                    //             res.json(result);
+                    //         }
+                    //     });
+                    // });
+                }
+                console.log(article)
+
+            });
+
+            res.json(req.body);
 
         }
     }

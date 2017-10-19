@@ -32,7 +32,7 @@ app.use(( req, res, next )=>{    //请求头配置
     });
     next();
 });
-app.use(route);
+app.use('/blogServer',route);
 //路由自动配置
 // for(let i in routes){
 //     app.use(i, routes[i]);
