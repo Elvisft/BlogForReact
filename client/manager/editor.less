@@ -49,13 +49,13 @@
 }
 
 
-@editor-icons: bold italic underline strikethrough superscript subscript unordered ordered indent outdent editor-icon-left editor-icon-center editor-icon-right editor-icon-justify;
+@editor-icons: bold italic underline strikethrough superscript subscript unordered ordered indent outdent editor-icon-left editor-icon-center editor-icon-right editor-icon-justify link unlink embedded image remove undo redo;
 .editor-icon-loop(@editor-icons, @i:1) when (@i <= length(@editor-icons)) {
   @temp :extract(@editor-icons, @i);
   .rdw-option-wrapper.ant-btn.@{temp}{
     background-image: url("./../static/icon/@{temp}.png");
   }
-  .rdw-option-wrapper.ant-btn.rdw-option-active.@{temp}{
+  .rdw-option-wrapper.ant-btn.rdw-option-active.@{temp},.rdw-option-wrapper.ant-btn.@{temp}:hover{
     background-image: url("./../static/icon/@{temp}1.png");
   }
   .editor-icon-loop(@editor-icons, (@i + 1));

@@ -206,11 +206,45 @@ class EditorCustomizedToolbarOption extends React.Component {
                             justify: { icon: undefined, className: 'ant-btn editor-icon-justify' },
                         },
                         colorPicker: { component: ColorPic },
+                        link: {
+                            inDropdown: false,
+                            className: undefined,
+                            component: undefined,
+                            popupClassName: undefined,
+                            dropdownClassName: undefined,
+                            showOpenOptionOnHover: true,
+                            defaultTargetOption: '_self',
+                            options: ['link', 'unlink'],
+                            link: { icon: undefined, className: 'ant-btn link' },
+                            unlink: { icon: undefined, className: 'ant-btn unlink' },
+                        },
+                        embedded: {
+                            icon: undefined,
+                            className: 'ant-btn embedded',
+                            component: undefined,
+                            popupClassName: undefined,
+                            defaultSize: {
+                                height: 'auto',
+                                width: 'auto',
+                            },
+                        },
                         image: {
+                            icon: undefined,
+                            className: 'ant-btn image',
                             uploadCallback: this.uploadImageCallBack,
                             alt: { present: true, mandatory: false },
                             inputAccept:'image/gif,image/jpeg,image/jpg,image/png,image/svg',
                             },
+                        remove: { icon: undefined, className: 'ant-btn remove' },
+                        history: {
+                            inDropdown: false,
+                            className: undefined,
+                            component: undefined,
+                            dropdownClassName: undefined,
+                            options: ['undo', 'redo'],
+                            undo: { icon: undefined, className: 'ant-btn undo' },
+                            redo: { icon: undefined, className: 'ant-btn redo' },
+                        }
                     }}
                     localization={{
                         locale: 'zh',
