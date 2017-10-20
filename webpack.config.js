@@ -108,6 +108,7 @@ module.exports = {
     devServer: {
         inline: true,//inline模式
         historyApiFallback: true, //不跳转
+        host:'172.19.10.253',
         port: 3000
     },
     module: {

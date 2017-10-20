@@ -70,11 +70,16 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     constructor(props){
         super(props);
-        const contentBlock = htmlToDraft(this.state.text);
+        this.state.editorState=this.getEditorState(this.state.text);
+    }
+
+    getEditorState = (text)=>{
+        console.log(text);
+        const contentBlock = htmlToDraft(text);
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            const editorState = EditorState.createWithContent(contentState);
-            this.state.editorState = editorState;
+            return EditorState.createWithContent(contentState);
+
         }
     }
 
@@ -112,12 +117,15 @@ class EditorCustomizedToolbarOption extends React.Component {
             date:new Date(),
             content:'<h1 id="h1-1" >qwe</h1>在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，<h4 id="h4-1" >qwe</h4> <h2 id="h2-1" >qwe</h2> <h1 id="h1-2" >qwe</h1> <h2 id="h2-2" >123</h2> <h5 id="h5-1" >qwe</h5> '
         };
-        fetch(`${URL}article/update`, {
-            method: "POST",
-            body: JSON.stringify(article)
-        }).then(function(response) {
-            // do sth
+        this.setState({
+            editorState:this.getEditorState(article.content)
         });
+        // fetch(`${URL}article/update`, {
+        //     method: "POST",
+        //     body: JSON.stringify(article)
+        // }).then(function(response) {
+        //     // do sth
+        // });
     }
 
     uploadImageCallBack = (file) => {
@@ -152,14 +160,57 @@ class EditorCustomizedToolbarOption extends React.Component {
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
                 <div className="editor-title"  contentEditable={true} onInput={this.changeTitle} suppressContentEditableWarning = {true}>
-                    <h2 className="in-block">{this.state.title}</h2> <Button className="right" onClick={this.uploadArticle}>保存</Button>
+                    <h2 className="in-block">{this.state.title}</h2>
                 </div>
                 <Editor
+
                     onEditorStateChange={this.onEditorStateChange}
                     editorState={this.state.editorState}
+                    toolbarCustomButtons={[<Button className="right" onClick={this.uploadArticle}>保存</Button>]}
                     toolbar={{
+                        options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'image', 'remove', 'history'],
+                        inline: {
+                            inDropdown: false,
+                            className: undefined,
+                            component: undefined,
+                            dropdownClassName: undefined,
+                            options: ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript'],
+                            bold: { icon: undefined, className: 'ant-btn bold' },
+                            italic: { icon: undefined, className: 'ant-btn italic' },
+                            underline: { icon: undefined, className: 'ant-btn underline' },
+                            strikethrough: { icon: undefined, className: 'ant-btn strikethrough' },
+                            // monospace: { icon: undefined, className: 'ant-btn monospace' },
+                            superscript: { icon: undefined, className: 'ant-btn superscript' },
+                            subscript: { icon: undefined, className: 'ant-btn subscript' },
+                        },
+                        list: {
+                            inDropdown: false,
+                            className: undefined,
+                            component: undefined,
+                            dropdownClassName: undefined,
+                            options: ['unordered', 'ordered', 'indent', 'outdent'],
+                            unordered: { icon: undefined, className: 'ant-btn unordered' },
+                            ordered: { icon: undefined, className: 'ant-btn ordered' },
+                            indent: { icon: undefined, className: 'ant-btn indent' },
+                            outdent: { icon: undefined, className: 'ant-btn outdent' },
+                        },
+                        textAlign: {
+                            inDropdown: false,
+                            className: undefined,
+                            component: undefined,
+                            dropdownClassName: undefined,
+                            options: ['left', 'center', 'right', 'justify'],
+                            left: { icon: undefined, className: 'ant-btn editor-icon-left' },
+                            center: { icon: undefined, className: 'ant-btn editor-icon-center' },
+                            right: { icon: undefined, className: 'ant-btn editor-icon-right' },
+                            justify: { icon: undefined, className: 'ant-btn editor-icon-justify' },
+                        },
                         colorPicker: { component: ColorPic },
-                        image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
+                        image: {
+                            uploadCallback: this.uploadImageCallBack,
+                            alt: { present: true, mandatory: false },
+                            inputAccept:'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                            },
                     }}
                     localization={{
                         locale: 'zh',

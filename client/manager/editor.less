@@ -1,3 +1,4 @@
+@import "./../const.less";
 .editor-sidebar{
   background: #999;
 
@@ -27,3 +28,36 @@
 .editor-title>button{
   margin-top: 15px;
 }
+.rdw-option-wrapper.ant-btn{
+  min-width: 20px;
+  height: 20px;
+  border: none;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.rdw-option-wrapper.ant-btn:after{
+  font-size: 14px;
+}
+.rdw-option-wrapper>img{
+  display: none;
+
+}
+
+.rdw-option-active,.rdw-option-wrapper:hover{
+  box-shadow: none;
+
+}
+
+
+@editor-icons: bold italic underline strikethrough superscript subscript unordered ordered indent outdent editor-icon-left editor-icon-center editor-icon-right editor-icon-justify;
+.editor-icon-loop(@editor-icons, @i:1) when (@i <= length(@editor-icons)) {
+  @temp :extract(@editor-icons, @i);
+  .rdw-option-wrapper.ant-btn.@{temp}{
+    background-image: url("./../static/icon/@{temp}.png");
+  }
+  .rdw-option-wrapper.ant-btn.rdw-option-active.@{temp}{
+    background-image: url("./../static/icon/@{temp}1.png");
+  }
+  .editor-icon-loop(@editor-icons, (@i + 1));
+}
+.editor-icon-loop(@editor-icons);
