@@ -5,6 +5,14 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './editor.less';
 import { Row, Col, Button, Menu, Pagination, Icon, Input } from 'antd';
 import { URL } from './../components/config';
+import  { Component } from 'react';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
+
+
 class ColorPic extends Component {
     static propTypes = {
         expanded: PropTypes.bool,
@@ -53,11 +61,8 @@ class ColorPic extends Component {
     }
 }
 
-import  { Component } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+
+
 
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
@@ -110,6 +115,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     uploadArticle = () => {
+        console.log(1);
         let article = {
             id:10,
             title:'标题',
@@ -151,7 +157,14 @@ class EditorCustomizedToolbarOption extends React.Component {
         );
     }
     render(){
-        const { TextArea } = Input;
+
+        class Update extends Component {
+            render() {
+                return (
+                    <Button className="right" onClick={this.props.click}>保存</Button>
+                );
+            }
+        }
 
         return (<Row className="editor">
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">左侧栏</Col>
@@ -166,7 +179,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
                     onEditorStateChange={this.onEditorStateChange}
                     editorState={this.state.editorState}
-                    toolbarCustomButtons={[<Button className="right" onClick={this.uploadArticle}>保存</Button>]}
+                    toolbarCustomButtons={[<Update click={this.uploadArticle}/>]}
                     toolbar={{
                         options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'image', 'remove', 'history'],
                         inline: {
