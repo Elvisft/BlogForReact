@@ -34,6 +34,12 @@ class Career extends React.Component {
         });
 
     }
+    types  = [
+        'java', 'javascript', 'linux', 'sql', 'node'
+    ];
+    selType = (value) => {
+        this.setState({ sel: value });
+    }
     static defaultProps = {
         getArticleURL : 'article/getArticles/',
         getClassesURL : 'classes/getClasses/'
@@ -183,39 +189,39 @@ class Career extends React.Component {
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
                                 <aside className="aside font-2">
-                                    <Menu
-                                        onClick={this.menuClick}
-                                        className="sel-left"
-                                        defaultSelectedKeys={['java']}
-                                        defaultOpenKeys={['sub4']}
-                                        mode="inline"
-                                    >
+                                    {/*<Menu*/}
+                                        {/*onClick={this.menuClick}*/}
+                                        {/*className="sel-left"*/}
+                                        {/*defaultSelectedKeys={['java']}*/}
+                                        {/*defaultOpenKeys={['sub4']}*/}
+                                        {/*mode="inline"*/}
+                                    {/*>*/}
 
-                                        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>
-                                            {classes(2)}
-                                        </SubMenu>
-                                    </Menu>
+                                        {/*<SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>*/}
+                                            {/*{classes(2)}*/}
+                                        {/*</SubMenu>*/}
+                                    {/*</Menu>*/}
 
-                                    {/*<ul className="sidebar-menu">*/}
-                                        {/*<li className="menu-item-object-category">*/}
-                                            {/*<a className="sidebar-menu__title-link">分类</a>*/}
-                                            {/*<ul className="sidebar-submenu">*/}
-                                                {/*{this.types.map((d: string) => <li ><a onClick={this.selType.bind(d, d)} className={this.state.sel === d ? 'active' : ''}>{d}</a></li>)}*/}
-                                            {/*</ul>*/}
-                                        {/*</li>*/}
-                                        {/*<li className="menu-item-object-category">*/}
-                                            {/*<a className="sidebar-menu__title-link">JavaScript</a>*/}
-                                           {/**/}
-                                        {/*</li>*/}
-                                        {/*<li className="menu-item-object-category">*/}
-                                            {/*<a className="sidebar-menu__title-link">SQL</a>*/}
-                                       {/**/}
-                                        {/*</li>*/}
-                                        {/*<li className="menu-item-object-category">*/}
-                                            {/*<a className="sidebar-menu__title-link">Linux</a>*/}
-                                        {/**/}
-                                        {/*</li>*/}
-                                    {/*</ul>*/}
+                                    <ul className="sidebar-menu">
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">分类</a>
+                                            <ul className="sidebar-submenu">
+                                                {this.types.map(d => <li ><a onClick={this.selType.bind(d, d)} className={this.state.sel === d ? 'active' : ''}>{d}</a></li>)}
+                                            </ul>
+                                        </li>
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">JavaScript</a>
+
+                                        </li>
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">SQL</a>
+
+                                        </li>
+                                        <li className="menu-item-object-category">
+                                            <a className="sidebar-menu__title-link">Linux</a>
+
+                                        </li>
+                                    </ul>
                                 </aside>
                             </Col>
                         </Row>
