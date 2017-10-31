@@ -66,6 +66,7 @@ class ColorPic extends Component {
 
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
+        classes: {},
         editorState: EditorState.createEmpty(),
         text:'<p>12<strong>3fs</strong>df12<em>31</em>23</p>',
         title:'标题',
@@ -73,9 +74,26 @@ class EditorCustomizedToolbarOption extends React.Component {
         type:2
     }
 
+    static defaultProps = {
+        getArticleURL : 'article/getArticles/',
+        getClassesURL : 'classes/getClasses/'
+    }
     constructor(props){
         super(props);
         this.state.editorState=this.getEditorState(this.state.text);
+        this.getClasses(2, (data) => {
+
+            let classes = {2: data};
+
+            this.setState({classes: classes});
+            console.log(this.state.classes);
+        });
+    }
+
+    getClasses = (classes, callback) => {
+        return fetch( URL + this.props.getClassesURL + classes ).then(response => response.json())
+            .then(data => callback(data))
+            .catch(e => console.log('Oops, error', e));
     }
 
     getEditorState = (text)=>{
@@ -114,6 +132,20 @@ class EditorCustomizedToolbarOption extends React.Component {
         console.log(this.state.title)
     }
 
+    menuClick = (type) => {
+        this.setState({ sel: type });
+        this.menuAction(type);
+    }
+
+    menuAction = (type) => {
+        if (this.state.sel === type) {
+            return;
+        }
+        this.setState({sel: type});
+        this.getArticle(type, 0, 5, (data) => {
+            this.setState({articles: data});
+        });
+    }
     uploadArticle = () => {
         console.log(1);
         let article = {
@@ -157,7 +189,18 @@ class EditorCustomizedToolbarOption extends React.Component {
         );
     }
     render(){
+        const classes = (type) => {
 
+            if (this.state.classes[type] === undefined) {
+                return [];
+            }
+            let tem = [];
+            for (let d of this.state.classes[type]) {
+                tem.push(<li key={d.id}><a onClick={this.menuClick.bind(this,d.id)} className={this.state.sel === d.id ? 'active' : ''}>{d.name}</a></li>);
+
+            }
+            return tem;
+        };
         class Update extends Component {
             render() {
                 return (
@@ -167,7 +210,16 @@ class EditorCustomizedToolbarOption extends React.Component {
         }
 
         return (<Row className="editor">
-            <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">左侧栏</Col>
+            <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
+                <ul className="sidebar-menu">
+                    <li className="menu-item-object-category font-7">
+                        <a className="sidebar-menu__title-link">分类</a>
+                        <ul className="sidebar-submenu">
+                            {classes(2)}
+                        </ul>
+                    </li>
+                </ul>
+            </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
             </Col>

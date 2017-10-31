@@ -34,12 +34,7 @@ class Career extends React.Component {
         });
 
     }
-    types  = [
-        'java', 'javascript', 'linux', 'sql', 'node'
-    ];
-    selType = (value) => {
-        this.setState({ sel: value });
-    }
+
     static defaultProps = {
         getArticleURL : 'article/getArticles/',
         getClassesURL : 'classes/getClasses/'
@@ -71,36 +66,37 @@ class Career extends React.Component {
         });
     }
 
-    openClass = (e) => {
-        let type = e.key;
-        this.menuAction(type);
-        if (this.state.classes[type]) return;
-        this.getClasses(type, (data) => {
-            this.state.classes[type] = data;
-            this.setState({classes: this.state.classes});
-        });
-    }
+    // openClass = (e) => {
+    //     let type = e.key;
+    //     this.menuAction(type);
+    //     if (this.state.classes[type]) return;
+    //     this.getClasses(type, (data) => {
+    //         this.state.classes[type] = data;
+    //         this.setState({classes: this.state.classes});
+    //     });
+    // }
 
-    menuClick = (e) => {
-        let type = e.key;
+    menuClick = (type) => {
+        this.setState({ sel: type });
         this.menuAction(type);
     }
 
     render() {
-        const SubMenu = Menu.SubMenu;
+        // const SubMenu = Menu.SubMenu;
         const classes = (type) => {
             if (this.state.classes[type] === undefined) {
                 return [];
             }
-            var tem = [];
+            let tem = [];
             for (let d of this.state.classes[type]) {
-                    if (d.has_child === 0) {
-                        tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
-                    }else {
-                        tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.openClass}>
-                                {classes(d.id)}
-                            </SubMenu>);
-                    }
+                tem.push(<li key={d.id}><a onClick={this.menuClick.bind(this,d.id)} className={this.state.sel === d.id ? 'active' : ''}>{d.name}</a></li>);
+                    // if (d.has_child === 0) {
+                    //     tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
+                    // }else {
+                    //     tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.openClass}>
+                    //             {classes(d.id)}
+                    //         </SubMenu>);
+                    // }
             }
             return tem;
         };
@@ -188,7 +184,7 @@ class Career extends React.Component {
                             </Col>
 
                             <Col xs={{span: 24}} sm={{span: 8, offset: 2}} md={{span: 6, offset: 2}}>
-                                <aside className="aside font-2">
+                                <aside className="aside font-7">
                                     {/*<Menu*/}
                                         {/*onClick={this.menuClick}*/}
                                         {/*className="sel-left"*/}
@@ -206,21 +202,21 @@ class Career extends React.Component {
                                         <li className="menu-item-object-category">
                                             <a className="sidebar-menu__title-link">分类</a>
                                             <ul className="sidebar-submenu">
-                                                {this.types.map(d => <li ><a onClick={this.selType.bind(d, d)} className={this.state.sel === d ? 'active' : ''}>{d}</a></li>)}
+                                                {classes(2)}
                                             </ul>
                                         </li>
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">JavaScript</a>
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">JavaScript</a>*/}
 
-                                        </li>
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">SQL</a>
+                                        {/*</li>*/}
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">SQL</a>*/}
 
-                                        </li>
-                                        <li className="menu-item-object-category">
-                                            <a className="sidebar-menu__title-link">Linux</a>
+                                        {/*</li>*/}
+                                        {/*<li className="menu-item-object-category">*/}
+                                            {/*<a className="sidebar-menu__title-link">Linux</a>*/}
 
-                                        </li>
+                                        {/*</li>*/}
                                     </ul>
                                 </aside>
                             </Col>
