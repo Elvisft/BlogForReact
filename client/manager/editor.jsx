@@ -66,7 +66,7 @@ class ColorPic extends Component {
 
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
-        classes: {},
+        classes: new Map(),
         editorState: EditorState.createEmpty(),
         text:'<p>12<strong>3fs</strong>df12<em>31</em>23</p>',
         title:'标题',
@@ -81,58 +81,36 @@ class EditorCustomizedToolbarOption extends React.Component {
     constructor(props){
         super(props);
         this.state.editorState=this.getEditorState(this.state.text);
-        this.getClasses(2, (data) => {
-
-            let classes = {2: data};
-
+        this.getClasses(0, (data) => {
+            let classes = this.state.classes;
+            classes.set('0',data);
             this.setState({classes: classes});
-            console.log(this.state.classes);
+
         });
     }
 
+    //获取菜单
     getClasses = (classes, callback) => {
         return fetch( URL + this.props.getClassesURL + classes ).then(response => response.json())
             .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
     }
 
-    getEditorState = (text)=>{
-        console.log(text);
-        const contentBlock = htmlToDraft(text);
-        if (contentBlock) {
-            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            return EditorState.createWithContent(contentState);
+    menuClick = (type) =>{
+        type = type.key;
 
+        if(!this.state.classes.get(type)){
+            this.getClasses(type, (data) => {
+                let classes = this.state.classes;
+                classes.set(type,data);
+
+                this.setState({classes: classes});
+            });
         }
     }
 
-    onEditorStateChange = (editorState) => {
-
-        this.setState({
-            editorState:editorState,
-            text:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
-        });
-        console.log(this.state.text);
-    };
-
-    htmlFormat = ( text) => {
-        for(let i=1;i<7;i++){
-            let tex = text.split(new RegExp(`<h${i}`,'ig'));
-            text=tex[0];
-            for(let j=1;j<tex.length;j++){
-                text += `<h${i} id="h${i}-${j}" ${tex[j]}`;
-
-            }
-        }
-        return text;
-    }
-
-    changeTitle = (e)=>{
-        this.setState({title:e.target.firstChild.innerHTML});
-        console.log(this.state.title)
-    }
-
-    menuClick = (type) => {
+    //菜单动作
+    menuItemClick = (type) => {
         this.setState({ sel: type });
         this.menuAction(type);
     }
@@ -146,6 +124,44 @@ class EditorCustomizedToolbarOption extends React.Component {
             this.setState({articles: data});
         });
     }
+    //编辑器
+    getEditorState = (text)=>{
+        console.log(text);
+        const contentBlock = htmlToDraft(text);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            return EditorState.createWithContent(contentState);
+
+        }
+    }
+    //编辑器
+    onEditorStateChange = (editorState) => {
+
+        this.setState({
+            editorState:editorState,
+            text:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+        });
+        console.log(this.state.text);
+    };
+    //编辑器
+    htmlFormat = ( text) => {
+        for(let i=1;i<7;i++){
+            let tex = text.split(new RegExp(`<h${i}`,'ig'));
+            text=tex[0];
+            for(let j=1;j<tex.length;j++){
+                text += `<h${i} id="h${i}-${j}" ${tex[j]}`;
+
+            }
+        }
+        return text;
+    }
+    //编辑器
+    changeTitle = (e)=>{
+        this.setState({title:e.target.firstChild.innerHTML});
+
+    }
+
+    //编辑器
     uploadArticle = () => {
         console.log(1);
         let article = {
@@ -165,7 +181,7 @@ class EditorCustomizedToolbarOption extends React.Component {
         //     // do sth
         // });
     }
-
+    //编辑器
     uploadImageCallBack = (file) => {
 
         return new Promise(
@@ -189,14 +205,44 @@ class EditorCustomizedToolbarOption extends React.Component {
         );
     }
     render(){
+        const SubMenu = Menu.SubMenu;
         const classes = (type) => {
 
-            if (this.state.classes[type] === undefined) {
+            let cl = this.state.classes.get(type+'');
+            console.log( type)
+            console.log(this.state.classes.get(type+''));
+            console.log( this.state.classes)
+            if (cl === undefined) {
                 return [];
             }
             let tem = [];
-            for (let d of this.state.classes[type]) {
-                tem.push(<li key={d.id}><a onClick={this.menuClick.bind(this,d.id)} className={this.state.sel === d.id ? 'active' : ''}>{d.name}</a></li>);
+            for (let d of cl) {
+
+                // if(d.has_child===0){
+                //     tem.push(
+                //         <li key={d.id}>
+                //             <a onClick={this.menuItemClick.bind(this,d.id)} className={this.state.sel === d.id ? 'active' : ''}>{d.name}</a>
+                //         </li>);
+                // }else{
+                //     tem.push(
+                //         <div key={d.id} >
+                //             <a onClick={this.menuClick.bind(this,d.id)} key={d.id} className="sidebar-menu__title-link">{d.name}</a>
+                //             <ul className="sidebar-submenu">
+                //                  {classes(d.id)}
+                //             </ul>
+                //         </div>
+                //     )
+                // }
+
+                if (d.has_child === 0) {
+
+                    tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
+                }else {
+                    tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
+                            {classes(d.id)}
+                        </SubMenu>);
+                }
+
 
             }
             return tem;
@@ -211,14 +257,25 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         return (<Row className="editor">
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
-                <ul className="sidebar-menu">
-                    <li className="menu-item-object-category font-7">
-                        <a className="sidebar-menu__title-link">分类</a>
-                        <ul className="sidebar-submenu">
-                            {classes(2)}
-                        </ul>
-                    </li>
-                </ul>
+                <Menu
+                    theme={"dark"}
+                // onClick={this.menuItemClick}
+                className="sel-left"
+                defaultSelectedKeys={['java']}
+                defaultOpenKeys={['sub4']}
+                mode="inline"
+                >
+
+                {/*<SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>*/}
+                {classes(0)}
+                {/*</SubMenu>*/}
+                </Menu>
+                {/*<ul className="sidebar-menu">*/}
+                    {/*<li className="menu-item-object-category font-7">*/}
+                        {/*{classes(0)}*/}
+
+                    {/*</li>*/}
+                {/*</ul>*/}
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
