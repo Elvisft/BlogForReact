@@ -212,15 +212,6 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             console.log(this.state.classes);
             if (cl === undefined) {
-
-                // this.getClasses(type, (data) => {
-                //
-                //     let classes = this.state.classes;
-                //     classes.set(type,data);
-                //
-                //     this.setState({classes: classes});
-                //
-                // });
                 return [];
             }
             let tem = [];
@@ -246,16 +237,16 @@ class EditorCustomizedToolbarOption extends React.Component {
 
                     tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
                 }else {
-                   // if(!this.state.classes.get(d.id+'')){
-                   //     this.getClasses(type, (data) => {
-                   //
-                   //         let classes = this.state.classes;
-                   //         classes.set(type,data);
-                   //
-                   //         this.setState({classes: classes});
-                   //
-                   //     });
-                   // }
+                    console.log(d)
+                    if(!this.state.classes.get(type+'')){
+                        this.getClasses(type, (data) => {
+                            console.log(data)
+                            let classes = this.state.classes;
+                            classes.set(type,data);
+
+                            this.setState({classes: classes});
+                        });
+                    }
                     tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
                             {classes(d.id)}
                         </SubMenu>);
