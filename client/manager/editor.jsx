@@ -209,10 +209,9 @@ class EditorCustomizedToolbarOption extends React.Component {
         const classes = (type) => {
 
             let cl = this.state.classes.get(type+'');
-            console.log( type)
-            console.log(this.state.classes.get(type+''));
-            console.log( this.state.classes)
+
             if (cl === undefined) {
+
                 return [];
             }
             let tem = [];
@@ -238,8 +237,10 @@ class EditorCustomizedToolbarOption extends React.Component {
 
                     tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
                 }else {
+                    console.log(d)
                     if(!this.state.classes.get(type+'')){
                         this.getClasses(type, (data) => {
+                            console.log(data)
                             let classes = this.state.classes;
                             classes.set(type,data);
 
