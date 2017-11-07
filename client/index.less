@@ -209,10 +209,13 @@ ul,ol{
 }
 
 //ant补充样式
-.sel-left .ant-menu-inline .ant-menu-item:after,
-.sel-left .ant-menu-vertical .ant-menu-item:after{
+.sel-left.ant-menu-inline .ant-menu-item:after, .sel-left.ant-menu-vertical .ant-menu-item:after{
   right: auto;
   left: 0;
   border-left: 3px solid @primary-color;
   border-right: none;
+  margin-right: 1px;
+}
+.ant-menu-inline .ant-menu-item, .ant-menu-vertical .ant-menu-item{
+  margin-right: 1px;
 }

@@ -81,12 +81,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     constructor(props){
         super(props);
         this.state.editorState=this.getEditorState(this.state.text);
-        this.getClasses(0, (data) => {
-            let classes = this.state.classes;
-            classes.set('0',data);
-            this.setState({classes: classes});
 
-        });
     }
 
     //获取菜单
@@ -209,51 +204,38 @@ class EditorCustomizedToolbarOption extends React.Component {
         const classes = (type) => {
 
             let cl = this.state.classes.get(type+'');
-
-            console.log(this.state.classes);
-            if (cl === undefined) {
-                return [];
-            }
             let tem = [];
-            for (let d of cl) {
+            if (cl === undefined) {
+                this.getClasses(type, (data) => {
+                    let classes = this.state.classes;
+                    classes.set(type+'',data);
+                    this.setState({classes: classes});
+                });
+            }else{
+                for (let d of cl) {
 
-                // if(d.has_child===0){
-                //     tem.push(
-                //         <li key={d.id}>
-                //             <a onClick={this.menuItemClick.bind(this,d.id)} className={this.state.sel === d.id ? 'active' : ''}>{d.name}</a>
-                //         </li>);
-                // }else{
-                //     tem.push(
-                //         <div key={d.id} >
-                //             <a onClick={this.menuClick.bind(this,d.id)} key={d.id} className="sidebar-menu__title-link">{d.name}</a>
-                //             <ul className="sidebar-submenu">
-                //                  {classes(d.id)}
-                //             </ul>
-                //         </div>
-                //     )
-                // }
+                    if (d.has_child === 0) {
+                        tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
+                    }else {
 
-                if (d.has_child === 0) {
+                        if(!this.state.classes.get(type+'')){
+                            this.getClasses(type, (data) => {
 
-                    tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
-                }else {
-                    console.log(d)
-                    if(!this.state.classes.get(type+'')){
-                        this.getClasses(type, (data) => {
-                            console.log(data)
-                            let classes = this.state.classes;
-                            classes.set(type,data);
+                                let classes = this.state.classes;
+                                classes.set(type,data);
 
-                            this.setState({classes: classes});
-                        });
-                    }
-                    tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
+                                this.setState({classes: classes});
+                            });
+                        }
+                        tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
                             {classes(d.id)}
                         </SubMenu>);
+                    }
+
+
                 }
-
-
             }
+
             return tem;
         };
         class Update extends Component {
@@ -267,27 +249,30 @@ class EditorCustomizedToolbarOption extends React.Component {
         return (<Row className="editor">
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
                 <Menu
-                    theme={"dark"}
+                    inlineCollapsed={false}
+                    // theme={"dark"}
                 // onClick={this.menuItemClick}
                 className="sel-left"
                 defaultSelectedKeys={['java']}
                 defaultOpenKeys={['sub4']}
                 mode="inline"
                 >
-
-                {/*<SubMenu key="sub4" title={<span><Icon type="setting" /><span>分类</span></span>}>*/}
                 {classes(0)}
-                {/*</SubMenu>*/}
                 </Menu>
-                {/*<ul className="sidebar-menu">*/}
-                    {/*<li className="menu-item-object-category font-7">*/}
-                        {/*{classes(0)}*/}
 
-                    {/*</li>*/}
-                {/*</ul>*/}
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
+                <Menu
+                    className="sel-left"
+                    mode="inline"
+                >
 
+                    <Menu.Item key="5">Option 5</Menu.Item>
+                    <Menu.Item key="6">Option 6</Menu.Item>
+                    <Menu.Item key="7">Option 7</Menu.Item>
+                    <Menu.Item key="8">Option 8</Menu.Item>
+         
+                </Menu>
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
                 <div className="editor-title"  contentEditable={true} onInput={this.changeTitle} suppressContentEditableWarning = {true}>

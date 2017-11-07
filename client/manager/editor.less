@@ -1,10 +1,13 @@
 @import "./../const.less";
 .editor-sidebar{
   //background: #999;
-
+  padding: 16px 0px;
+  border-right: 1px solid #e9e9e9;
 }
 .editor-middle{
-  background: #666;
+  //background: #666;
+  padding: 16px 0px;
+  border-right: 1px solid #e9e9e9;
 }
 .editor-viewport{
 
@@ -61,3 +64,11 @@
   .editor-icon-loop(@editor-icons, (@i + 1));
 }
 .editor-icon-loop(@editor-icons);
+
+.ant-menu-vertical .ant-menu-item, .ant-menu-inline .ant-menu-item, .ant-menu-vertical .ant-menu-submenu-title, .ant-menu-inline .ant-menu-submenu-title{
+  font-size: 14px;
+}
+.ant-menu.ant-menu-inline, .ant-menu.ant-menu-vertical {
+  border-right: 0;
+}
+
