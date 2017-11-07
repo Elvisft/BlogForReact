@@ -67,6 +67,7 @@ class ColorPic extends Component {
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
         classes: new Map(),
+        articles:[],
         editorState: EditorState.createEmpty(),
         text:'<p>12<strong>3fs</strong>df12<em>31</em>23</p>',
         title:'标题',
@@ -90,35 +91,22 @@ class EditorCustomizedToolbarOption extends React.Component {
             .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
     }
-
-    menuClick = (type) =>{
-        type = type.key;
-
-        if(!this.state.classes.get(type)){
-            this.getClasses(type, (data) => {
-                let classes = this.state.classes;
-                classes.set(type,data);
-
-                this.setState({classes: classes});
-            });
-        }
+    getArticles = (type, page, size, callback) => {
+        return fetch( URL + this.props.getArticleURL + `${type}/${page}/${size}` ).then(response => response.json())
+            .then(data => callback(data))
+            .catch(e => console.log('Oops, error', e));
     }
 
     //菜单动作
-    menuItemClick = (type) => {
-        this.setState({ sel: type });
-        this.menuAction(type);
+    menuItemClick = (e) =>{
+        let type = e.key;
+        this.getArticles(type, 0, 1000, (data)=>{
+            this.setState({articles:data});
+           console.log(data);
+        });
+
     }
 
-    menuAction = (type) => {
-        if (this.state.sel === type) {
-            return;
-        }
-        this.setState({sel: type});
-        this.getArticle(type, 0, 5, (data) => {
-            this.setState({articles: data});
-        });
-    }
     //编辑器
     getEditorState = (text)=>{
         console.log(text);
@@ -202,7 +190,6 @@ class EditorCustomizedToolbarOption extends React.Component {
     render(){
         const SubMenu = Menu.SubMenu;
         const classes = (type) => {
-
             let cl = this.state.classes.get(type+'');
             let tem = [];
             if (cl === undefined) {
@@ -213,17 +200,13 @@ class EditorCustomizedToolbarOption extends React.Component {
                 });
             }else{
                 for (let d of cl) {
-
                     if (d.has_child === 0) {
                         tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
                     }else {
-
                         if(!this.state.classes.get(type+'')){
                             this.getClasses(type, (data) => {
-
                                 let classes = this.state.classes;
                                 classes.set(type,data);
-
                                 this.setState({classes: classes});
                             });
                         }
@@ -231,11 +214,25 @@ class EditorCustomizedToolbarOption extends React.Component {
                             {classes(d.id)}
                         </SubMenu>);
                     }
-
-
                 }
             }
+            return tem;
+        };
+        const articles =() => {
+            let cl = this.state.articles;
+            let tem = [];
+            if (cl === undefined) {
 
+            }else{
+                for (let d of cl) {
+                    tem.push(<Menu.Item key={d.id}>
+                        <div>
+                            {d.title}
+                        </div>
+                        <div>123</div>
+                    </Menu.Item>);
+                }
+            }
             return tem;
         };
         class Update extends Component {
@@ -251,27 +248,31 @@ class EditorCustomizedToolbarOption extends React.Component {
                 <Menu
                     inlineCollapsed={false}
                     // theme={"dark"}
-                // onClick={this.menuItemClick}
-                className="sel-left"
-                defaultSelectedKeys={['java']}
-                defaultOpenKeys={['sub4']}
-                mode="inline"
+                    onClick={this.menuItemClick}
+                    className="sel-left"
+                    defaultSelectedKeys={['java']}
+                    defaultOpenKeys={['sub4']}
+                    mode="inline"
                 >
                 {classes(0)}
                 </Menu>
 
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
+
+                <ul className="editor-middle-menu font-7">
+                    <li key={1231}>
+                        <div className="menu-title color-4">title</div>
+                        <div className="menu-briefing font-1 color-5">briefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefing</div>
+                        <div className="menu-date font-1 color-3">9.15.2017</div>
+                    </li>
+                </ul>
+
                 <Menu
                     className="sel-left"
                     mode="inline"
                 >
-
-                    <Menu.Item key="5">Option 5</Menu.Item>
-                    <Menu.Item key="6">Option 6</Menu.Item>
-                    <Menu.Item key="7">Option 7</Menu.Item>
-                    <Menu.Item key="8">Option 8</Menu.Item>
-         
+                    {articles()}
                 </Menu>
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
