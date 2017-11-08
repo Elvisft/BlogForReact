@@ -261,7 +261,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
                 <ul className="editor-middle-menu font-7">
-                    <li key={1231}>
+                    <li key={1231} className={'pointer active'}>
                         <div className="menu-title color-4">title</div>
                         <div className="menu-briefing font-1 color-5">briefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefing</div>
                         <div className="menu-date font-1 color-3">9.15.2017</div>

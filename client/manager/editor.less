@@ -12,6 +12,10 @@
 .editor-viewport{
 
 }
+.menu-briefing{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .editor>div{
   height: calc(~"100vh - 64px");
 }
@@ -73,6 +77,30 @@
 }
 
 .editor-middle-menu li{
-  padding-left: @l_spacing;
-  padding-right: @l_spacing;
+
+  position: relative;
+  padding: @s_spacing @l_spacing;
+}
+.editor-middle-menu li:hover .menu-title{
+  color: @primary-color;
+}
+.editor-middle-menu li.active{
+  background-color: @primary-color-1;
+}
+.editor-middle-menu li.active .menu-title{
+  color: @primary-color;
+}
+.editor-middle-menu li.active:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-left: 3px solid #736efe;
+}
+//ant
+:after {
+  transition: transform .15s cubic-bezier(.645,.045,.355,1),opacity .15s cubic-bezier(.645,.045,.355,1);
+  opacity: 1;
+  transform: scaleY(1);
 }
