@@ -68,6 +68,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     state = {
         classes: new Map(),
         articles:[],
+        selArticle:true,
         editorState: EditorState.createEmpty(),
         text:'<p>12<strong>3fs</strong>df12<em>31</em>23</p>',
         title:'标题',
@@ -105,6 +106,12 @@ class EditorCustomizedToolbarOption extends React.Component {
            console.log(data);
         });
 
+    }
+
+    articlesItemClick = (e)=>{
+        console.log(e);
+
+        this.setState({selArticle: e});
     }
 
     //编辑器
@@ -225,12 +232,14 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             }else{
                 for (let d of cl) {
-                    tem.push(<Menu.Item key={d.id}>
-                        <div>
-                            {d.title}
-                        </div>
-                        <div>123</div>
-                    </Menu.Item>);
+
+                    tem.push(
+                        <li key={d.id} className={this.state.selArticle ===d.id?'pointer active':'pointer'} onClick={this.articlesItemClick.bind(this , d.id)}>
+                            <div className="menu-title color-4">{d.title}</div>
+                            <div className="menu-briefing font-1 color-5">{d.briefing}</div>
+                            <div className="menu-date font-1 color-3">{d.date}</div>
+                        </li>
+                       );
                 }
             }
             return tem;
@@ -261,19 +270,9 @@ class EditorCustomizedToolbarOption extends React.Component {
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
                 <ul className="editor-middle-menu font-7">
-                    <li key={1231} className={'pointer active'}>
-                        <div className="menu-title color-4">title</div>
-                        <div className="menu-briefing font-1 color-5">briefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefingbriefing</div>
-                        <div className="menu-date font-1 color-3">9.15.2017</div>
-                    </li>
+                    {articles()}
                 </ul>
 
-                <Menu
-                    className="sel-left"
-                    mode="inline"
-                >
-                    {articles()}
-                </Menu>
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
                 <div className="editor-title"  contentEditable={true} onInput={this.changeTitle} suppressContentEditableWarning = {true}>
