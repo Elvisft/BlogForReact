@@ -68,19 +68,21 @@ indent
 outdent
 editor-icon-left
 editor-icon-center editor-icon-right editor-icon-justify link unlink embedded image remove undo redo;
-@editor-icons-position:(-16px -0px) (-16px -0px) (-16px -0px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px) (-0px -16px);
-@editor-icons-positin: 1 1 1 1 1 1 1 1 1 1 1 1 11 1 1  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
-.editor-icon-loop(@editor-icons,@editor-icons-position, @i:1) when (@i <= length(@editor-icons)) {
-  @temp :extract(@editor-icons, @i);
+@editor-icons-position-x: -96px -48px -80px -48px -80px -80px -80px -80px -48px -64px -16px -96px -16px -16px -16px -48px -32px -16px -16px -16px -64px;
+@editor-icons-position-y: -16px -32px -64px -64px -32px -0px -80px -80px -0px -16px -0px -80px -16px -96px -48px -80px -16px -32px -64px -80px -48px;
+@editor-icons-position-x1: -96px -0px -0px -64px -80px -80px -96px -96px -48px -64px -0px -0px -32px -0px -32px -64px -0px -32px -32px -32px -0px;
+@editor-icons-position-y1: -32px -48px -80px -64px -48px -16px -0px -0px -16px -32px -16px -96px -0px -0px -48px -80px -32px -32px -64px -80px -64px;
+.editor-icon-loop(@icons,@x,@y,@x1,@y1, @i:1) when (@i <= length(@icons)) {
+  @temp :extract(@icons, @i);
   .rdw-option-wrapper.ant-btn.@{temp}{
-    background: url(@editor-icon) extract(@editor-icons-position , @i) no-repeat;
+    background: url(@editor-icon) extract(@x , @i) extract(@y , @i) no-repeat;
   }
   .rdw-option-wrapper.ant-btn.rdw-option-active.@{temp},.rdw-option-wrapper.ant-btn.@{temp}:hover{
-    background-image: url("./../static/icon/@{temp}1.png");
+    background: url(@editor-icon) extract(@x1 , @i) extract(@y1 , @i) no-repeat;
   }
-  .editor-icon-loop(@editor-icons,@editor-icons-position, (@i + 1));
+  .editor-icon-loop(@icons,@x,@y,@x1,@y1, (@i + 1));
 }
-.editor-icon-loop(@editor-icons,@editor-icons-position);
+.editor-icon-loop(@editor-icons,@editor-icons-position-x, @editor-icons-position-y,@editor-icons-position-x1,@editor-icons-position-y1);
 
 .ant-menu-vertical .ant-menu-item, .ant-menu-inline .ant-menu-item, .ant-menu-vertical .ant-menu-submenu-title, .ant-menu-inline .ant-menu-submenu-title{
   font-size: 14px;
