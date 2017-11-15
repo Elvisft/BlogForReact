@@ -113,6 +113,18 @@ class EditorCustomizedToolbarOption extends React.Component {
         // .catch(e => console.log('Oops, error', e));
     }
 
+    setArticle = (article)=>{
+        this.setState({
+
+            id:article.id,
+            type: article.type,
+            title: article.title,
+            date: article.date,
+            content: article.content,
+            editorState: this.getEditorState(article.content)
+        });
+    }
+
     //菜单动作
     menuItemClick = (e) =>{
         let type = e.key;
@@ -127,25 +139,23 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         this.getArticle(e,(data)=>{
             if(data.length>0){
-                let article = data[0];
-                this.setState({
-                    selArticle: e,
-                    type: article.type,
-                    title: article.title,
-                    date: article.date,
-                    content: article.content,
-                    editorState: this.getEditorState(article.content)
-                });
-
+                this.setState({  selArticle: e});
+                this.setArticle(data[0]);
 
             }
 
         });
     }
+    test=(editorState)=>{
+        this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
+        console.log(this.state.content);
+        this.uploadArticle();
+
+    }
 
     //编辑器
     getEditorState = (text)=>{
-        console.log(text);
+
         const contentBlock = htmlToDraft(text);
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
@@ -158,9 +168,9 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         this.setState({
             editorState:editorState,
-            content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+
         });
-        console.log(this.state.content);
+
     };
     //编辑器
     htmlFormat = ( text) => {
@@ -176,29 +186,29 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     //编辑器
     changeTitle = (e)=>{
-        // this.setState({title:e.target.firstChild.innerHTML});
+        this.setState({title:e.target.innerHTML});
 
     }
 
     //编辑器
     uploadArticle = () => {
-        console.log(1);
+
         let article = {
-            id:10,
-            title:'标题',
-            type:2,
+            id:this.state.id,
+            title:this.state.title,
+            type:this.state.type,
             date:new Date(),
-            content:'<h1 id="h1-1" >qwe</h1>在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，<h4 id="h4-1" >qwe</h4> <h2 id="h2-1" >qwe</h2> <h1 id="h1-2" >qwe</h1> <h2 id="h2-2" >123</h2> <h5 id="h5-1" >qwe</h5> '
+            content: this.state.content
         };
-        // this.setState({
-        //     editorState:this.getEditorState(article.content)
-        // });
-        // fetch(`${URL}article/update`, {
-        //     method: "POST",
-        //     body: JSON.stringify(article)
-        // }).then(function(response) {
-        //     // do sth
-        // });
+        let briefing = article.content.replace(/<(?:.|\s)*?>/g,'')
+
+
+        fetch(`${URL}article/update`, {
+            method: "POST",
+            body: JSON.stringify(article)
+        }).then(function(response) {
+            // do sth
+        });
     }
     //编辑器
     uploadImageCallBack = (file) => {
@@ -299,12 +309,13 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
-                <div className="editor-title"  contentEditable={true} onInput={this.changeTitle} suppressContentEditableWarning = {true}>
-                    <h2 className="in-block">{this.state.title}</h2>
+                <div className="editor-title"  contentEditable={true} onBlur={this.changeTitle} suppressContentEditableWarning = {true}>
+                    {this.state.title}
                 </div>
                 <Editor
 
                     onEditorStateChange={this.onEditorStateChange}
+                    onBlur={this.test.bind(this,this.state.editorState)}
                     editorState={this.state.editorState}
                     toolbarCustomButtons={[<Update click={this.uploadArticle}/>]}
                     toolbar={{
