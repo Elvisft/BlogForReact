@@ -4,6 +4,7 @@ import { BlockPicker } from 'react-color';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './editor.less';
 import { Row, Col, Button, Menu, Pagination, Icon, Input } from 'antd';
+
 import { URL } from './../components/config';
 import  { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
@@ -11,7 +12,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 
-
+const SubMenu = Menu.SubMenu;
 
 class ColorPic extends Component {
     static propTypes = {
@@ -60,7 +61,13 @@ class ColorPic extends Component {
         );
     }
 }
-
+class Update extends Component {
+    render() {
+        return (
+            <Button className="right" onClick={this.props.click}>保存</Button>
+        );
+    }
+}
 
 
 
@@ -70,20 +77,22 @@ class EditorCustomizedToolbarOption extends React.Component {
         articles:[],
         selArticle:true,
         editorState: EditorState.createEmpty(),
-        text:'<p>12<strong>3fs</strong>df12<em>31</em>23</p>',
-        title:'标题',
+        article:{},
+        id:undefined,
+        content:'',
+        title:'',
         date:new Date(),
-        type:2
+        type:undefined
     }
 
     static defaultProps = {
-        getArticleURL : 'article/getArticles/',
-        getClassesURL : 'classes/getClasses/'
+        getArticlesURL : 'article/getArticles/',
+        getClassesURL : 'classes/getClasses/',
+        getArticleURL : 'article/getArticle/'
     }
     constructor(props){
         super(props);
-        this.state.editorState=this.getEditorState(this.state.text);
-
+        this.state.editorState=this.getEditorState(this.state.content);
     }
 
     //获取菜单
@@ -93,9 +102,15 @@ class EditorCustomizedToolbarOption extends React.Component {
             .catch(e => console.log('Oops, error', e));
     }
     getArticles = (type, page, size, callback) => {
-        return fetch( URL + this.props.getArticleURL + `${type}/${page}/${size}` ).then(response => response.json())
+        return fetch( URL + this.props.getArticlesURL + `${type}/${page}/${size}` ).then(response => response.json())
             .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
+    }
+
+    getArticle = (id, callback) => {
+        return fetch(  `${URL}${this.props.getArticleURL}${id}` ).then(response => response.json())
+            .then(data => callback(data))
+        // .catch(e => console.log('Oops, error', e));
     }
 
     //菜单动作
@@ -103,15 +118,29 @@ class EditorCustomizedToolbarOption extends React.Component {
         let type = e.key;
         this.getArticles(type, 0, 1000, (data)=>{
             this.setState({articles:data});
-           console.log(data);
+
         });
 
     }
 
     articlesItemClick = (e)=>{
-        console.log(e);
 
-        this.setState({selArticle: e});
+        this.getArticle(e,(data)=>{
+            if(data.length>0){
+                let article = data[0];
+                this.setState({
+                    selArticle: e,
+                    type: article.type,
+                    title: article.title,
+                    date: article.date,
+                    content: article.content,
+                    editorState: this.getEditorState(article.content)
+                });
+
+
+            }
+
+        });
     }
 
     //编辑器
@@ -129,9 +158,9 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         this.setState({
             editorState:editorState,
-            text:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+            content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))
         });
-        console.log(this.state.text);
+        console.log(this.state.content);
     };
     //编辑器
     htmlFormat = ( text) => {
@@ -147,7 +176,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     //编辑器
     changeTitle = (e)=>{
-        this.setState({title:e.target.firstChild.innerHTML});
+        // this.setState({title:e.target.firstChild.innerHTML});
 
     }
 
@@ -161,9 +190,9 @@ class EditorCustomizedToolbarOption extends React.Component {
             date:new Date(),
             content:'<h1 id="h1-1" >qwe</h1>在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，在引入 官方的demo后，采用babel能成功引入了antd design的相关组件，发现多了antd design的组件还是很强大的，，但是问题来了，如何才能修改antd design自带的样式呢?哪怕是更改一下背景颜色，官方API 说明里面没有样式修改。求大神help一下下。2。组件代码如下 ，引入的都是自定义的组件，直接加class或者style是无效的，<h4 id="h4-1" >qwe</h4> <h2 id="h2-1" >qwe</h2> <h1 id="h1-2" >qwe</h1> <h2 id="h2-2" >123</h2> <h5 id="h5-1" >qwe</h5> '
         };
-        this.setState({
-            editorState:this.getEditorState(article.content)
-        });
+        // this.setState({
+        //     editorState:this.getEditorState(article.content)
+        // });
         // fetch(`${URL}article/update`, {
         //     method: "POST",
         //     body: JSON.stringify(article)
@@ -194,63 +223,58 @@ class EditorCustomizedToolbarOption extends React.Component {
             }
         );
     }
-    render(){
-        const SubMenu = Menu.SubMenu;
-        const classes = (type) => {
-            let cl = this.state.classes.get(type+'');
-            let tem = [];
-            if (cl === undefined) {
-                this.getClasses(type, (data) => {
-                    let classes = this.state.classes;
-                    classes.set(type+'',data);
-                    this.setState({classes: classes});
-                });
-            }else{
-                for (let d of cl) {
-                    if (d.has_child === 0) {
-                        tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
-                    }else {
-                        if(!this.state.classes.get(type+'')){
-                            this.getClasses(type, (data) => {
-                                let classes = this.state.classes;
-                                classes.set(type,data);
-                                this.setState({classes: classes});
-                            });
-                        }
-                        tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
-                            {classes(d.id)}
-                        </SubMenu>);
-                    }
-                }
-            }
-            return tem;
-        };
-        const articles =() => {
-            let cl = this.state.articles;
-            let tem = [];
-            if (cl === undefined) {
 
-            }else{
-                for (let d of cl) {
 
-                    tem.push(
-                        <li key={d.id} className={this.state.selArticle ===d.id?'pointer active':'pointer'} onClick={this.articlesItemClick.bind(this , d.id)}>
-                            <div className="menu-title color-4">{d.title}</div>
-                            <div className="menu-briefing font-1 color-5">{d.briefing}</div>
-                            <div className="menu-date font-1 color-3">{d.date}</div>
-                        </li>
-                       );
+     classes = (type) => {
+    let cl = this.state.classes.get(type+'');
+    let tem = [];
+    if (cl === undefined) {
+        this.getClasses(type, (data) => {
+            let classes = this.state.classes;
+            classes.set(type+'',data);
+            this.setState({classes: classes});
+        });
+    }else{
+        for (let d of cl) {
+            if (d.has_child === 0) {
+                tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
+            }else {
+                if(!this.state.classes.get(type+'')){
+                    this.getClasses(type, (data) => {
+                        let classes = this.state.classes;
+                        classes.set(type,data);
+                        this.setState({classes: classes});
+                    });
                 }
-            }
-            return tem;
-        };
-        class Update extends Component {
-            render() {
-                return (
-                    <Button className="right" onClick={this.props.click}>保存</Button>
-                );
+                tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
+                    {this.classes(d.id)}
+                </SubMenu>);
             }
         }
+    }
+    return tem;
+};
+     articles =() => {
+    let cl = this.state.articles;
+    let tem = [];
+    if (cl === undefined) {
+
+    }else{
+        for (let d of cl) {
+
+            tem.push(
+                <li key={d.id} className={this.state.selArticle ===d.id?'pointer active':'pointer'} onClick={this.articlesItemClick.bind(this , d.id)}>
+                    <div className="menu-title color-4">{d.title}</div>
+                    <div className="menu-briefing font-1 color-5">{d.briefing}</div>
+                    <div className="menu-date font-1 color-3">{d.date}</div>
+                </li>
+            );
+        }
+    }
+    return tem;
+};
+    render(){
+
 
         return (<Row className="editor">
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
@@ -263,14 +287,14 @@ class EditorCustomizedToolbarOption extends React.Component {
                     defaultOpenKeys={['sub4']}
                     mode="inline"
                 >
-                {classes(0)}
+                {this.classes(0)}
                 </Menu>
 
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
                 <ul className="editor-middle-menu font-7">
-                    {articles()}
+                    {this.articles()}
                 </ul>
 
             </Col>
