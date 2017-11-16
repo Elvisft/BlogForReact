@@ -137,7 +137,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     articlesItemClick = (e,id)=>{
-        console.log(e);
+
         this.getArticle(id,(data)=>{
             if(data.length>0){
                 this.setState({  selArticle: e});
@@ -187,7 +187,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     //编辑器
     changeTitle = (e)=>{
-        this.setState({title:e.target.innerHTML});
+        this.setState({title:e.target.innerHTML},this.uploadArticle);
 
     }
 
@@ -201,9 +201,10 @@ class EditorCustomizedToolbarOption extends React.Component {
             date:new Date(),
             content: this.htmlFormat(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
         };
-
+        console.log(article.title);
         let articles = this.state.articles;
-        articles[this.state.selArticle] = {
+
+        articles[this.state.selArticle-1] = {
             id:article.id,
             title:article.title,
             type:article.type,
@@ -307,6 +308,7 @@ class EditorCustomizedToolbarOption extends React.Component {
                     defaultOpenKeys={['sub4']}
                     mode="inline"
                 >
+
                 {this.classes(0)}
                 </Menu>
 
