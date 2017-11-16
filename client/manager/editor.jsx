@@ -75,11 +75,11 @@ class EditorCustomizedToolbarOption extends React.Component {
     state = {
         classes: new Map(),
         articles:[],
-        selArticle:true,
+        selArticle:undefined,
         editorState: EditorState.createEmpty(),
         article:{},
         id:undefined,
-        content:'',
+        // content:'',
         title:'',
         date:new Date(),
         type:undefined
@@ -92,7 +92,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     constructor(props){
         super(props);
-        this.state.editorState=this.getEditorState(this.state.content);
+        // this.state.editorState=this.getEditorState(this.state.content);
     }
 
     //获取菜单
@@ -114,13 +114,14 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     setArticle = (article)=>{
+
         this.setState({
 
             id:article.id,
             type: article.type,
             title: article.title,
             date: article.date,
-            content: article.content,
+            // content: article.content,
             editorState: this.getEditorState(article.content)
         });
     }
@@ -135,9 +136,9 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     }
 
-    articlesItemClick = (e)=>{
-
-        this.getArticle(e,(data)=>{
+    articlesItemClick = (e,id)=>{
+        console.log(e);
+        this.getArticle(id,(data)=>{
             if(data.length>0){
                 this.setState({  selArticle: e});
                 this.setArticle(data[0]);
@@ -147,8 +148,8 @@ class EditorCustomizedToolbarOption extends React.Component {
         });
     }
     test=(editorState)=>{
-        this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
-        console.log(this.state.content);
+        // this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
+        console.log(this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
         this.uploadArticle();
 
     }
@@ -198,10 +199,19 @@ class EditorCustomizedToolbarOption extends React.Component {
             title:this.state.title,
             type:this.state.type,
             date:new Date(),
-            content: this.state.content
+            content: this.htmlFormat(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
         };
-        let briefing = article.content.replace(/<(?:.|\s)*?>/g,'')
 
+        let articles = this.state.articles;
+        articles[this.state.selArticle] = {
+            id:article.id,
+            title:article.title,
+            type:article.type,
+            date:article.date.getMonth()+'.'+article.date.getDate()+'.'+article.date.getFullYear(),
+            briefing:article.content.replace(/<(?:.|\s)*?>/g,'')
+        }
+        this.setState({articles: articles});
+        this.setArticle(article);
 
         fetch(`${URL}article/update`, {
             method: "POST",
@@ -270,10 +280,10 @@ class EditorCustomizedToolbarOption extends React.Component {
     if (cl === undefined) {
 
     }else{
-        for (let d of cl) {
-
+        for(let [index,d] of new Map( cl.map( ( item, i ) => [ i, item ] ) )){
+            index++;
             tem.push(
-                <li key={d.id} className={this.state.selArticle ===d.id?'pointer active':'pointer'} onClick={this.articlesItemClick.bind(this , d.id)}>
+                <li key={index} className={this.state.selArticle ===index?'pointer active':'pointer'} onClick={this.articlesItemClick.bind(this , index, d.id)}>
                     <div className="menu-title color-4">{d.title}</div>
                     <div className="menu-briefing font-1 color-5">{d.briefing}</div>
                     <div className="menu-date font-1 color-3">{d.date}</div>
