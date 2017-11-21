@@ -92,6 +92,14 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     constructor(props){
         super(props);
+        this.menuItemClick({key: 0}, (data)=>{
+            this.getArticle(data[0].id,(data)=>{
+                if(data.length>0){
+                    this.setState({selArticle: data[0].id});
+                    this.setArticle(data[0]);
+                }
+            });
+        });
         // this.state.editorState=this.getEditorState(this.state.content);
     }
 
@@ -127,11 +135,14 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     //菜单动作
-    menuItemClick = (e) =>{
+    menuItemClick = (e,args) =>{
         let type = e.key;
+
         this.getArticles(type, 0, 1000, (data)=>{
             this.setState({articles:data});
-
+            if(typeof args === 'function'){
+                args(data);
+            }
         });
 
     }
@@ -304,11 +315,12 @@ class EditorCustomizedToolbarOption extends React.Component {
                     // theme={"dark"}
                     onClick={this.menuItemClick}
                     className="sel-left"
-                    defaultSelectedKeys={['java']}
-                    defaultOpenKeys={['sub4']}
+                    defaultSelectedKeys={['0']}
+                    // defaultOpenKeys={['sub4']}
                     mode="inline"
                 >
 
+                    <Menu.Item key={0}>最近文档</Menu.Item>
                 {this.classes(0)}
                 </Menu>
 

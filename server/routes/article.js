@@ -5,10 +5,15 @@ exports.autowired = {
     'get' : {
         '/getArticles/:type/:page/:size' : (req, res, next)=>{
             let type = parseInt(req.params.type),page = parseInt(req.params.page), size = parseInt(req.params.size);
-
+            let sql = 'WHERE type=? ORDER BY date DESC LIMIT ?,?',param = [type,  page, size];
+            console.log(typeof type);
+            if(type === 0){
+                sql = 'ORDER BY date DESC LIMIT ?,?';
+                param = [page, size];
+            }
             req.getConnection((err, conn) => {
-                conn.query('SELECT id,title,type,briefing,date_format(date,"%c.%d.%Y") as date FROM article WHERE type=? ORDER BY date DESC LIMIT ?,?',
-                    [type,  page, size], (err, result) => {
+                conn.query(`SELECT id,title,type,briefing,date_format(date,"%c.%d.%Y") as date FROM article ${sql}`,
+                    param, (err, result) => {
                         if(err){
                             res.json(err);
                         }else{
