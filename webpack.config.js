@@ -94,7 +94,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: [
-        'webpack/hot/dev-server', path.resolve(__dirname, './client/main.js')
+        'webpack/hot/dev-server', path.resolve(__dirname, './admin/client/main.js')
     ],
     output: {
         path: path.resolve(__dirname, './build'),
@@ -154,7 +154,7 @@ module.exports = {
             canPrint: true
         }),
         new htmlWebpackPlugin({
-            template: './client/public/index.html',
+            template: './admin/client/public/index.html',
             title:'123',
             inject:true,
             minify:{
