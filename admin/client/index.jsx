@@ -42,27 +42,11 @@ const routes = [
     {
         path: '/manager/editor',
         exact: true,
-        component: () => <Editor/>
+        component: <Editor/>
     },
 
 ];
-// async function main() {
-//     // 解构赋值用法示例
-//     const { default: Component } = await import('./components/editor.jsx');
-//     // 行内用法示例
-//     // render((await import('./components/editor.jsx')).default);
-// }
-// {
-//     path: '/editor',
-//         exact: true,
-//     navigation: () => <Head selected= "2"/>,
-//     main: <Editor/>
-//     //     (nextState,callback)=>{
-//     //     require.ensure([],(require)=>{
-//     //         callback(null,require("./components/editor.jsx").default)
-//     //     },"editor")
-//     // }
-// }
+
 class App extends React.Component {
     render() {
         return (
@@ -92,7 +76,11 @@ class App extends React.Component {
                         <Switch>
                             {
                                 routes.map((route, index) => (
-                                    <Route exact={route.exact} path={route.path} component={route.component} key={index} />
+                                    <Route exact={route.exact} path={route.path} render={(history) => {
+                                        console.log(history);
+                                        // history.push('/wers',null);
+                                        return route.component;
+                                    }} key={index} />
                                 ))
                             }
 
