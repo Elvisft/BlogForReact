@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from './../actions';
+import * as actions from '../actions';
 import { Row, Col, Button, Menu, Pagination, Icon } from 'antd';
 import './career.css';
 import { URL } from './../components/config';

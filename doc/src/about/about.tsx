@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
-import * as actions from './../actions';
+import * as actions from '../actions';
 
 import './about.css';
 

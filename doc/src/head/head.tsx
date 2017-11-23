@@ -5,11 +5,11 @@ import { Row, Col, Menu, Button, Dropdown, Icon } from 'antd';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 // import * as actions from './../actions';
-import SearchInput from './../components/searchInput';
+import SearchInput from '../components/searchInput';
 
 import './head.css';
 
-let logo = require('./../static/img/logo.png');
+let logo = require('../static/img/logo.png');
 let MediaQuery = require('react-responsive');
 const menu = (
     <Menu className="popover-menu">
