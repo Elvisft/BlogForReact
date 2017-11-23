@@ -8,20 +8,20 @@ import createHistory from 'history/createBrowserHistory';
 import { Menu, Icon, Button,Row,Col  } from 'antd';
 
 import stores from './reducers.js';
-import Head from './head/head.jsx';
-import Home from './home/home.jsx';
+
 
 import Error from './error/error.jsx';
 
 import './index.less';
 import './theme.less';
-import './career/career.less';
 
+import './head.less';
+import logo from './static/img/logo.png';
 // bundle模型用来异步加载组件
 import Bundle from './bundle.js';
 
 // 异步引入
-import EditorContainer from 'bundle-loader?lazy&name=app-[name]!./editor.jsx';
+import EditorContainer from 'bundle-loader?lazy&name=app-[name]!./editor/editor.jsx';
 const Editor = () => (
     <Bundle load={EditorContainer}>
         {(Editor) => <Editor />}
@@ -38,16 +38,10 @@ export const store = createStore(
 );
 
 const routes = [
+
     {
-        path: '/',
+        path: '/manager/editor',
         exact: true,
-        navigation: () => <Head selected="0"/>,
-        component: () => <Home/>
-    },
-    {
-        path: '/editor',
-        exact: true,
-        navigation: () => <Head selected= "1"/>,
         component: () => <Editor/>
     },
 
