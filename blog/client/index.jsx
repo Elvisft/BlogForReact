@@ -24,7 +24,7 @@ import ManagerContainer from 'bundle-loader?lazy&name=app-[name]!./manager/manag
 import AboutContainer from 'bundle-loader?lazy&name=app-[name]!./about/about.jsx';
 import CareerContainer from 'bundle-loader?lazy&name=app-[name]!./career/career.jsx';
 import DetailsContainer from 'bundle-loader?lazy&name=app-[name]!./details/details.jsx';
-
+import SignContainer from 'bundle-loader?lazy&name=app-[name]!./sign/sign.jsx';
 const Career = () => (
     <Bundle load={CareerContainer}>
         {(Career) => <Career />}
@@ -45,6 +45,11 @@ const About = () => (
         {(About) => <About />}
     </Bundle>
 );
+const Sign = () => (
+    <Bundle load={SignContainer}>
+        {(Sign) => <Sign />}
+    </Bundle>
+);
 const history = createHistory();
 
 
@@ -59,33 +64,40 @@ const routes = [
         path: '/',
         exact: true,
         navigation: () => <Head selected="0"/>,
-        component: () => <Home/>
+        component: <Home/>
     },
     {
         path: '/about',
         exact: true,
         navigation: () => <Head selected= "1"/>,
-        component: () => <About/>
+        component: <About/>
     },
     {
         path: '/manager',
         exact: false,
         navigation: () => <div/>,
-        component: () => <Manager />
+        component: <Manager />
     },
     {
         path: '/career',
         exact: true,
         navigation: () => <Head selected= "2"/>,
-        component: () => <Career/>
+        component: <Career/>
     },
     {
         path: '/career/details/:id',
         exact: true,
         navigation: () => <Head selected= "2"/>,
-        component: () => <Details/>
+        component: <Details/>
+    },
+    {
+        path: '/signIn',
+        exact: true,
+        navigation: () => <div/>,
+        component: <Sign/>
     }
 ];
+
 // async function main() {
 //     // 解构赋值用法示例
 //     const { default: Component } = await import('./components/editor.jsx');
@@ -118,7 +130,13 @@ class App extends React.Component {
                         <Switch>
                             {
                                 routes.map((route, index) => (
-                                    <Route exact={route.exact} path={route.path} component={route.component} key={index} />
+                                    <Route exact={route.exact} path={route.path} render={(history) => {
+                                        console.log(history);
+                                        if(history.location.pathname.indexOf('manager')!==-1){
+                                            history.history.push('/signIn','sign');
+                                        }
+                                        return route.component;
+                                    }} key={index} />
                                 ))
                             }
 

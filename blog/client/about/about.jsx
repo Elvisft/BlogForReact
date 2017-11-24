@@ -48,9 +48,9 @@ class About extends React.Component {
                         <div>九五后，河南人</div>
                         <div>web工程师</div>
                         <div>二零一六年开始职业生涯</div>
-                        <div> 一个从小不爱学习的不良青年</div>
-                        <div>高中玩手机被老师没收N个手机</div>
-                        <div>大学泡网吧期末挂N个学科</div>
+                        {/*<div> 一个从小不爱学习的不良青年</div>*/}
+                        {/*<div>高中玩手机被老师没收N个手机</div>*/}
+                        {/*<div>大学泡网吧期末挂N个学科</div>*/}
                     </div>
                     <div className="about-my left in-block">
                         {/*<a href="https://www.pixiv.net/member.php?id=2787621" target="_bank">*/}
