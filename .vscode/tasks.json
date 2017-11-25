@@ -12,6 +12,11 @@
             "type": "npm",
             "script": "blog-server",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "admin-dev",
+            "problemMatcher": []
         }
     ]
 }
