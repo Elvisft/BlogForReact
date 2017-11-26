@@ -131,7 +131,7 @@ class App extends React.Component {
                             {
                                 routes.map((route, index) => (
                                     <Route exact={route.exact} path={route.path} render={(history) => {
-                                        console.log(history);
+                                        // console.log(history);
                                         if(history.location.pathname.indexOf('manager')!==-1){
                                             history.history.push('/signIn','sign');
                                         }
