@@ -5,7 +5,8 @@ import * as actions from './../actions';
 import { Form, Icon, Input, Button } from 'antd';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-
+import MD5 from 'md5';
+import {URL} from './../components/config';
 import './sign.less';
 import logo from './../static/img/logo.png';
 const FormItem = Form.Item;
@@ -29,6 +30,15 @@ class SignForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                values.password = MD5(values.password);
+
+                fetch(`${URL}sign/in`,{
+                    method: "POST",
+                    body: JSON.stringify(values)
+                }).then(function(response) {
+                    console.log(response)
+                    // do sth
+                });
             }
         });
     }

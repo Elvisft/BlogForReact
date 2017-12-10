@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var dbConfig = require('./util/mysqlConfig');//数据库配置
 var route = require('./util/routeUtil');//引用路由
-
+const signFilter = require('./filter/sign');
 var app = express();
 
 // view engine setup
@@ -32,7 +32,7 @@ app.use(( req, res, next )=>{    //请求头配置
     });
     next();
 });
-
+app.use(signFilter);//登陆拦截器
 
 
 app.use('/blogServer',route);
