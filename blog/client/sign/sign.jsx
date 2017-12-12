@@ -25,19 +25,25 @@ class SignForm extends React.Component {
         e.preventDefault();
         const { cookies } = this.props;
         console.log( this.props.cookies);
-        cookies.set('name', '123', { path: '/' });
+        // cookies.set('name', '123', { path: '/' });
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
                 values.password = MD5(values.password);
 
                 fetch(`${URL}sign/in`,{
                     method: "POST",
                     body: JSON.stringify(values)
-                }).then(function(response) {
-                    console.log(response)
-                    // do sth
+                }).then(response=>response.json()).then(function(data) {
+                    if(data.signIn){
+                        console.log('signin');
+                        console.log(location);
+                    }else{
+                        console.log('sign');
+                    }
+
+
                 });
             }
         });

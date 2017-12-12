@@ -133,7 +133,8 @@ class App extends React.Component {
                                     <Route exact={route.exact} path={route.path} render={(history) => {
                                         // console.log(history);
                                         if(history.location.pathname.indexOf('manager')!==-1){
-                                            history.history.push('/signIn','sign');
+                                            console.log(history.location.pathname);
+                                            history.history.push(`/signIn?redirectURL=${history.location.pathname}`,'sign');
                                         }
                                         return route.component;
                                     }} key={index} />
