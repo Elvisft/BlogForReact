@@ -1,3 +1,5 @@
+const jwt = require('./../util/jwt');
+
 exports.autowired={
     'get' : {
         '/test':(req, res, next)=>{
@@ -18,7 +20,7 @@ exports.autowired={
                             console.log(err)
                             res.json(err);
                         }else{
-                            console.log(result[0]);
+                            result[0].token = jwt.encode(user.userName);
                             res.json(result[0]);
                         }
                     });

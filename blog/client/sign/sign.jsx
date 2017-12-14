@@ -3,29 +3,31 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './../actions';
 import { Form, Icon, Input, Button } from 'antd';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import PropTypes  from 'prop-types';
+import {withRouter} from "react-router-dom";
+import Cookies from 'universal-cookie';
+
 import MD5 from 'md5';
 import {URL} from './../components/config';
+import { getURLQueryString } from './../util/util';
 import './sign.less';
 import logo from './../static/img/logo.png';
 const FormItem = Form.Item;
 
 
 class SignForm extends React.Component {
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    };
+
     constructor(prors){
         super(prors);
-
     }
 
     handleSubmit = (e) => {
+
         e.preventDefault();
-        const { cookies } = this.props;
-        console.log( this.props.cookies);
-        // cookies.set('name', '123', { path: '/' });
+
+        const cookies = new Cookies();
+
+        cookies.set('myCat', 'Pacman', { path: '/' });
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -35,15 +37,12 @@ class SignForm extends React.Component {
                 fetch(`${URL}sign/in`,{
                     method: "POST",
                     body: JSON.stringify(values)
-                }).then(response=>response.json()).then(function(data) {
+                }).then(response=>response.json()).then((data)=> {
                     if(data.signIn){
-                        console.log('signin');
-                        console.log(location);
+                        this.props.history.push(getURLQueryString('redirectURL'));
                     }else{
                         console.log('sign');
                     }
-
-
                 });
             }
         });
@@ -93,10 +92,10 @@ class SignForm extends React.Component {
 const Sign = Form.create()(SignForm);
 
 const mapStateToProps = ( state) => {
+    console.log(state);
     return {sign: state.signCtrl};
 }
 const mapDispatchToProps = (dispatch) => {
-
     return {
         actions: bindActionCreators(actions.SignAction, dispatch),
     };
@@ -104,4 +103,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withCookies(Sign));
+)(withRouter(Sign));
