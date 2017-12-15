@@ -5,6 +5,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
+import Cookies from 'universal-cookie';
+
+import { getSignIn } from './util/storage';
 
 import stores from './reducers.js';
 import Head from './head/head.jsx';
@@ -51,7 +54,7 @@ const Sign = () => (
     </Bundle>
 );
 const history = createHistory();
-
+const cookies = new Cookies();
 
 const middleware = routerMiddleware(history);
 export const store = createStore(
@@ -133,8 +136,9 @@ class App extends React.Component {
                                     <Route exact={route.exact} path={route.path} render={(history) => {
                                         // console.log(history);
                                         if(history.location.pathname.indexOf('manager')!==-1){
-                                            console.log(history.location.pathname);
-                                            history.history.push(`/signIn?redirectURL=${history.location.pathname}`,'sign');
+                                            const sign_in = getSignIn();
+                                            if(!sign_in)
+                                                history.history.push(`/signIn?redirectURL=${history.location.pathname}`,'sign');
                                         }
                                         return route.component;
                                     }} key={index} />

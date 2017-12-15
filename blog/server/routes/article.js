@@ -38,6 +38,7 @@ exports.autowired = {
         }
     },
     'post' : {
+        //@Interceptor
         '/test': (req, res, next) => {
             //生成multiparty对象，并配置上传目标路径
             let form = new multiparty.Form({uploadDir: './server/static/image'});
@@ -64,8 +65,9 @@ exports.autowired = {
                  res.json({ data: { link: 'http://106.14.150.87/static/image/1.jpg'}});
              });
         },
+        //@Interceptor
         '/update': (req, res, next) =>{
-
+            console.log(123);
             req.on("data",(chunk)=>{
                 let article = JSON.parse(chunk+"");
                 let briefing = article.content.replace(/<(?:.|\s)*?>/g,'');

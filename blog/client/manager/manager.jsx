@@ -34,6 +34,7 @@ class Manager extends React.Component{
                                 <Menu.Item key="2"><Link to="/manager/message">留言</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to="/manager/monitor">监控</Link></Menu.Item>
                             </Menu>
+                            <Button>退出</Button>
                         </Col>
                     </Row>
 

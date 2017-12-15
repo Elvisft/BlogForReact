@@ -5,7 +5,7 @@ import * as actions from './../actions';
 import { Form, Icon, Input, Button } from 'antd';
 import PropTypes  from 'prop-types';
 import {withRouter} from "react-router-dom";
-import Cookies from 'universal-cookie';
+import {setSignIn, setToken} from './../util/storage';
 
 import MD5 from 'md5';
 import {URL} from './../components/config';
@@ -25,9 +25,9 @@ class SignForm extends React.Component {
 
         e.preventDefault();
 
-        const cookies = new Cookies();
 
-        cookies.set('myCat', 'Pacman', { path: '/' });
+
+
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -39,6 +39,8 @@ class SignForm extends React.Component {
                     body: JSON.stringify(values)
                 }).then(response=>response.json()).then((data)=> {
                     if(data.signIn){
+                        setToken(data.token);
+                        setSignIn(true);
                         this.props.history.push(getURLQueryString('redirectURL'));
                     }else{
                         console.log('sign');

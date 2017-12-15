@@ -5,7 +5,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './editor.less';
 import { Row, Col, Button, Menu, Pagination, Icon, Input } from 'antd';
 
-import { ManageURL } from './../components/config';
+import { URL, ManageURL } from './../components/config';
 import  { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
@@ -105,18 +105,18 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     //获取菜单
     getClasses = (classes, callback) => {
-        return fetch( ManageURL + this.props.getClassesURL + classes ).then(response => response.json())
+        return fetch( URL + this.props.getClassesURL + classes ).then(response => response.json())
             .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
     }
     getArticles = (type, page, size, callback) => {
-        return fetch( ManageURL + this.props.getArticlesURL + `${type}/${page}/${size}` ).then(response => response.json())
+        return fetch( URL + this.props.getArticlesURL + `${type}/${page}/${size}` ).then(response => response.json())
             .then(data => callback(data))
             .catch(e => console.log('Oops, error', e));
     }
 
     getArticle = (id, callback) => {
-        return fetch(  `${ManageURL}${this.props.getArticleURL}${id}` ).then(response => response.json())
+        return fetch(  `${URL}${this.props.getArticleURL}${id}` ).then(response => response.json())
             .then(data => callback(data))
         // .catch(e => console.log('Oops, error', e));
     }
@@ -225,6 +225,7 @@ class EditorCustomizedToolbarOption extends React.Component {
         this.setState({articles: articles});
         this.setArticle(article);
 
+        console.log(ManageURL);
         fetch(`${ManageURL}article/update`, {
             method: "POST",
             body: JSON.stringify(article)
@@ -239,7 +240,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             (resolve, reject) => {
 
                 let xhr = new XMLHttpRequest();
-                xhr.open('POST', `${URL}article/test`);
+                xhr.open('POST', `${ManageURL}article/test`);
                 // xhr.setRequestHeader('Authorization', 'Client-ID XXXXX');
                 const data = new FormData();
                 data.append('image', file);
