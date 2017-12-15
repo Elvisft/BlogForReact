@@ -39,14 +39,11 @@ let loadFile = (filePath, path)=> {
                 let interceptorURL = '';
                 for(let i=0;i< jsList.length;i++){
                     if(jsList[i].indexOf(routeRule)!==-1){
-
                         for(let j =i-1; j>0; j--){
                             if(jsList[j].indexOf('//')===-1){
                                 break;
                             }else{
-
                                 for(let q in config.interceptor){
-
                                     if(jsList[j].indexOf(`//@${q}`)!==-1){
                                         interceptorURL = '/'+config.interceptor[q];
                                     }
@@ -54,9 +51,7 @@ let loadFile = (filePath, path)=> {
                             }
                         }
                     }
-
                 }
-
                 router[method](interceptorURL+jsPath+routeRule, func);
             }
         }
