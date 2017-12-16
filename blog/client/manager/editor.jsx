@@ -11,7 +11,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-
+import {http} from './../util/util';
 const SubMenu = Menu.SubMenu;
 
 class ColorPic extends Component {
@@ -160,7 +160,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     test=(editorState)=>{
         // this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
-        console.log(this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
+        // console.log(this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
         this.uploadArticle();
 
     }
@@ -212,7 +212,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             date:new Date(),
             content: this.htmlFormat(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
         };
-        console.log(article.title);
+        // console.log(article.title);
         let articles = this.state.articles;
 
         articles[this.state.selArticle-1] = {
@@ -225,12 +225,9 @@ class EditorCustomizedToolbarOption extends React.Component {
         this.setState({articles: articles});
         this.setArticle(article);
 
-        console.log(ManageURL);
-        fetch(`${ManageURL}article/update`, {
-            method: "POST",
-            body: JSON.stringify(article)
-        }).then(function(response) {
-            // do sth
+        // console.log(ManageURL);
+        http.post(`${ManageURL}article/update`,JSON.stringify(article)).then(data=>{
+            console.log(data);
         });
     }
     //编辑器

@@ -40,7 +40,7 @@ class SignForm extends React.Component {
                 }).then(response=>response.json()).then((data)=> {
                     if(data.signIn){
                         setToken(data.token);
-                        setSignIn(true);
+                        setSignIn(1);
                         this.props.history.push(getURLQueryString('redirectURL'));
                     }else{
                         console.log('sign');

@@ -10,9 +10,10 @@ const decode=(token)=>{
     return jwt.decode(token, secret);
 };
 const checkToken=(token)=>{
+    if(!token) return false;
     const info = decode(token);
     const nowTime = new Date().getTime();
-    if(nowTime-info.time>=1296000000){
+    if(nowTime-info.time>1296000000){
         return false;
     }
     return true;

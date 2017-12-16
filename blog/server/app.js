@@ -28,7 +28,8 @@ app.use(dbConfig);//使用数据库
 app.use(( req, res, next )=>{    //请求头配置
     res.set({
         'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json;charset=UTF-8'
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Headers':'Content-Type, Authorization,token, X-Requested-With'
     });
     next();
 });

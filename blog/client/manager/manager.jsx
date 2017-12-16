@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Menu, Icon, Button,Row,Col  } from 'antd';
-import { Link, Route, Router,matchPath } from 'react-router-dom';
+import { Link, Route, Router,withRouter } from 'react-router-dom';
 import Bundle from './../bundle.js';
-
+import {setSignIn, setToken} from "../util/storage";
 
 import logo from './../static/img/logo.png';
 
@@ -15,7 +15,11 @@ const Editor = () => (
 const SubMenu = Menu.SubMenu;
 
 class Manager extends React.Component{
-
+    signOut=()=>{
+        setSignIn(0);
+        setToken('');
+        this.props.history.push('/signIn');
+    }
     render() {
         return (
             <div>
@@ -34,7 +38,7 @@ class Manager extends React.Component{
                                 <Menu.Item key="2"><Link to="/manager/message">留言</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to="/manager/monitor">监控</Link></Menu.Item>
                             </Menu>
-                            <Button>退出</Button>
+                            <Button onClick={this.signOut}>退出</Button>
                         </Col>
                     </Row>
 
@@ -46,4 +50,4 @@ class Manager extends React.Component{
         );
     }
 }
-export default Manager;
+export default withRouter(Manager);

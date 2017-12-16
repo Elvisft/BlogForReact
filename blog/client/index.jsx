@@ -137,8 +137,8 @@ class App extends React.Component {
                                         // console.log(history);
                                         if(history.location.pathname.indexOf('manager')!==-1){
                                             const sign_in = getSignIn();
-                                            if(!sign_in)
-                                                history.history.push(`/signIn?redirectURL=${history.location.pathname}`,'sign');
+                                            if(sign_in==='0'||sign_in===0)
+                                                history.history.push(`/signIn?redirectURL=${history.location.pathname}`);
                                         }
                                         return route.component;
                                     }} key={index} />

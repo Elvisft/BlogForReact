@@ -1,11 +1,23 @@
 /**
  * Created by MR-Liu on 2017/11/26.
  */
+const jwt = require('./../util/jwt');
 const signFilter = (req, res, next )=>{
-
     if(req.originalUrl.indexOf('manage')!==-1){
-        console.log(req);
+        if (req.method !== 'OPTIONS'){
+
+            const token = req.headers.token;
+
+            if(jwt.checkToken(token)){
+                next();
+            }else{
+                res.status(401).end();
+            }
+        }else {
+            next();
+        }
+    }else {
+        next();
     }
-    next();
 }
 module.exports = signFilter;
