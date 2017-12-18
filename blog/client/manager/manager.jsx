@@ -30,7 +30,7 @@ class Manager extends React.Component{
                                 <img src={logo} alt="logo"/>
                             </Link>
                         </Col>
-                        <Col xs={{span: 0}} sm={{span: 0}} md={{span: 19}} lg={{span: 20}} >
+                        <Col xs={{span: 0}} sm={{span: 0}} md={{span: 16}} lg={{span: 18}} >
 
                             <Menu mode="horizontal" className="right header-menu">
                                 <Menu.Item key="0"><Link to="/" target={'_blank'}>主站</Link></Menu.Item>
@@ -38,6 +38,8 @@ class Manager extends React.Component{
                                 <Menu.Item key="2"><Link to="/manager/message">留言</Link></Menu.Item>
                                 <Menu.Item key="3"><Link to="/manager/monitor">监控</Link></Menu.Item>
                             </Menu>
+                        </Col>
+                        <Col  xs={{span: 0}} sm={{span: 0}} md={{span: 3}} lg={{span: 4}} >
                             <Button onClick={this.signOut}>退出</Button>
                         </Col>
                     </Row>
