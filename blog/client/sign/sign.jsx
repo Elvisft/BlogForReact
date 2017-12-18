@@ -25,15 +25,10 @@ class SignForm extends React.Component {
 
         e.preventDefault();
 
-
-
-
-
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                // console.log('Received values of form: ', values);
-                values.password = MD5(values.password);
 
+            if (!err) {
+                values.password = MD5(values.password);
                 fetch(`${URL}sign/in`,{
                     method: "POST",
                     body: JSON.stringify(values)
@@ -41,14 +36,23 @@ class SignForm extends React.Component {
                     if(data.signIn){
                         setToken(data.token);
                         setSignIn(1);
-                        this.props.history.push(getURLQueryString('redirectURL'));
+                        let redirectURL = getURLQueryString('redirectURL');
+                        if(!redirectURL){
+                            redirectURL = '/manager';
+                        }
+                        this.props.history.push(redirectURL);
                     }else{
-                        console.log('sign');
+                        this.props.form.setFields({
+                            userName: {
+                                value: values.userName,
+                                errors: [new Error('账号或密码错误！')],
+                            },
+                        })
                     }
                 });
             }
         });
-    }
+    };
     render() {
 
         const { getFieldDecorator } = this.props.form;
@@ -61,13 +65,13 @@ class SignForm extends React.Component {
                             <img className="sign-logo" src={logo} alt="logo"/>
                             <span className="sign-title">Master</span>
                         </div>
-                        <div className="sign-body">
+                        <div className="sign-body text-left">
                             <Form onSubmit={this.handleSubmit} className="login-form">
                                 <FormItem>
                                     {getFieldDecorator('userName', {
                                         rules: [{ required: true, message: '请输入用户名!' }],
                                     })(
-                                        <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
+                                        <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名"/>
                                     )}
                                 </FormItem>
                                 <FormItem>
