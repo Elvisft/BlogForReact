@@ -18,7 +18,7 @@ class Manager extends React.Component{
     signOut=()=>{
         setSignIn(0);
         setToken('');
-        this.props.history.push('/signIn');
+        this.props.history.push(`/signIn?redirectURL=${this.props.history.location.pathname}`);
     }
     render() {
         return (
@@ -39,8 +39,8 @@ class Manager extends React.Component{
                                 <Menu.Item key="3"><Link to="/manager/monitor">监控</Link></Menu.Item>
                             </Menu>
                         </Col>
-                        <Col  xs={{span: 0}} sm={{span: 0}} md={{span: 3}} lg={{span: 4}} >
-                            <Button onClick={this.signOut}>退出</Button>
+                        <Col  xs={{span: 0}} sm={{span: 0}} md={{span: 3}} lg={{span: 2}} >
+                            <Button onClick={this.signOut} style={{margin:18}}>退出</Button>
                         </Col>
                     </Row>
 

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^2.13.10",
+    "antd": "^3.0.2",
     "bundle-loader": "^0.5.5",
     "connect-multiparty": "^2.0.0",
     "draftjs-to-html": "^0.7.5",

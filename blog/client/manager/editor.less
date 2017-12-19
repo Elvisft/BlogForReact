@@ -94,28 +94,30 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
 .ant-menu.ant-menu-inline, .ant-menu.ant-menu-vertical {
   border-right: 0;
 }
-
-.editor-middle-menu li{
+.blog-menu{
+  padding-left: 0;
+}
+.blog-menu li{
 
   position: relative;
-  padding: @s_spacing @l_spacing;
+  padding: @s_spacing @m_spacing @s_spacing @l_spacing;
   transition: color .3s cubic-bezier(.645,.045,.355,1),border-color .3s cubic-bezier(.645,.045,.355,1),background .3s cubic-bezier(.645,.045,.355,1),padding .15s cubic-bezier(.645,.045,.355,1);
 }
-.editor-middle-menu li:hover .menu-title{
+.blog-menu li:hover .menu-title{
   color: @primary-color;
 }
-.editor-middle-menu li.active{
+.blog-menu li.active{
   background-color: @primary-color-1;
 }
-.editor-middle-menu li.active .menu-title{
+.blog-menu li.active .menu-title{
   color: @primary-color;
 }
-.editor-middle-menu li.active:after {
+.blog-menu li.active:after {
   opacity: 1;
   transform: scaleY(1);
 }
 
-.editor-middle-menu li:after {
+.blog-menu li:after {
   right: 0;
   border-left: 3px solid @primary-color;
   transform: scaleY(.0001);
@@ -128,711 +130,52 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
   transition: transform .15s cubic-bezier(.215,.61,.355,1),opacity .15s cubic-bezier(.215,.61,.355,1);
 }
 
-
-
-
-//
-#gopng_editor-icon-justify1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-justify1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-left_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-left {
-  background: url(http://gopng/static/images/sprite.png) -16px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-left1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-left1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-right_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-right {
-  background: url(http://gopng/static/images/sprite.png) -16px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-right1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-right1 {
-  background: url(http://gopng/static/images/sprite.png) -32px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 32px;
-  _margin-left: -32px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_embedded_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_embedded {
-  background: url(http://gopng/static/images/sprite.png) -32px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 32px;
-  _margin-left: -32px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_embedded1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_embedded1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_image_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_image {
-  background: url(http://gopng/static/images/sprite.png) -16px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_image1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_image1 {
-  background: url(http://gopng/static/images/sprite.png) -32px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 32px;
-  _margin-left: -32px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_indent_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_indent {
-  background: url(http://gopng/static/images/sprite.png) -48px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 48px;
-  _margin-left: -48px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_indent1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_indent1 {
-  background: url(http://gopng/static/images/sprite.png) -48px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 48px;
-  _margin-left: -48px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_italic_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_italic {
-  background: url(http://gopng/static/images/sprite.png) -48px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 48px;
-  _margin-left: -48px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_italic1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_italic1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_link_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_link {
-  background: url(http://gopng/static/images/sprite.png) -16px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_link1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_link1 {
-  background: url(http://gopng/static/images/sprite.png) -32px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 32px;
-  _margin-left: -32px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_ordered_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_ordered {
-  background: url(http://gopng/static/images/sprite.png) -48px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 48px;
-  _margin-left: -48px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_ordered1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_ordered1 {
-  background: url(http://gopng/static/images/sprite.png) -64px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 64px;
-  _margin-left: -64px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_outdent_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_outdent {
-  background: url(http://gopng/static/images/sprite.png) -64px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 64px;
-  _margin-left: -64px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_outdent1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_outdent1 {
-  background: url(http://gopng/static/images/sprite.png) -64px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 64px;
-  _margin-left: -64px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_redo_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_redo {
-  background: url(http://gopng/static/images/sprite.png) -64px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 64px;
-  _margin-left: -64px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_redo1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_redo1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_remove_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_remove {
-  background: url(http://gopng/static/images/sprite.png) -16px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_remove1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_remove1 {
-  background: url(http://gopng/static/images/sprite.png) -32px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 32px;
-  _margin-left: -32px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_strikethrough_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_strikethrough {
-  background: url(http://gopng/static/images/sprite.png) -48px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 48px;
-  _margin-left: -48px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_strikethrough1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_strikethrough1 {
-  background: url(http://gopng/static/images/sprite.png) -64px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 64px;
-  _margin-left: -64px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_subscript_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_subscript {
-  background: url(http://gopng/static/images/sprite.png) -80px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 80px;
-  _margin-left: -80px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_subscript1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_subscript1 {
-  background: url(http://gopng/static/images/sprite.png) -80px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 80px;
-  _margin-left: -80px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_superscript_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_superscript {
-  background: url(http://gopng/static/images/sprite.png) -80px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 80px;
-  _margin-left: -80px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_superscript1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_superscript1 {
-  background: url(http://gopng/static/images/sprite.png) -80px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 80px;
-  _margin-left: -80px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_underline_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_underline {
-  background: url(http://gopng/static/images/sprite.png) -80px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 80px;
-  _margin-left: -80px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_underline1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_underline1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_undo_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_undo {
-  background: url(http://gopng/static/images/sprite.png) -16px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_undo1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_undo1 {
-  background: url(http://gopng/static/images/sprite.png) -32px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 32px;
-  _margin-left: -32px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_unlink_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_unlink {
-  background: url(http://gopng/static/images/sprite.png) -48px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 48px;
-  _margin-left: -48px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_unlink1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_unlink1 {
-  background: url(http://gopng/static/images/sprite.png) -64px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 64px;
-  _margin-left: -64px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_unordered_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_unordered {
-  background: url(http://gopng/static/images/sprite.png) -80px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 80px;
-  _margin-left: -80px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_unordered1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_unordered1 {
-  background: url(http://gopng/static/images/sprite.png) -96px -0px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 96px;
-  _margin-left: -96px;
-  _padding-top: 0px;
-  _margin-top: -0px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_bold_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_bold {
-  background: url(http://gopng/static/images/sprite.png) -96px -16px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 96px;
-  _margin-left: -96px;
-  _padding-top: 16px;
-  _margin-top: -16px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_bold1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_bold1 {
-  background: url(http://gopng/static/images/sprite.png) -96px -32px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 96px;
-  _margin-left: -96px;
-  _padding-top: 32px;
-  _margin-top: -32px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_color_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_color {
-  background: url(http://gopng/static/images/sprite.png) -96px -48px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 96px;
-  _margin-left: -96px;
-  _padding-top: 48px;
-  _margin-top: -48px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_color1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_color1 {
-  background: url(http://gopng/static/images/sprite.png) -96px -64px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 96px;
-  _margin-left: -96px;
-  _padding-top: 64px;
-  _margin-top: -64px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-center_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-center {
-  background: url(http://gopng/static/images/sprite.png) -96px -80px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 96px;
-  _margin-left: -96px;
-  _padding-top: 80px;
-  _margin-top: -80px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-center1_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-center1 {
-  background: url(http://gopng/static/images/sprite.png) -0px -96px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 0px;
-  _margin-left: -0px;
-  _padding-top: 96px;
-  _margin-top: -96px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
-}
-#gopng_editor-icon-justify_outer {
-  height: 16px;
-  width: 16px;
-  overflow: hidden;
-}
-#gopng_editor-icon-justify {
-  background: url(http://gopng/static/images/sprite.png) -16px -96px no-repeat;
-  width: 100%;
-  height: 100%;
-  _background: none;
-  _padding-left: 16px;
-  _margin-left: -16px;
-  _padding-top: 96px;
-  _margin-top: -96px;
-  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="http://gopng/static/images/sprite.png");
+.editor-news{
+  font-size: 14px;
+  margin-bottom:16px;
+  transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.editor-news:hover{
+  color: @primary-color;
+}
+.blog-menu .menu-title{
+  position: relative;
+}
+.blog-menu .menu-arrow{
+  transition: transform .3s cubic-bezier(.645,.045,.355,1);
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  right: 0;
+}
+.blog-menu .menu-arrow.active{
+  transform: translateY(-2px);
+}
+.blog-menu .menu-arrow:before, .blog-menu .menu-arrow:after{
+  content: '';
+  position: absolute;
+  vertical-align: baseline;
+  background: #fff;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.65)), to(rgba(0, 0, 0, 0.65)));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
+  width: 6px;
+  height: 2px;
+  border-radius: 2px;
+  -webkit-transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.blog-menu .menu-arrow:before {
+  transform: rotate(-45deg) translateX(2px);
+}
+.blog-menu .menu-arrow:after {
+  transform: rotate(45deg) translateX(-2px);
+}
+.blog-menu .menu-arrow.active:after {
+  transform: rotate(-45deg) translateX(-2px);
+}
+.blog-menu .menu-arrow.active:before {
+  transform: rotate(45deg) translateX(2px);
 }

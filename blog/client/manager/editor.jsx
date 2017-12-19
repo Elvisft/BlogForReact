@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BlockPicker } from 'react-color';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './editor.less';
-import { Row, Col, Button, Menu, Pagination, Icon, Input } from 'antd';
+import { Row, Col, Button, Menu, Pagination, Icon, Input,Dropdown } from 'antd';
 
 import { URL, ManageURL } from './../components/config';
 import  { Component } from 'react';
@@ -75,6 +75,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     state = {
         classes: new Map(),
         articles:[],
+        selClasses:0,
         selArticle:undefined,
         editorState: EditorState.createEmpty(),
         article:{},
@@ -267,7 +268,22 @@ class EditorCustomizedToolbarOption extends React.Component {
     }else{
         for (let d of cl) {
             if (d.has_child === 0) {
-                tem.push(<Menu.Item key={d.id}>{d.name}</Menu.Item>);
+                tem.push(<Menu.Item key={d.id}>
+
+                        <div>
+                            {/*<Dropdown overlay={(*/}
+                            {/*<Menu>*/}
+                            {/*<Menu.Item key={`${d.id}1`}>新建</Menu.Item>*/}
+                            {/*<Menu.Item key={`${d.id}2`}>重命名</Menu.Item>*/}
+                            {/*<Menu.Item key={`${d.id}3`}>移动到</Menu.Item>*/}
+                            {/*<Menu.Item key={`${d.id}4`}>删除</Menu.Item>*/}
+                            {/*</Menu>*/}
+                            {/*)} trigger={['contextMenu']}>*/}
+                            {d.name}
+                            {/*</Dropdown>*/}
+                            </div>
+
+                        </Menu.Item>);
             }else {
                 if(!this.state.classes.get(type+'')){
                     this.getClasses(type, (data) => {
@@ -277,7 +293,10 @@ class EditorCustomizedToolbarOption extends React.Component {
                     });
                 }
                 tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
-                    {this.classes(d.id)}
+
+                        {this.classes(d.id)}
+
+
                 </SubMenu>);
             }
         }
@@ -307,7 +326,37 @@ class EditorCustomizedToolbarOption extends React.Component {
 
 
         return (<Row className="editor">
+
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
+
+                <Dropdown overlay={(
+                    <Menu>
+                        <Menu.Item>
+                            <a target="_blank" rel="noopener noreferrer" >新建文章</a>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <a target="_blank" rel="noopener noreferrer">新建类别</a>
+                        </Menu.Item>
+
+                    </Menu>
+                )}>
+                    <div className="text-center editor-news pointer"><Icon type="plus" />&nbsp;新建文档</div>
+                </Dropdown>
+                <ul className="blog-menu font-8">
+                    <li key={0} className={'pointer'}>
+                        <div className="menu-title color-4">生涯<i className="menu-arrow active"/></div>
+
+                        <ul className="blog-menu">
+                            <li key={0} className={'pointer'}>
+                                <div className="menu-title color-4">java</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li key={123} className={this.state.selClasses ===1?'pointer active':'pointer'}>
+                        <div className="menu-title color-4">随笔<i className="ant-menu-submenu-arrow"/></div>
+                    </li>
+                </ul>
+
                 <Menu
                     inlineCollapsed={false}
                     // theme={"dark"}
@@ -325,7 +374,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
-                <ul className="editor-middle-menu font-7">
+                <ul className="blog-menu font-7">
                     {this.articles()}
                 </ul>
 
