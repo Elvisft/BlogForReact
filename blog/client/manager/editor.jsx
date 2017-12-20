@@ -69,6 +69,128 @@ class Update extends Component {
     }
 }
 
+class BlogMenu extends Component {
+    static propTypes = {
+        onClick: PropTypes.func,
+        defaultSelectedKeys: PropTypes.array,
+        defaultOpenKeys: PropTypes.array
+    };
+    static defaultProps = {
+        onClick : ()=>{},
+        defaultSelectedKeys : ['0'],
+        defaultOpenKeys : [1]
+    }
+
+    state = {
+        selectedKeys:this.props.defaultSelectedKeys,
+        openKeys:this.props.defaultOpenKeys
+    }
+
+    itemOnClick=(item)=>{
+
+        this.setState({selectedKeys: [item.key]});
+        this.props.onClick(item);
+    }
+    subMenuOnClick = (item)=>{
+        let openKeys = this.state.openKeys;
+        if(openKeys.indexOf(item.key)<0){
+            openKeys.push(item.key);
+        }else{
+            openKeys.splice(openKeys.indexOf(item.key), 1);
+        }
+        this.setState({openKeys: openKeys});
+    }
+    render(){
+        let child = this.props.children;
+
+        return(
+            <ul className="blog-menu font-8">
+                {
+                    React.Children.map(child,thisArg=>{
+                        let dom={
+                            state: false ,
+                            keys: thisArg.key,
+                            itemOnClick:this.itemOnClick,
+                            subMenuOnClick: this.subMenuOnClick,
+                            selectedKeys:this.state.selectedKeys,
+                            openKeys:this.state.openKeys
+                        };
+                        if(this.state.selectedKeys.indexOf(thisArg.key)>=0||this.state.openKeys.indexOf(thisArg.key)>=0){
+                            dom.state = true;
+                        }
+                        return React.cloneElement(thisArg, dom);
+                    })
+                }
+            </ul>
+        );
+    }
+}
+BlogMenu.Item = class extends Component {
+    onClick=(e)=>{
+        this.props.itemOnClick({
+            key: this.props.keys,
+            domEvent: e,
+            item: this
+        });
+    };
+    render(){
+        let child = this.props.children;
+        let className = 'pointer blog-menu-item ';
+        if(this.props.state){
+            className += 'active';
+        }
+        return(
+            <li className={className} onClick={this.onClick}>
+                <div className="menu-title color-4">
+                    {
+                        React.Children.map(child,thisArg=>{
+                            return thisArg;
+                        })
+                    }
+                </div>
+            </li>
+        )}
+};
+BlogMenu.SubMenu = class extends Component {
+    constructor(props){
+        super(props);
+        console.log(props);
+    }
+    onClick=(e)=>{
+        this.props.subMenuOnClick({
+            key: this.props.keys,
+            domEvent: e,
+            item: this
+        });
+    }
+    render(){
+        const child = this.props.children;
+        let className = 'pointer blog-submenu ';
+        if(this.props.state){
+            className += 'open';
+        }
+        return(
+            <li className={className}>
+                <div className="menu-title color-4" onClick={this.onClick}>{this.props.title}<i className="menu-arrow"/></div>
+                <ul className="blog-menu">
+                    {
+                        React.Children.map(child,thisArg=>{
+                            let dom={
+                                state: false ,
+                                keys: thisArg.key,
+                                itemOnClick:this.props.itemOnClick,
+                                selectedKeys:this.props.selectedKeys
+                            };
+                            if(this.props.selectedKeys.indexOf(thisArg.key)>=0||this.props.openKeys.indexOf(thisArg.key)>=0){
+                                dom.state = true;
+                            }
+                            return React.cloneElement(thisArg, dom);
+                        })
+                    }
+                </ul>
+            </li>
+        )}
+};
 
 
 class EditorCustomizedToolbarOption extends React.Component {
@@ -93,7 +215,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     constructor(props){
         super(props);
-        this.menuItemClick({key: 0}, (data)=>{
+        this.menuItemClick1({key: 0}, (data)=>{
             this.getArticle(data[0].id,(data)=>{
                 if(data.length>0){
                     this.setState({selArticle: data[0].id});
@@ -136,7 +258,9 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     //菜单动作
-    menuItemClick = (e,args) =>{
+    menuItemClick1 = (e,args) =>{
+        console.log(e);
+        console.log(args);
         let type = e.key;
 
         this.getArticles(type, 0, 1000, (data)=>{
@@ -159,10 +283,18 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         });
     }
-    test=(editorState)=>{
+
+    submenuClick = ()=>{
+
+    };
+    menuItemClick = ()=>{
+
+    };
+
+    test=(e)=>{
         // this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
         // console.log(this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
-        this.uploadArticle();
+        console.log(e);
 
     }
 
@@ -271,16 +403,7 @@ class EditorCustomizedToolbarOption extends React.Component {
                 tem.push(<Menu.Item key={d.id}>
 
                         <div>
-                            {/*<Dropdown overlay={(*/}
-                            {/*<Menu>*/}
-                            {/*<Menu.Item key={`${d.id}1`}>新建</Menu.Item>*/}
-                            {/*<Menu.Item key={`${d.id}2`}>重命名</Menu.Item>*/}
-                            {/*<Menu.Item key={`${d.id}3`}>移动到</Menu.Item>*/}
-                            {/*<Menu.Item key={`${d.id}4`}>删除</Menu.Item>*/}
-                            {/*</Menu>*/}
-                            {/*)} trigger={['contextMenu']}>*/}
                             {d.name}
-                            {/*</Dropdown>*/}
                             </div>
 
                         </Menu.Item>);
@@ -329,6 +452,18 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
 
+                <BlogMenu onClick={this.test}>
+
+                    <BlogMenu.Item key={0}>最近文档</BlogMenu.Item>
+                    <BlogMenu.SubMenu key={1} title="生涯">
+                        <BlogMenu.Item>java</BlogMenu.Item>
+                    </BlogMenu.SubMenu>
+                    <BlogMenu.SubMenu key={2} title="随笔">
+                        <BlogMenu.Item>java</BlogMenu.Item>
+                    </BlogMenu.SubMenu>
+                    <BlogMenu.Item key={4}>最近档</BlogMenu.Item>
+                </BlogMenu>
+
                 <Dropdown overlay={(
                     <Menu>
                         <Menu.Item>
@@ -342,25 +477,27 @@ class EditorCustomizedToolbarOption extends React.Component {
                 )}>
                     <div className="text-center editor-news pointer"><Icon type="plus" />&nbsp;新建文档</div>
                 </Dropdown>
+
                 <ul className="blog-menu font-8">
-                    <li key={0} className={'pointer'}>
-                        <div className="menu-title color-4">生涯<i className="menu-arrow active"/></div>
+                    <li key={0} className={'pointer blog-menu-item'+this.state.selClasses===0?'active':''} onClick={this.menuItemClick.bind(this,this.menuItemClick1)}>
+                        <div className="menu-title color-4">最近文档</div>
+                    </li>
+                    <li key={12} className={'pointer blog-submenu open'}>
+                        <div className="menu-title color-4" onClick={this.submenuClick.bind(this,this.menuClick)}>生涯<i className="menu-arrow"/></div>
 
                         <ul className="blog-menu">
-                            <li key={0} className={'pointer'}>
+                            <li key={222} className={'pointer blog-menu-item '+this.state.selClasses===222?'active':''} onClick={this.menuItemClick.bind(this,this)} >
                                 <div className="menu-title color-4">java</div>
                             </li>
                         </ul>
                     </li>
-                    <li key={123} className={this.state.selClasses ===1?'pointer active':'pointer'}>
-                        <div className="menu-title color-4">随笔<i className="ant-menu-submenu-arrow"/></div>
-                    </li>
+
                 </ul>
 
                 <Menu
                     inlineCollapsed={false}
                     // theme={"dark"}
-                    onClick={this.menuItemClick}
+                    onClick={this.menuItemClick1}
                     className="sel-left"
                     defaultSelectedKeys={['0']}
                     // defaultOpenKeys={['sub4']}

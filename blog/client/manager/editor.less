@@ -100,24 +100,30 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
 .blog-menu li{
 
   position: relative;
-  padding: @s_spacing @m_spacing @s_spacing @l_spacing;
+
   transition: color .3s cubic-bezier(.645,.045,.355,1),border-color .3s cubic-bezier(.645,.045,.355,1),background .3s cubic-bezier(.645,.045,.355,1),padding .15s cubic-bezier(.645,.045,.355,1);
 }
-.blog-menu li:hover .menu-title{
+.blog-menu li .menu-title{
+  padding: @s_spacing @m_spacing @s_spacing @l_spacing;
+}
+.blog-submenu .menu-title:hover, .blog-menu-item:hover .menu-title{
   color: @primary-color;
 }
-.blog-menu li.active{
+.blog-submenu:hover .menu-title .menu-arrow{
+  transition: transform .3s cubic-bezier(.645,.045,.355,1);
+}
+.blog-menu li.blog-menu-item.active{
   background-color: @primary-color-1;
 }
-.blog-menu li.active .menu-title{
+.blog-menu li.blog-menu-item.active .menu-title{
   color: @primary-color;
 }
-.blog-menu li.active:after {
+.blog-menu li.blog-menu-item.active:after {
   opacity: 1;
   transform: scaleY(1);
 }
 
-.blog-menu li:after {
+.blog-menu li.blog-menu-item:after {
   right: 0;
   border-left: 3px solid @primary-color;
   transform: scaleY(.0001);
@@ -146,9 +152,9 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
   position: absolute;
   top: 50%;
   width: 10px;
-  right: 0;
+  right: 16px;
 }
-.blog-menu .menu-arrow.active{
+.blog-menu .blog-submenu.open .menu-arrow{
   transform: translateY(-2px);
 }
 .blog-menu .menu-arrow:before, .blog-menu .menu-arrow:after{
@@ -173,9 +179,9 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
 .blog-menu .menu-arrow:after {
   transform: rotate(45deg) translateX(-2px);
 }
-.blog-menu .menu-arrow.active:after {
+.blog-menu .blog-submenu.open .menu-arrow:after {
   transform: rotate(-45deg) translateX(-2px);
 }
-.blog-menu .menu-arrow.active:before {
+.blog-menu .blog-submenu.open .menu-arrow:before {
   transform: rotate(45deg) translateX(2px);
 }
