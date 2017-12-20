@@ -185,3 +185,13 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
 .blog-menu .blog-submenu.open .menu-arrow:before {
   transform: rotate(45deg) translateX(2px);
 }
+.blog-submenu>ul{
+  height: 0;
+  opacity: 0;
+  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.blog-submenu.open>ul{
+  height: 360px;
+
+  opacity: 1;
+}
