@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import  { Component } from 'react';
 
@@ -43,6 +44,7 @@ class BlogMenu extends Component {
                         let dom={
                             state: false ,
                             keys: thisArg.key,
+                            level:1,
                             itemOnClick:this.itemOnClick,
                             subMenuOnClick: this.subMenuOnClick,
                             selectedKeys:this.state.selectedKeys,
@@ -72,9 +74,10 @@ BlogMenu.Item = class extends Component {
         if(this.props.state){
             className += 'active';
         }
+
         return(
             <li className={className} onClick={this.onClick}>
-                <div className="menu-title color-4">
+                <div className="menu-title color-4" style={{paddingLeft: this.props.level*24}}>
                     {
                         React.Children.map(child,thisArg=>{
                             return thisArg;
@@ -87,33 +90,89 @@ BlogMenu.Item = class extends Component {
 BlogMenu.SubMenu = class extends Component {
     constructor(props){
         super(props);
-        console.log(props);
+    }
+    state={
+        style : {
+            height:0,
+            opacity:0
+        }
     }
     onClick=(e)=>{
-        this.props.subMenuOnClick({
-            key: this.props.keys,
-            domEvent: e,
-            item: this
-        });
+
+        if(!this.props.state) {
+            this.setState({
+                style:{
+                    height:0,
+                    opacity:0
+                }
+            },()=>{
+                this.setState({
+                    style:{
+                        height:React.Children.count(this.props.children)*48-4,
+                        opacity:1
+                    }
+                });
+            });
+
+        }else{
+            this.setState({
+                style:{
+
+                    height:React.Children.count(this.props.children)*48-4,
+                    opacity:1
+                }
+            },()=>{
+                this.setState({
+                    style:{
+                        height:0,
+                        opacity:0
+                    }
+                });
+            });
+        }
+
+            this.props.subMenuOnClick({
+                key: this.props.keys,
+                domEvent: e,
+                item: this,
+                child: React.Children.count(this.props.children)
+            });
+
+    }
+    componentWillUpdate(nextProps, nextState){
+
+    }
+    componentWillReceiveProps(){
+            console.log(ReactDOM.findDOMNode(this).querySelector('.blog-menu').clientHeight);
+            this.setState({style:{}});
+
     }
     render(){
         const child = this.props.children;
         let className = 'pointer blog-submenu ';
-        if(this.props.state) {
-            className += 'open';
+        const count = React.Children.count(child);
+
+        if(!this.props.state){
+            className += 'off';
         }
+
+
         return(
             <li className={className}>
-                <div className="menu-title color-4" onClick={this.onClick}>{this.props.title}<i className="menu-arrow"/></div>
-                <ul className="blog-menu">
+                <div className="menu-title color-4" style={{paddingLeft: this.props.level*24}} onClick={this.onClick}>{this.props.title}<i className="menu-arrow"/></div>
+                <ul className="blog-menu" style={this.state.style}>
                     {
                         React.Children.map(child,thisArg=>{
                             let dom={
                                 state: false ,
+                                level:this.props.level+1,
                                 keys: thisArg.key,
                                 itemOnClick:this.props.itemOnClick,
-                                selectedKeys:this.props.selectedKeys
+                                selectedKeys:this.props.selectedKeys,
+                                openKeys:this.props.openKeys,
+                                subMenuOnClick: this.props.subMenuOnClick,
                             };
+
                             if(this.props.selectedKeys.indexOf(thisArg.key)>=0||this.props.openKeys.indexOf(thisArg.key)>=0){
                                 dom.state = true;
                             }

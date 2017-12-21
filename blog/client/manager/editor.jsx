@@ -340,7 +340,11 @@ class EditorCustomizedToolbarOption extends React.Component {
                         <BlogMenu.Item>java</BlogMenu.Item>
                         <BlogMenu.Item>java</BlogMenu.Item>
                         <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
+                        <BlogMenu.SubMenu key={5} title="生涯2">
+                            <BlogMenu.Item>java</BlogMenu.Item>
+                            <BlogMenu.Item>java</BlogMenu.Item>
+                            <BlogMenu.Item>java</BlogMenu.Item>
+                        </BlogMenu.SubMenu>
                         <BlogMenu.Item>java</BlogMenu.Item>
                         <BlogMenu.Item>java</BlogMenu.Item>
                         <BlogMenu.Item>java</BlogMenu.Item>
@@ -367,28 +371,6 @@ class EditorCustomizedToolbarOption extends React.Component {
                     <div className="text-center editor-news pointer"><Icon type="plus" />&nbsp;新建文档</div>
                 </Dropdown>
 
-                <ul className="blog-menu font-8">
-                    <li key={0} className={'pointer blog-menu-item'+this.state.selClasses===0?'active':''} onClick={this.menuItemClick.bind(this,this.menuItemClick1)}>
-                        <div className="menu-title color-4">最近文档</div>
-                    </li>
-                    <li key={12} className={'pointer blog-submenu open'}>
-                        <div className="menu-title color-4" onClick={this.submenuClick.bind(this,this.menuClick)}>生涯<i className="menu-arrow"/></div>
-
-                        <ul className="blog-menu">
-                            <li key={222} className={'pointer blog-menu-item '+this.state.selClasses===222?'active':''} onClick={this.menuItemClick.bind(this,this)} >
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                                <div className="menu-title color-4">java</div>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
 
                 <Menu
                     inlineCollapsed={false}

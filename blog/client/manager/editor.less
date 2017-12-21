@@ -100,7 +100,8 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
 .blog-menu li{
 
   position: relative;
-
+  margin-top: 4px;
+  margin-bottom: 8px;
   transition: color .3s cubic-bezier(.645,.045,.355,1),border-color .3s cubic-bezier(.645,.045,.355,1),background .3s cubic-bezier(.645,.045,.355,1),padding .15s cubic-bezier(.645,.045,.355,1);
 }
 .blog-menu li .menu-title{
@@ -186,12 +187,17 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
   transform: rotate(45deg) translateX(2px);
 }
 .blog-submenu>ul{
-  height: 0;
-  opacity: 0;
-  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  background-color: #fff;
+  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-.blog-submenu.open>ul{
-  height: 360px;
+.blog-submenu.off>ul{
+  display: none;
+}
+.ant-menu-sub.ant-menu-inline {
 
-  opacity: 1;
+  padding: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
 }
