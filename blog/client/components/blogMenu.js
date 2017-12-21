@@ -97,69 +97,74 @@ BlogMenu.SubMenu = class extends Component {
             opacity:0
         }
     }
-    onClick=(e)=>{
+    child = React.Children.count(this.props.children);
+    subMenuOnClick=(e)=>{
+        console.log(this.props.state);
 
-        if(!this.props.state) {
-            this.setState({
-                style:{
-                    height:0,
-                    opacity:0
-                }
-            },()=>{
-                this.setState({
-                    style:{
-                        height:React.Children.count(this.props.children)*48-4,
-                        opacity:1
-                    }
-                });
-            });
+        let dom,child;
+        if(typeof e.key === 'string'){
+            child = e.child+this.child;
+            dom = {
+                key: e.key,
+                domEvent: e.domEvent,
+                item: e.item,
+                child: child
+            };
 
         }else{
-            this.setState({
-                style:{
-
-                    height:React.Children.count(this.props.children)*48-4,
-                    opacity:1
-                }
-            },()=>{
-                this.setState({
-                    style:{
-                        height:0,
-                        opacity:0
-                    }
-                });
-            });
-        }
-
-            this.props.subMenuOnClick({
+            child = this.child;
+            dom = {
                 key: this.props.keys,
                 domEvent: e,
                 item: this,
-                child: React.Children.count(this.props.children)
-            });
+                child: this.child
+            };
+        }
+
+
+        this.props.subMenuOnClick(dom,()=>{
+
+        });
+
 
     }
     componentWillUpdate(nextProps, nextState){
 
     }
     componentWillReceiveProps(){
-            console.log(ReactDOM.findDOMNode(this).querySelector('.blog-menu').clientHeight);
-            this.setState({style:{}});
+            // console.log(ReactDOM.findDOMNode(this).querySelector('.blog-menu').clientHeight);
+            // this.setState({style:{}});
+        if(this.props.state) {
 
+            this.setState({
+                style:{
+                    height: child*48,
+                    opacity:1
+                }
+            });
+        }else{
+            this.setState({
+                style:{
+                    height: 0,
+                    opacity:0
+                }
+            });
+        }
     }
     render(){
         const child = this.props.children;
         let className = 'pointer blog-submenu ';
-        const count = React.Children.count(child);
 
         if(!this.props.state){
-            className += 'off';
+            // className += 'off';
+        }else{
+            className += 'open';
         }
 
 
         return(
             <li className={className}>
-                <div className="menu-title color-4" style={{paddingLeft: this.props.level*24}} onClick={this.onClick}>{this.props.title}<i className="menu-arrow"/></div>
+                <div className="menu-title color-4" style={{paddingLeft: this.props.level*24}} onClick={this.subMenuOnClick}>{this.props.title}<i className="menu-arrow"/></div>
                 <ul className="blog-menu" style={this.state.style}>
                     {
                         React.Children.map(child,thisArg=>{
@@ -170,7 +175,7 @@ BlogMenu.SubMenu = class extends Component {
                                 itemOnClick:this.props.itemOnClick,
                                 selectedKeys:this.props.selectedKeys,
                                 openKeys:this.props.openKeys,
-                                subMenuOnClick: this.props.subMenuOnClick,
+                                subMenuOnClick: this.subMenuOnClick,
                             };
 
                             if(this.props.selectedKeys.indexOf(thisArg.key)>=0||this.props.openKeys.indexOf(thisArg.key)>=0){

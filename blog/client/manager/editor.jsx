@@ -140,8 +140,6 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     //菜单动作
     menuItemClick1 = (e,args) =>{
-        console.log(e);
-        console.log(args);
         let type = e.key;
 
         this.getArticles(type, 0, 1000, (data)=>{
