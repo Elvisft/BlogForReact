@@ -153,7 +153,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     articlesItemClick = (e,id)=>{
 
-        this.getArticle(id,(data)=>{
+        this.getArticle(e.key.replace('article',''),(data)=>{
             if(data.length>0){
                 this.setState({  selArticle: e});
                 this.setArticle(data[0]);
@@ -280,8 +280,19 @@ class EditorCustomizedToolbarOption extends React.Component {
         for (let d of cl) {
             if (d.has_child === 0) {
                 tem.push(<BlogMenu.Item key={d.id}>
+                    <Dropdown   trigger={['contextMenu']} overlay={(
+                        <Menu>
+                            <Menu.Item>
+                                <a target="_blank" rel="noopener noreferrer" >新建文章</a>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <a target="_blank" rel="noopener noreferrer">新建类别</a>
+                            </Menu.Item>
 
-                            {d.name}
+                        </Menu>
+                    )}>
+                        {d.name}
+                    </Dropdown>
 
                         </BlogMenu.Item>);
             }else {
@@ -293,10 +304,7 @@ class EditorCustomizedToolbarOption extends React.Component {
                     });
                 }
                 tem.push(<BlogMenu.SubMenu key={d.id} title={d.name} onTitleClick={this.menuClick}>
-
                         {this.classes(d.id)}
-
-
                 </BlogMenu.SubMenu>);
             }
         }
@@ -312,11 +320,12 @@ class EditorCustomizedToolbarOption extends React.Component {
         for(let [index,d] of new Map( cl.map( ( item, i ) => [ i, item ] ) )){
             index++;
             tem.push(
-                <li key={index} className={this.state.selArticle ===index?'pointer active':'pointer'} onClick={this.articlesItemClick.bind(this , index, d.id)}>
-                    <div className="menu-title color-4">{d.title}</div>
-                    <div className="menu-briefing font-1 color-5">{d.briefing}</div>
-                    <div className="menu-date font-1 color-3">{d.date}</div>
-                </li>
+                <BlogMenu.Item key={`article${index}`}>
+                        <div className="menu-article-title color-4">{d.title}</div>
+                        <div className="menu-briefing font-1 color-5">{d.briefing}</div>
+                        <div className="menu-date font-1 color-3">{d.date}</div>
+                </BlogMenu.Item>
+
             );
         }
     }
@@ -357,9 +366,11 @@ class EditorCustomizedToolbarOption extends React.Component {
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
-                <ul className="blog-menu font-7">
+                <BlogMenu  onClick={this.articlesItemClick}>
+
                     {this.articles()}
-                </ul>
+                </BlogMenu>
+
 
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
