@@ -90,6 +90,8 @@ BlogMenu.Item = class extends Component {
 BlogMenu.SubMenu = class extends Component {
     constructor(props){
         super(props);
+
+        this.child.set('this',React.Children.count(props.children));
     }
     state={
         style : {
@@ -97,60 +99,79 @@ BlogMenu.SubMenu = class extends Component {
             opacity:0
         }
     }
-    child = React.Children.count(this.props.children);
+    child = new Map();
     subMenuOnClick=(e)=>{
-        console.log(this.props.state);
+
 
         let dom,child;
         if(typeof e.key === 'string'){
-            child = e.child+this.child;
+
+            if(!e.state){
+                for(let [key, value] of e.child){
+                    if(key === 'this'){
+                        this.child.set(e.key, value);
+
+                    }else{
+                        this.child.set(key, value);
+                    }
+                }
+            }else{
+                for(let [key, value] of e.child){
+                    if(key === 'this'){
+                        this.child.set(e.key, 0);
+
+                    }else{
+                        this.child.set(key, 0);
+                    }
+                }
+            }
+
+
             dom = {
                 key: e.key,
                 domEvent: e.domEvent,
                 item: e.item,
-                child: child
+                child: this.child,
+                state:e.state
             };
 
         }else{
-            child = this.child;
+
             dom = {
                 key: this.props.keys,
                 domEvent: e,
                 item: this,
-                child: this.child
+                child: this.child,
+                state:this.props.state
             };
         }
 
-
-        this.props.subMenuOnClick(dom,()=>{
-
-        });
+        this.props.subMenuOnClick(dom);
 
 
     }
     componentWillUpdate(nextProps, nextState){
 
-    }
-    componentWillReceiveProps(){
-            // console.log(ReactDOM.findDOMNode(this).querySelector('.blog-menu').clientHeight);
-            // this.setState({style:{}});
-        if(this.props.state) {
+        if(nextProps.state) {
+            let count = 0;
+            for(let [key, value] of this.child){
 
-            this.setState({
-                style:{
-                    height: child*48,
+                count +=  value;
+            }
+
+            nextState.style={
+                    height: count*48,
                     opacity:1
                 }
-            });
         }else{
-            this.setState({
-                style:{
-                    height: 0,
-                    opacity:0
-                }
-            });
+            nextState.style={
+                height: 0,
+                opacity:0
+            }
+
         }
     }
+
     render(){
         const child = this.props.children;
         let className = 'pointer blog-submenu ';

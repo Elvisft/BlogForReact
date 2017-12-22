@@ -340,7 +340,12 @@ class EditorCustomizedToolbarOption extends React.Component {
                         <BlogMenu.Item>java</BlogMenu.Item>
                         <BlogMenu.SubMenu key={5} title="生涯2">
                             <BlogMenu.Item>java</BlogMenu.Item>
-                            <BlogMenu.Item>java</BlogMenu.Item>
+                            <BlogMenu.SubMenu key={7} title="生涯2">
+                                <BlogMenu.Item>java</BlogMenu.Item>
+                                <BlogMenu.Item>java</BlogMenu.Item>
+                                <BlogMenu.Item>java</BlogMenu.Item>
+                                <BlogMenu.Item>java</BlogMenu.Item>
+                            </BlogMenu.SubMenu>
                             <BlogMenu.Item>java</BlogMenu.Item>
                         </BlogMenu.SubMenu>
                         <BlogMenu.Item>java</BlogMenu.Item>
@@ -352,6 +357,12 @@ class EditorCustomizedToolbarOption extends React.Component {
                     <BlogMenu.SubMenu key={2} title="随笔">
                         <BlogMenu.Item>java</BlogMenu.Item>
                     </BlogMenu.SubMenu>
+                    <BlogMenu.Item>java</BlogMenu.Item>
+                    <BlogMenu.Item>java</BlogMenu.Item>
+                    <BlogMenu.Item>java</BlogMenu.Item>
+                    <BlogMenu.Item>java</BlogMenu.Item>
+                    <BlogMenu.Item>java</BlogMenu.Item>
+                    <BlogMenu.Item>java</BlogMenu.Item>
                     <BlogMenu.Item key={4}>最近档</BlogMenu.Item>
                 </BlogMenu>
 
