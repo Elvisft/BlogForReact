@@ -11,8 +11,8 @@ class BlogMenu extends Component {
     };
     static defaultProps = {
         onClick : ()=>{},
-        defaultSelectedKeys : ['0'],
-        defaultOpenKeys : [1]
+        defaultSelectedKeys : [],
+        defaultOpenKeys : []
     }
 
     state = {
@@ -88,17 +88,20 @@ BlogMenu.Item = class extends Component {
         )}
 };
 BlogMenu.SubMenu = class extends Component {
+    static defaultProps = {
+        onTitleClick : ()=>{}
+    }
     constructor(props){
         super(props);
 
-        this.child.set('this',React.Children.count(props.children));
+
     }
     state={
         style : {
             height:0,
             opacity:0
         }
-    }
+    };
     child = new Map();
     subMenuOnClick=(e)=>{
 
@@ -126,7 +129,6 @@ BlogMenu.SubMenu = class extends Component {
                 }
             }
 
-
             dom = {
                 key: e.key,
                 domEvent: e.domEvent,
@@ -134,7 +136,7 @@ BlogMenu.SubMenu = class extends Component {
                 child: this.child,
                 state:e.state
             };
-
+            this.props.subMenuOnClick(dom);
         }else{
 
             dom = {
@@ -144,10 +146,9 @@ BlogMenu.SubMenu = class extends Component {
                 child: this.child,
                 state:this.props.state
             };
+            this.props.subMenuOnClick(dom);
+            this.props.onTitleClick(dom);
         }
-
-        this.props.subMenuOnClick(dom);
-
 
     }
     componentWillUpdate(nextProps, nextState){
@@ -174,6 +175,7 @@ BlogMenu.SubMenu = class extends Component {
 
     render(){
         const child = this.props.children;
+        this.child.set('this',React.Children.count(child));
         let className = 'pointer blog-submenu ';
 
         if(!this.props.state){
@@ -181,7 +183,6 @@ BlogMenu.SubMenu = class extends Component {
         }else{
             className += 'open';
         }
-
 
         return(
             <li className={className}>

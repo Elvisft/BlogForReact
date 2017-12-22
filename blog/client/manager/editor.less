@@ -147,6 +147,11 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
 }
 .blog-menu .menu-title{
   position: relative;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+}
+.blog-menu .menu-title:active{
+  background-color: @primary-color-1;
 }
 .blog-menu .menu-arrow{
   transition: transform .3s cubic-bezier(.645,.045,.355,1);
@@ -174,16 +179,20 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
   transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
+.blog-menu .menu-title:hover .menu-arrow:before, .blog-menu .menu-title:hover .menu-arrow:after{
+  background: linear-gradient(to right, @primary-color, @primary-color);
+}
 .blog-menu .menu-arrow:before {
   transform: rotate(-45deg) translateX(2px);
 }
 .blog-menu .menu-arrow:after {
   transform: rotate(45deg) translateX(-2px);
 }
-.blog-menu .blog-submenu.open .menu-arrow:after {
+.blog-menu .blog-submenu.open>.menu-title>.menu-arrow:after {
   transform: rotate(-45deg) translateX(-2px);
 }
-.blog-menu .blog-submenu.open .menu-arrow:before {
+.blog-menu .blog-submenu.open>.menu-title>.menu-arrow:before {
   transform: rotate(45deg) translateX(2px);
 }
 .blog-submenu>ul{

@@ -279,13 +279,11 @@ class EditorCustomizedToolbarOption extends React.Component {
     }else{
         for (let d of cl) {
             if (d.has_child === 0) {
-                tem.push(<Menu.Item key={d.id}>
+                tem.push(<BlogMenu.Item key={d.id}>
 
-                        <div>
                             {d.name}
-                            </div>
 
-                        </Menu.Item>);
+                        </BlogMenu.Item>);
             }else {
                 if(!this.state.classes.get(type+'')){
                     this.getClasses(type, (data) => {
@@ -294,12 +292,12 @@ class EditorCustomizedToolbarOption extends React.Component {
                         this.setState({classes: classes});
                     });
                 }
-                tem.push(<SubMenu key={d.id} title={d.name} disabled={false} onTitleClick={this.menuClick}>
+                tem.push(<BlogMenu.SubMenu key={d.id} title={d.name} onTitleClick={this.menuClick}>
 
                         {this.classes(d.id)}
 
 
-                </SubMenu>);
+                </BlogMenu.SubMenu>);
             }
         }
     }
@@ -331,40 +329,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             <Col xs={{span: 3}} sm={{span: 3}} md={{span: 3}} lg={{span: 3}} className="editor-sidebar">
 
-                <BlogMenu onClick={this.test}>
 
-                    <BlogMenu.Item key={0}>最近文档</BlogMenu.Item>
-                    <BlogMenu.SubMenu key={1} title="生涯">
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.SubMenu key={5} title="生涯2">
-                            <BlogMenu.Item>java</BlogMenu.Item>
-                            <BlogMenu.SubMenu key={7} title="生涯2">
-                                <BlogMenu.Item>java</BlogMenu.Item>
-                                <BlogMenu.Item>java</BlogMenu.Item>
-                                <BlogMenu.Item>java</BlogMenu.Item>
-                                <BlogMenu.Item>java</BlogMenu.Item>
-                            </BlogMenu.SubMenu>
-                            <BlogMenu.Item>java</BlogMenu.Item>
-                        </BlogMenu.SubMenu>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                    </BlogMenu.SubMenu>
-                    <BlogMenu.SubMenu key={2} title="随笔">
-                        <BlogMenu.Item>java</BlogMenu.Item>
-                    </BlogMenu.SubMenu>
-                    <BlogMenu.Item>java</BlogMenu.Item>
-                    <BlogMenu.Item>java</BlogMenu.Item>
-                    <BlogMenu.Item>java</BlogMenu.Item>
-                    <BlogMenu.Item>java</BlogMenu.Item>
-                    <BlogMenu.Item>java</BlogMenu.Item>
-                    <BlogMenu.Item>java</BlogMenu.Item>
-                    <BlogMenu.Item key={4}>最近档</BlogMenu.Item>
-                </BlogMenu>
 
                 <Dropdown overlay={(
                     <Menu>
@@ -381,19 +346,13 @@ class EditorCustomizedToolbarOption extends React.Component {
                 </Dropdown>
 
 
-                <Menu
-                    inlineCollapsed={false}
-                    // theme={"dark"}
-                    onClick={this.menuItemClick1}
-                    className="sel-left"
-                    defaultSelectedKeys={['0']}
-                    // defaultOpenKeys={['sub4']}
-                    mode="inline"
-                >
+                <BlogMenu  onClick={this.menuItemClick1}>
 
-                    <Menu.Item key={0}>最近文档</Menu.Item>
-                {this.classes(0)}
-                </Menu>
+                    <BlogMenu.Item key={0}>最近文档</BlogMenu.Item>
+                    {this.classes(0)}
+                </BlogMenu>
+
+
 
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
