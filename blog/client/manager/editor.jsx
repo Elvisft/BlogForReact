@@ -280,19 +280,16 @@ class EditorCustomizedToolbarOption extends React.Component {
         for (let d of cl) {
             if (d.has_child === 0) {
                 tem.push(<BlogMenu.Item key={d.id}>
-                    <Dropdown   trigger={['contextMenu']} overlay={(
-                        <Menu>
-                            <Menu.Item>
-                                <a target="_blank" rel="noopener noreferrer" >新建文章</a>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <a target="_blank" rel="noopener noreferrer">新建类别</a>
-                            </Menu.Item>
-
-                        </Menu>
-                    )}>
-                        {d.name}
+                    <Dropdown overlay={(
+                        <BlogMenu>
+                            <BlogMenu.Item>重命名</BlogMenu.Item>
+                            <BlogMenu.Item>移动</BlogMenu.Item>
+                            <BlogMenu.Item>删除</BlogMenu.Item>
+                        </BlogMenu>
+                    )} trigger={['contextMenu']}>
+                        <span >{d.name}</span>
                     </Dropdown>
+
 
                         </BlogMenu.Item>);
             }else {
