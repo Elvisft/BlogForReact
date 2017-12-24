@@ -78,8 +78,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     state = {
         classes: new Map(),
         articles:[],
-        selClasses:0,
-        selArticle:undefined,
+
         editorState: EditorState.createEmpty(),
         article:{},
         id:undefined,
@@ -96,15 +95,16 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     constructor(props){
         super(props);
-        this.menuItemClick1({key: 0}, (data)=>{
+        this.menuItemClick({key: '0'}, (data)=>{
             this.getArticle(data[0].id,(data)=>{
                 if(data.length>0){
-                    this.setState({selArticle: data[0].id});
+
+                    this.selArticle = data[0].id;
                     this.setArticle(data[0]);
                 }
             });
         });
-        // this.state.editorState=this.getEditorState(this.state.content);
+
     }
 
     //获取菜单
@@ -139,9 +139,9 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
 
     //菜单动作
-    menuItemClick1 = (e,args) =>{
+    menuItemClick = (e,args) =>{
         let type = e.key;
-
+        this.selClasses = e.key;
         this.getArticles(type, 0, 1000, (data)=>{
             this.setState({articles:data});
             if(typeof args === 'function'){
@@ -155,7 +155,8 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         this.getArticle(e.key.replace('article',''),(data)=>{
             if(data.length>0){
-                this.setState({  selArticle: e});
+                this.selArticle = e.key;
+                // this.setState({  selArticle: e.key});
                 this.setArticle(data[0]);
 
             }
@@ -163,13 +164,28 @@ class EditorCustomizedToolbarOption extends React.Component {
         });
     }
 
-    submenuClick = ()=>{
+    newClick = (e) => {
+        const key = e.key;
+        if(key === '0'){
+            if(this.selClasses = '0'){
 
+            }
+            console.log(this.state);
+        }else{
+
+        }
     };
-    menuItemClick = ()=>{
+    classesEdit = (e) => {
+        const key = e.key.split('#');
+        if(key[0]==='重命名'){
 
-    };
+        }else if(key[0]==='删除'){
 
+        }else if(key[0]==='移动'){
+
+        }
+        console.log(key);
+    }
     test=(e)=>{
         // this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
         // console.log(this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
@@ -224,10 +240,10 @@ class EditorCustomizedToolbarOption extends React.Component {
             date:new Date(),
             content: this.htmlFormat(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
         };
-        // console.log(article.title);
+
         let articles = this.state.articles;
 
-        articles[this.state.selArticle-1] = {
+        articles[this.selArticle-1] = {
             id:article.id,
             title:article.title,
             type:article.type,
@@ -279,19 +295,25 @@ class EditorCustomizedToolbarOption extends React.Component {
     }else{
         for (let d of cl) {
             if (d.has_child === 0) {
-                tem.push(<BlogMenu.Item key={d.id}>
+                tem.push(<Menu.Item key={d.id}>
                     <Dropdown overlay={(
-                        <BlogMenu>
-                            <BlogMenu.Item>重命名</BlogMenu.Item>
-                            <BlogMenu.Item>移动</BlogMenu.Item>
-                            <BlogMenu.Item>删除</BlogMenu.Item>
-                        </BlogMenu>
+                        <Menu onClick={this.classesEdit}>
+                            {
+                                (()=>{
+                                    let tems = [];
+                                    for(let tem of ['重命名','删除','移动']){
+                                        tems.push(<Menu.Item key={`${tem}#${d.id}`}>{tem}</Menu.Item>)
+                                    }
+                                    return tems;
+                                })()
+                            }
+                        </Menu>
                     )} trigger={['contextMenu']}>
-                        <span >{d.name}</span>
+                        <div>{d.name}</div>
                     </Dropdown>
 
 
-                        </BlogMenu.Item>);
+                        </Menu.Item>);
             }else {
                 if(!this.state.classes.get(type+'')){
                     this.getClasses(type, (data) => {
@@ -300,9 +322,9 @@ class EditorCustomizedToolbarOption extends React.Component {
                         this.setState({classes: classes});
                     });
                 }
-                tem.push(<BlogMenu.SubMenu key={d.id} title={d.name} onTitleClick={this.menuClick}>
+                tem.push(<Menu.SubMenu key={d.id} title={d.name} onTitleClick={this.menuClick}>
                         {this.classes(d.id)}
-                </BlogMenu.SubMenu>);
+                </Menu.SubMenu>);
             }
         }
     }
@@ -338,25 +360,26 @@ class EditorCustomizedToolbarOption extends React.Component {
 
 
                 <Dropdown overlay={(
-                    <Menu>
-                        <Menu.Item>
-                            <a target="_blank" rel="noopener noreferrer" >新建文章</a>
-                        </Menu.Item>
-                        <Menu.Item>
-                            <a target="_blank" rel="noopener noreferrer">新建类别</a>
-                        </Menu.Item>
-
+                    <Menu onClick={this.newClick}>
+                        <Menu.Item key={0}>新建文章</Menu.Item>
+                        <Menu.Item key={1}>新建类别</Menu.Item>
                     </Menu>
                 )}>
                     <div className="text-center editor-news pointer"><Icon type="plus" />&nbsp;新建文档</div>
                 </Dropdown>
 
 
-                <BlogMenu  onClick={this.menuItemClick1}>
+                <Menu        inlineCollapsed={false}
+                    // theme={"dark"}
+                             onClick={this.menuItemClick}
+                             className="sel-left"
+                             defaultSelectedKeys={['0']}
+                    // defaultOpenKeys={['sub4']}
+                             mode="inline">
 
-                    <BlogMenu.Item key={0}>最近文档</BlogMenu.Item>
+                    <Menu.Item key={0}>最近文档</Menu.Item>
                     {this.classes(0)}
-                </BlogMenu>
+                </Menu>
 
 
 
