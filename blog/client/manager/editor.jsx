@@ -99,7 +99,7 @@ class EditorCustomizedToolbarOption extends React.Component {
     state = {
         classes: new Map(),
         articles:[],
-
+        selArticle:undefined,
         editorState: EditorState.createEmpty(),
         article:{},
         id:undefined,
@@ -121,11 +121,11 @@ class EditorCustomizedToolbarOption extends React.Component {
             this.getArticle(data[0].id,(data)=>{
                 if(data.length>0){
 
-                    this.selArticle = data[0].id;
-                    this.setState({
-                        article:data[0]
-                    });
-                    // this.setArticle(data[0]);
+                    this.article = data[0];
+
+                    this.setState({selArticle: data[0].id,
+                        editorState: this.getEditorState(data[0].content)});
+
                 }
             });
         });
@@ -180,12 +180,11 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         this.getArticle(e.key.replace('article',''),(data)=>{
             if(data.length>0){
-                this.selArticle = e.key;
-                // this.setState({  selArticle: e.key});
-                // this.setArticle(data[0]);
-                this.setState({
-                    article:data[0]
-                });
+                this.article = data[0];
+                console.log(this.article );
+                this.setState({selArticle: data[0].id,
+                    editorState: this.getEditorState(data[0].content)});
+
             }
 
         });
@@ -227,22 +226,17 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     //编辑器
     getEditorState = (text)=>{
-
         const contentBlock = htmlToDraft(text);
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
             return EditorState.createWithContent(contentState);
-
         }
     }
     //编辑器
     onEditorStateChange = (editorState) => {
-
         this.setState({
             editorState:editorState,
-
         });
-
     };
     //编辑器
     htmlFormat = ( text) => {
@@ -251,7 +245,6 @@ class EditorCustomizedToolbarOption extends React.Component {
             text=tex[0];
             for(let j=1;j<tex.length;j++){
                 text += `<h${i} id="h${i}-${j}" ${tex[j]}`;
-
             }
         }
         return text;
@@ -266,9 +259,9 @@ class EditorCustomizedToolbarOption extends React.Component {
     uploadArticle = () => {
 
         let article = {
-            id:this.state.id,
-            title:this.state.title,
-            type:this.state.type,
+            id:this.article.id,
+            title:this.article.title,
+            type:this.article.type,
             date:new Date(),
             content: this.htmlFormat(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
         };
@@ -282,12 +275,9 @@ class EditorCustomizedToolbarOption extends React.Component {
             date:article.date.getMonth()+'.'+article.date.getDate()+'.'+article.date.getFullYear(),
             briefing:article.content.replace(/<(?:.|\s)*?>/g,'')
         }
+        this.article = article;
         this.setState({articles: articles});
-        // this.setArticle(article);
-        this.setState({
-            article:article
-        });
-        // console.log(ManageURL);
+
         http.post(`${ManageURL}article/update`,JSON.stringify(article)).then(data=>{
             console.log(data);
         });
@@ -431,7 +421,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
                 <div className="editor-title"  contentEditable={true} onBlur={this.changeTitle} suppressContentEditableWarning = {true}>
-                    {this.state.title}
+                    {''}
                 </div>
                 <Editor
 
