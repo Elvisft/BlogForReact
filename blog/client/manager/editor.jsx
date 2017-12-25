@@ -72,7 +72,28 @@ class Update extends Component {
     }
 }
 
+Date.prototype.format = function (format) {
+    const o = {
+        'M+': this.getMonth() + 1,
+        'd+': this.getDate(),
+        'h+': this.getHours(),
+        'H+': this.getHours(),
+        'm+': this.getMinutes(),
+        's+': this.getSeconds(),
+        'q+': Math.floor((this.getMonth() + 3) / 3),
+        S: this.getMilliseconds(),
+    }
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, this.getFullYear())
 
+    }
+    for (let k in o) {
+        if (new RegExp(`(${k})`).test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : (`00${o[k]}`).substr(`${o[k]}`.length))
+        }
+    }
+    return format
+}
 
 class EditorCustomizedToolbarOption extends React.Component {
     state = {
@@ -95,12 +116,16 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     constructor(props){
         super(props);
+
         this.menuItemClick({key: '0'}, (data)=>{
             this.getArticle(data[0].id,(data)=>{
                 if(data.length>0){
 
                     this.selArticle = data[0].id;
-                    this.setArticle(data[0]);
+                    this.setState({
+                        article:data[0]
+                    });
+                    // this.setArticle(data[0]);
                 }
             });
         });
@@ -157,8 +182,10 @@ class EditorCustomizedToolbarOption extends React.Component {
             if(data.length>0){
                 this.selArticle = e.key;
                 // this.setState({  selArticle: e.key});
-                this.setArticle(data[0]);
-
+                // this.setArticle(data[0]);
+                this.setState({
+                    article:data[0]
+                });
             }
 
         });
@@ -167,10 +194,15 @@ class EditorCustomizedToolbarOption extends React.Component {
     newClick = (e) => {
         const key = e.key;
         if(key === '0'){
-            if(this.selClasses = '0'){
-
-            }
-            console.log(this.state);
+            let articles = this.state.articles;
+            articles.unshift({
+                id:'',
+                title:'无标题',
+                date:   new Date().format('M.d.y'),
+                briefing:'',
+                type:this.selClasses
+            });
+            console.log(this.state.article);
         }else{
 
         }
@@ -251,8 +283,10 @@ class EditorCustomizedToolbarOption extends React.Component {
             briefing:article.content.replace(/<(?:.|\s)*?>/g,'')
         }
         this.setState({articles: articles});
-        this.setArticle(article);
-
+        // this.setArticle(article);
+        this.setState({
+            article:article
+        });
         // console.log(ManageURL);
         http.post(`${ManageURL}article/update`,JSON.stringify(article)).then(data=>{
             console.log(data);
@@ -284,6 +318,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
 
      classes = (type) => {
+
     let cl = this.state.classes.get(type+'');
     let tem = [];
     if (cl === undefined) {
@@ -337,11 +372,12 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     }else{
         for(let [index,d] of new Map( cl.map( ( item, i ) => [ i, item ] ) )){
+
             index++;
             tem.push(
-                <BlogMenu.Item key={`article${index}`}>
-                        <div className="menu-article-title color-4">{d.title}</div>
-                        <div className="menu-briefing font-1 color-5">{d.briefing}</div>
+                <BlogMenu.Item key={`article${d.id}`}>
+                        <div className="menu-article-title color-4">{d.title || '无标题'}</div>
+                        <div className="menu-briefing font-1 color-5">{d.briefing || '无内容'}</div>
                         <div className="menu-date font-1 color-3">{d.date}</div>
                 </BlogMenu.Item>
 
