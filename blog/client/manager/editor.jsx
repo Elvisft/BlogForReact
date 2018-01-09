@@ -276,6 +276,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             briefing:article.content.replace(/<(?:.|\s)*?>/g,'')
         }
         this.article = article;
+        console.log(article);
         this.setState({articles: articles});
 
         http.post(`${ManageURL}article/update`,JSON.stringify(article)).then(data=>{
@@ -421,7 +422,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
                 <div className="editor-title"  contentEditable={true} onBlur={this.changeTitle} suppressContentEditableWarning = {true}>
-                    {''}
+                    {this.article?this.article.title:''}
                 </div>
                 <Editor
 
