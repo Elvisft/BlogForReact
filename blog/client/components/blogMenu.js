@@ -61,6 +61,7 @@ class BlogMenu extends Component {
     }
 }
 BlogMenu.Item = class extends Component {
+
     onClick=(e)=>{
         this.props.itemOnClick({
             key: this.props.keys,

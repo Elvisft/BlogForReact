@@ -123,7 +123,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
                     this.article = data[0];
 
-                    this.setState({selArticle: data[0].id,
+                    this.setState({selArticle: {index:0,id:data[0].id},
                         editorState: this.getEditorState(data[0].content)});
 
                 }
@@ -176,17 +176,19 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     }
 
-    articlesItemClick = (e,id)=>{
+    articlesItemClick = (e)=>{
 
-        this.getArticle(e.key.replace('article',''),(data)=>{
+        const item = JSON.parse(e.item.props.data);
+
+        this.getArticle(item.id,(data)=>{
             if(data.length>0){
                 this.article = data[0];
                 console.log(this.article );
-                this.setState({selArticle: data[0].id,
-                    editorState: this.getEditorState(data[0].content)});
-
+                this.setState({
+                    selArticle: item,
+                    editorState: this.getEditorState(data[0].content)
+                });
             }
-
         });
     }
 
@@ -201,7 +203,9 @@ class EditorCustomizedToolbarOption extends React.Component {
                 briefing:'',
                 type:this.selClasses
             });
+
             console.log(this.state.article);
+
         }else{
 
         }
@@ -217,11 +221,10 @@ class EditorCustomizedToolbarOption extends React.Component {
         }
         console.log(key);
     }
-    test=(e)=>{
-        // this.setState({content:this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent())))});
-        // console.log(this.htmlFormat(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
-        console.log(e);
+    editorBlur=(e)=>{
+        this.article.content = this.htmlFormat(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())));
 
+        this.uploadArticle();
     }
 
     //编辑器
@@ -268,7 +271,7 @@ class EditorCustomizedToolbarOption extends React.Component {
 
         let articles = this.state.articles;
 
-        articles[this.selArticle-1] = {
+        articles[this.state.selArticle.index] = {
             id:article.id,
             title:article.title,
             type:article.type,
@@ -276,12 +279,12 @@ class EditorCustomizedToolbarOption extends React.Component {
             briefing:article.content.replace(/<(?:.|\s)*?>/g,'')
         }
         this.article = article;
-        console.log(article);
+
         this.setState({articles: articles});
 
-        http.post(`${ManageURL}article/update`,JSON.stringify(article)).then(data=>{
-            console.log(data);
-        });
+        // http.post(`${ManageURL}article/update`,JSON.stringify(article)).then(data=>{
+        //     console.log(data);
+        // });
     }
     //编辑器
     uploadImageCallBack = (file) => {
@@ -363,16 +366,15 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     }else{
         for(let [index,d] of new Map( cl.map( ( item, i ) => [ i, item ] ) )){
-
-            index++;
             tem.push(
-                <BlogMenu.Item key={`article${d.id}`}>
+                <BlogMenu.Item key={`article${index}`} data={`{"index":${index},"id":${d.id}}`}>
                         <div className="menu-article-title color-4">{d.title || '无标题'}</div>
                         <div className="menu-briefing font-1 color-5">{d.briefing || '无内容'}</div>
                         <div className="menu-date font-1 color-3">{d.date}</div>
                 </BlogMenu.Item>
 
             );
+            index++;
         }
     }
     return tem;
@@ -413,7 +415,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             </Col>
             <Col xs={{span: 4}} sm={{span: 4}} md={{span: 4}} lg={{span: 4}} className="editor-middle">
 
-                <BlogMenu  onClick={this.articlesItemClick}>
+                <BlogMenu  onClick={this.articlesItemClick} defaultSelectedKeys={["article0"]}>
 
                     {this.articles()}
                 </BlogMenu>
@@ -427,7 +429,7 @@ class EditorCustomizedToolbarOption extends React.Component {
                 <Editor
 
                     onEditorStateChange={this.onEditorStateChange}
-                    onBlur={this.test.bind(this,this.state.editorState)}
+                    onBlur={this.editorBlur.bind(this,this.state.editorState)}
                     editorState={this.state.editorState}
                     toolbarCustomButtons={[<Update click={this.uploadArticle}/>]}
                     toolbar={{
