@@ -196,21 +196,29 @@ class EditorCustomizedToolbarOption extends React.Component {
         const key = e.key;
         if(key === '0'){
             let articles = this.state.articles;
-            articles.unshift({
+            this.article = {
                 id:'',
                 title:'无标题',
                 date:   new Date().format('M.d.y'),
                 briefing:'',
                 type:this.selClasses
-            });
+            };
+            articles.unshift(this.article);
+            this.setState({
+                editorState: this.getEditorState(''),
+                articles:articles},()=>{
 
-            console.log(this.state.article);
+                    console.log(this.refs);
+                    this.refs.editor_title.select();
+
+            });
 
         }else{
 
         }
     };
     classesEdit = (e) => {
+        console.log(e);
         const key = e.key.split('#');
         if(key[0]==='重命名'){
 
@@ -253,10 +261,7 @@ class EditorCustomizedToolbarOption extends React.Component {
         return text;
     }
     //编辑器
-    changeTitle = (e)=>{
-        this.setState({title:e.target.innerHTML},this.uploadArticle);
 
-    }
 
     //编辑器
     uploadArticle = () => {
@@ -326,7 +331,7 @@ class EditorCustomizedToolbarOption extends React.Component {
             if (d.has_child === 0) {
                 tem.push(<Menu.Item key={d.id}>
                     <Dropdown overlay={(
-                        <Menu onClick={this.classesEdit}>
+                        <Menu onClick={this.classesEdit} data={JSON.stringify(d)}>
                             {
                                 (()=>{
                                     let tems = [];
@@ -366,10 +371,11 @@ class EditorCustomizedToolbarOption extends React.Component {
 
     }else{
         for(let [index,d] of new Map( cl.map( ( item, i ) => [ i, item ] ) )){
+
             tem.push(
                 <BlogMenu.Item key={`article${index}`} data={`{"index":${index},"id":${d.id}}`}>
                         <div className="menu-article-title color-4">{d.title || '无标题'}</div>
-                        <div className="menu-briefing font-1 color-5">{d.briefing || '无内容'}</div>
+                        <div className="menu-briefing font-1 color-5">{d.briefing===''||d.briefing===undefined||(d.briefing.length===1&&d.briefing.charCodeAt(0).toString(16)==='a') ? '无内容' : d.briefing}</div>
                         <div className="menu-date font-1 color-3">{d.date}</div>
                 </BlogMenu.Item>
 
@@ -423,9 +429,10 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             </Col>
             <Col xs={{span: 17}} sm={{span: 17}} md={{span: 17}} lg={{span: 17}} className="editor-viewport">
-                <div className="editor-title"  contentEditable={true} onBlur={this.changeTitle} suppressContentEditableWarning = {true}>
-                    {this.article?this.article.title:''}
-                </div>
+                <input className="editor-title"  ref="editor_title"
+                       onChange={(event)=>{this.article.title = event.target.value;this.setState({selArticle:this.state.selArticle})}}
+                       onBlur={this.uploadArticle} value={this.article?this.article.title:''}/>
+
                 <Editor
 
                     onEditorStateChange={this.onEditorStateChange}
