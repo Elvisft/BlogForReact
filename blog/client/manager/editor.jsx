@@ -374,9 +374,12 @@ class EditorCustomizedToolbarOption extends React.Component {
 
             tem.push(
                 <BlogMenu.Item key={`article${index}`} data={`{"index":${index},"id":${d.id}}`}>
-                        <div className="menu-article-title color-4">{d.title || '无标题'}</div>
-                        <div className="menu-briefing font-1 color-5">{d.briefing===''||d.briefing===undefined||(d.briefing.length===1&&d.briefing.charCodeAt(0).toString(16)==='a') ? '无内容' : d.briefing}</div>
-                        <div className="menu-date font-1 color-3">{d.date}</div>
+                        <div className="relative">
+                            <div className="menu-article-title color-4">{d.title || '无标题'}</div>
+                            <div className="menu-briefing font-1 color-5">{d.briefing===''||d.briefing===undefined||(d.briefing.length===1&&d.briefing.charCodeAt(0).toString(16)==='a') ? '无内容' : d.briefing}</div>
+                            <div className="menu-date font-1 color-3">{d.date}</div>
+                            <div className="absolute article-setting" style={{top: '15px', right: '0'}}><Icon type="setting" /></div>
+                        </div>
                 </BlogMenu.Item>
 
             );
