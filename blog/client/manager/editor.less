@@ -221,8 +221,18 @@ editor-icon-center editor-icon-right editor-icon-justify link unlink embedded im
   margin-bottom: 0;
 }
 .article-setting{
-  display: none;
+  opacity: 0;
+  color: #999;
+  top: 15px;
+  right: 0;
+  line-height: 16px;
+  z-index: 0;
 }
 .blog-menu-item.active .article-setting{
   display: block;
+  opacity: 1;
+  z-index: 1;
+}
+.blog-menu-item.active .article-setting:hover {
+  color: saturate(@primary-color,90%);
 }
