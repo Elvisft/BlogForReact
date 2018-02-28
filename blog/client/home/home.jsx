@@ -14,10 +14,17 @@ export class Home extends React.Component {
 
     constructor (props) {
         super (props);
-        this.state = {list : []};
+        this.state = {value: '12345677'};
 
     }
-
+    onChnage = e => {
+        console.log(e.target.value);
+        this.setState({value: e.target.value});
+    }
+    onFocus = e => {
+        console.log(e.target.id);
+        console.log(e.target.selectionStart); // receiving only 0 here
+    };
     render() {
 
         return (
@@ -26,7 +33,7 @@ export class Home extends React.Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h2>Welcome to React</h2>
                 </div>
-
+                <input type="text" onChange={this.onChnage} value={this.state.value} onMouseUp={this.onFocus}/>
                 <DatePicker/>
             </div>
 
