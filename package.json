@@ -11,6 +11,7 @@
     "history": "^4.6.3",
     "html-to-draftjs": "0.1.0-beta15",
     "jwt-simple": "^0.5.1",
+    "koa": "^2.5.0",
     "less-watch-compiler": "^1.8.0",
     "md5": "^2.2.1",
     "prop-types": "^15.6.0",
@@ -25,6 +26,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
     "redux-form": "^6.1.1",
+    "typings": "^2.1.1",
     "universal-cookie": "^2.1.2",
     "universal-cookie-express": "^2.1.2"
   },

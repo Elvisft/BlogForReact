@@ -193,6 +193,14 @@ class EditorCustomizedToolbarOption extends React.Component {
     }
     articleClick(e){
         console.log(e);
+        console.log(this.article);
+        if(e.key === '1'){// 发布
+
+        }else if(e.key === '0'){ //移动
+
+        }else if(e.key === '2'){//删除
+
+        }
     }
     newClick = (e) => {
         const key = e.key;
@@ -381,9 +389,9 @@ class EditorCustomizedToolbarOption extends React.Component {
                             <div className="menu-briefing font-1 color-5">{d.briefing===''||d.briefing===undefined||(d.briefing.length===1&&d.briefing.charCodeAt(0).toString(16)==='a') ? '无内容' : d.briefing}</div>
                             <div className="menu-date font-1 color-3">{d.date}</div>
                             <Dropdown trigger={['click']} overlay={(
-                                <Menu onClick={this.articleClick}>
-                                    <Menu.Item key={0}>发布</Menu.Item>
-                                    <Menu.Item key={1}>移动</Menu.Item>
+                                <Menu onClick={this.articleClick.bind(this)}>
+                                    <Menu.Item key={1}>发布</Menu.Item>
+                                    <Menu.Item key={0}>移动</Menu.Item>
                                     <Menu.Item key={2}>删除</Menu.Item>
                                 </Menu>
                             )}>

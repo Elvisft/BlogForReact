@@ -65,7 +65,7 @@ exports.autowired = {
                  res.json({ data: { link: 'http://106.14.150.87/static/image/1.jpg'}});
              });
         },
-        //@Interceptor
+        @Interceptor
         '/update': (req, res, next) =>{
             console.log(123);
             req.on("data",(chunk)=>{
@@ -101,3 +101,6 @@ exports.autowired = {
         }
     }
 };
+function Interceptor() {
+    
+}
