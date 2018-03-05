@@ -4,8 +4,8 @@ import * as Router from 'koa-router';
 
 declare const require: any;
 export enum TYPE{
-    GET='get',
-    POST='post',
+    GET = 'get',
+    POST = 'post',
     DELETE = 'delete',
     PUT = 'put'
 }

@@ -8,6 +8,16 @@ import mysql from './util/mysql';
 let app = new Koa();
 app.context.db = mysql;
 
+app.use(async( ctx, next )=>{    //请求头配置
+
+    ctx.set({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Headers':'Content-Type, Authorization,token, X-Requested-With'
+    });
+    await next();
+});
+
 // x-response-time
 app.use(async (ctx, next) => {
     const start = Date.now();
@@ -30,4 +40,4 @@ app.use(async (ctx, next) => {
 app
     .use(router.routes())
     .use(router.allowedMethods());
-app.listen(4444);
+app.listen(3001);
